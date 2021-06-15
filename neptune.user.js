@@ -1160,5 +1160,5 @@ $("#bottom .relative").append(`<div id="file-input3" style="position:absolute; l
 </label>
 </div>
 <pre id="file-contents2"></pre>`);
-$("body").append(`<td style="position:absolute; left:1100px; top:160px" id="noteCounter">Notes: 0</td>`);
-$("body").append(`<progress id="midiProgress" style="position:absolute; left: 50px; top: 200px; width: 1500px" value="0" max="100"> 0% </progress>`);
+$("body").append(`<td style="position:absolute; left:1100px; top:130px" id="noteCounter">Notes: 0</td>`);
+$("body").append(`<progress id="midiProgress" style="position:absolute; left: 50px; top: 170px; width: 1500px" value="0" max="100"> 0% </progress>`);
