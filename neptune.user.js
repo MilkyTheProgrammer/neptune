@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Neptune
 // @namespace    http://tampermonkey.net/
-// @version      2.0
-// @description  A really good midi player bot
-// @author       Phoenix
+// @version      0.1
+// @description  A really amazing MPP midi script
+// @author       Phoenix, AlienDrew
 // @match        https://www.multiplayerpiano.net/*
 // @match        https://mppclone.com/*
-// @icon         https://www.google.com/s2/favicons?domain=multiplayerpiano.net
+// @icon         https://www.google.com/s2/favicons?domain=mppclone.com
 // @grant        GM_info
 // @grant        GM_getResourceText
 // @grant        GM_getResourceURL
@@ -14,4 +14,1151 @@
 // @run-at       document-end
 // ==/UserScript==
 
-var midiplayer_0x33c9=['toggles\x20repeating\x20current\x20song\x20on\x20or\x20off','otherhalf.life','Normal\x20fetch\x20couldn\x27t\x20get\x20the\x20file:','setItem','play','Player','gets\x20the\x20milliseconds\x20response\x20time','279533QkGbhY','4eiFPKI','https://','fs1','blob','cs1','as6','documentElement','charAt','song','[Play]','Note\x20off','Echo\x20can\x20only\x20go\x20up\x20to\x205.','pause','fs6','plays\x20music\x20right\x20where\x20pause\x20left\x20off','ds3','mypic.icu','as2','gamingfun.me','getSongTime','grabify.link','resume','send','shows\x20link\x20to\x20send\x20feedback\x20about\x20the\x20bot\x20to\x20the\x20developer','https://cors.bridged.cc/','Solo\x20is\x20now\x20on.','attachment','type','as0','slice','ds6','endOfFile','~solo','Please\x20enter\x20a\x20valid\x20midi\x20link','lovebird.guru','fs5','content-disposition','ping','response','text/javascript','[Song]','a-1','stop','Echo\x20Delay\x20set\x20to:\x20','loop','.mid','help','chset','gs0','2379852TRpxwt','name','Stopped\x20the\x20music.','gs2','672908AQVRyM','fortnight.space','freegiftcards.co','gaming-at-my.best','ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789','Created\x20by\x20','length','filename=','Echo\x20Amount\x20set\x20to:\x20','then','catch','You\x20can\x20find\x20some\x20good\x20MIDIs\x20to\x20upload\x20from\x20https://bitmidi.com/\x20and\x20https://midiworld.com/,\x20or\x20you\x20can\x20use\x20your\x20own\x20MIDI\x20files\x20via\x20a\x20site\x20like\x20https://www.file.io/','getCurrentTick','gs1','gs5','\x20-\x20','No\x20Name','imageshare.best','background-color:\x20red;\x20color:\x20white;\x20font-weight:\x20bold','result','indexOf','head','script','noteName','get\x20information\x20about\x20this\x20bot','match','Paused\x20the\x20music.','Looping\x20the\x20song.','createTextNode','[Repeat]','ds1','as-1','fs2','fortnitechat.site','.\x20‎','Invalid\x20midi\x20link.','version','cs3','00:00','table','[Pause]','leancoding.co','data','Error!','toLowerCase','replace','Note\x20on','gs3','Solo\x20is\x20off.','as3','):\x20','1NTwmyI','permKey','Remake\x20of\x20NMPB\x20in\x20tampermonkey\x20made\x20by\x20Phoenix\x20or\x20Phoenix\x20☕#5841\x20on\x20discord.\x20You\x20can\x20find\x20the\x20script\x20here:\x20https://github.com/PhoenixTheCoder/neptune','Network\x20response\x20was\x20not\x20ok','random','pauses\x20the\x20music\x20at\x20that\x20moment\x20in\x20the\x20song','Invalid\x20value.','link','sendArray','substr','plays\x20a\x20specific\x20song\x20(URL\x20must\x20be\x20a\x20direct\x20link\x20to\x20a\x20MIDI\x20file)','catsnthing.com','get\x20the\x20download\x20link\x20for\x20this\x20bot','hasOwnProperty','getOwnParticipant','Resumed\x20the\x20music.','floor','cs0','CORS\x20Anywhere\x20API\x20fetch\x20couldn\x27t\x20get\x20the\x20file:','tempo','addEventListener','toggles\x20how\x20sustain\x20is\x20controlled\x20via\x20either\x20MIDI\x20or\x20by\x20MPP','joinmy.site','Echo\x20Delay\x20can\x20only\x20go\x20up\x20to\x205.','about','198690iufJlH','hidden','https://forms.gle/x4nqjynmRMEN2GSG7','keys','[Load\x20Music]','Do\x20NOT\x20trust\x20‎','[Feedback]','cs4','232367ixLUTP','ppl','Not\x20currently\x20playing\x20anything','help\x20(command)','oct','The\x20bot\x20isn\x27t\x20the\x20owner\x20of\x20the\x20room','body','headers','forEach','‎~p‎lay,\x20‎~stop,\x20‎~resume,\x20‎~pause,\x20‎~e‎cho,\x20‎~ech‎od,\x20‎~info,\x20‎~loop,\x20‎~tempo,\x20‎~oct,\x20‎~sustain.','headshot.monster','ds2','cs5','tempKey','_id','[Downloading]','substring','601BaPvau','getItem','onloadend','gs4','MIDI','startsWith','[Stop]','trim','loading','help]','[Resume]','ds5','client','totalTicks','screenshare.host','shrekis.life','MIDIPlayerJS','ds4','split','press','Sustain\x20is\x20off.','appendChild','643BOhUhn','echod','cs2','as4','Octaves\x20set\x20to:\x20','Sustain\x20is\x20on.','progaming.monster','as1','Set\x20Tempo','b-1','get','Please\x20enter\x20a\x20valid\x20value.','author','catsnthings.fun','830994kDUnlJ','yourmy.monster','downloadURL','release','fs4','gs6','cs6','includes','fs0','Name:\x20','sustain','mppChatSend','toggles\x20the\x20public\x20bot\x20commands\x20on\x20or\x20off','Limited!','trulove.guru','info','chat'];var midiplayer_0x2f6bb0=midiplayer_0x42c9;function midiplayer_0x42c9(_0x5d5a33,_0x205786){_0x5d5a33=_0x5d5a33-0x163;var _0x33c9ce=midiplayer_0x33c9[_0x5d5a33];return _0x33c9ce;}(function(_0x1d594f,_0x3b6103){var _0x1e6e18=midiplayer_0x42c9;while(!![]){try{var _0x2cb5ff=-parseInt(_0x1e6e18(0x22e))*parseInt(_0x1e6e18(0x1ad))+parseInt(_0x1e6e18(0x1ac))*-parseInt(_0x1e6e18(0x215))+parseInt(_0x1e6e18(0x1e2))+-parseInt(_0x1e6e18(0x194))+-parseInt(_0x1e6e18(0x170))*parseInt(_0x1e6e18(0x186))+-parseInt(_0x1e6e18(0x236))+parseInt(_0x1e6e18(0x1de));if(_0x2cb5ff===_0x3b6103)break;else _0x1d594f['push'](_0x1d594f['shift']());}catch(_0x5e9e5a){_0x1d594f['push'](_0x1d594f['shift']());}}}(midiplayer_0x33c9,0x81117));var stringMIDIPlayerJS=GM_getResourceText(midiplayer_0x2f6bb0(0x180)),scriptMIDIPlayerJS=document['createElement'](midiplayer_0x2f6bb0(0x1f8));scriptMIDIPlayerJS[midiplayer_0x2f6bb0(0x1c8)]=midiplayer_0x2f6bb0(0x1d4),scriptMIDIPlayerJS[midiplayer_0x2f6bb0(0x185)](document[midiplayer_0x2f6bb0(0x1fe)](stringMIDIPlayerJS)),(document[midiplayer_0x2f6bb0(0x165)]||document[midiplayer_0x2f6bb0(0x1f7)]||document[midiplayer_0x2f6bb0(0x1b3)])[midiplayer_0x2f6bb0(0x185)](scriptMIDIPlayerJS);var useCorsUrl=function(_0x2d082b){var _0x199504=midiplayer_0x2f6bb0,_0x38fcf9=null,_0x1b6703=_0x199504(0x1c5);if(_0x2d082b[_0x199504(0x1f6)](_0x1b6703)==-0x1)_0x38fcf9=_0x1b6703+_0x2d082b[_0x199504(0x20f)](/(^\w+:|^)\/\//,'');return _0x38fcf9;},prefix='/',deblack=![],permKey1='',shortenedURL='',sustain=0x1,multiClient=![],clients=[],turns=![];const users=[];let currentUser=undefined;var solo=![],echo=![];let lol=0x0;var octaveAmount=0x0,octaveEnabled=![],origTemp=[],origTemp1=![],echoAmount=0x0,echoDelay=0x0;const song_queue=[],SCRIPT=GM_info['script'],NAME=SCRIPT['name'],NAMESPACE=SCRIPT['namespace'],VERSION=SCRIPT[midiplayer_0x2f6bb0(0x206)],DESCRIPTION=SCRIPT['description'],AUTHOR=SCRIPT[midiplayer_0x2f6bb0(0x192)],DOWNLOAD_URL=SCRIPT[midiplayer_0x2f6bb0(0x196)],TENTH_OF_SECOND=0x64,SECOND=0xa*TENTH_OF_SECOND,CHAT_DELAY=0x5*TENTH_OF_SECOND,SLOW_CHAT_DELAY=0x2*SECOND,REPEAT_DELAY=0x2*TENTH_OF_SECOND,SONG_NAME_TIMEOUT=0xa*SECOND,FEEDBACK_URL=midiplayer_0x2f6bb0(0x230),BANNED_PLAYERS=[],LIMITED_PLAYERS=['8c81505ab941e0760697d777'],CHAT_MAX_CHARS=0x200,PERCUSSION_CHANNEL=0xa,ALLOW_ALL_INTRUMENTS=![],BOT_SOLO_PLAY=!![],PREFIX='/',PREFIX_LENGTH=PREFIX['length'],BOT_KEYWORD=midiplayer_0x2f6bb0(0x174),BOT_ACTIVATOR=BOT_KEYWORD[midiplayer_0x2f6bb0(0x20e)](),BOT_USERNAME=NAME+'\x20['+PREFIX+midiplayer_0x2f6bb0(0x179),BOT_NAMESPACE='('+NAMESPACE+')',BOT_DESCRIPTION=DESCRIPTION+'\x20Made\x20with\x20JS\x20via\x20Tampermonkey,\x20and\x20thanks\x20to\x20grimmdude\x20for\x20the\x20MIDIPlayerJS\x20library.',BOT_AUTHOR=midiplayer_0x2f6bb0(0x1e7)+AUTHOR+'.',BASE_COMMANDS=[[midiplayer_0x2f6bb0(0x239),'displays\x20info\x20about\x20command,\x20but\x20no\x20command\x20entered\x20shows\x20the\x20commands'],[midiplayer_0x2f6bb0(0x22d),midiplayer_0x2f6bb0(0x1fa)],[midiplayer_0x2f6bb0(0x21c),midiplayer_0x2f6bb0(0x221)],['feedback',midiplayer_0x2f6bb0(0x1c4)],[midiplayer_0x2f6bb0(0x1d2),midiplayer_0x2f6bb0(0x1ab)]],BOT_COMMANDS=[['play\x20[MIDI\x20URL]',midiplayer_0x2f6bb0(0x21f)],['stop','stops\x20all\x20music\x20from\x20playing'],[midiplayer_0x2f6bb0(0x1b9),midiplayer_0x2f6bb0(0x21a)],[midiplayer_0x2f6bb0(0x1c2),midiplayer_0x2f6bb0(0x1bb)],[midiplayer_0x2f6bb0(0x1b5),'shows\x20the\x20current\x20song\x20playing\x20and\x20at\x20what\x20moment\x20in\x20time'],['repeat',midiplayer_0x2f6bb0(0x1a5)],[midiplayer_0x2f6bb0(0x19e),midiplayer_0x2f6bb0(0x22a)]],BOT_OWNER_COMMANDS=[[midiplayer_0x2f6bb0(0x178),'toggles\x20the\x20MIDI\x20loading\x20progress\x20audio,\x20or\x20text,\x20on\x20or\x20off'],[BOT_ACTIVATOR,midiplayer_0x2f6bb0(0x1a0)]],PRE_MSG=NAME+'\x20(v'+VERSION+midiplayer_0x2f6bb0(0x214),PRE_HELP=PRE_MSG+'[Help]',PRE_ABOUT=PRE_MSG+'[About]',PRE_LINK=PRE_MSG+'[Link]',PRE_FEEDBACK=PRE_MSG+midiplayer_0x2f6bb0(0x234),PRE_PING=PRE_MSG+'[Ping]',PRE_PLAY=PRE_MSG+midiplayer_0x2f6bb0(0x1b6),PRE_STOP=PRE_MSG+midiplayer_0x2f6bb0(0x176),PRE_PAUSE=PRE_MSG+midiplayer_0x2f6bb0(0x20a),PRE_RESUME=PRE_MSG+midiplayer_0x2f6bb0(0x17a),PRE_SONG=PRE_MSG+midiplayer_0x2f6bb0(0x1d5),PRE_REPEAT=PRE_MSG+midiplayer_0x2f6bb0(0x1ff),PRE_SUSTAIN=PRE_MSG+'[Sustain]',PRE_DOWNLOADING=PRE_MSG+midiplayer_0x2f6bb0(0x16e),PRE_LOAD_MUSIC=PRE_MSG+midiplayer_0x2f6bb0(0x232),PRE_PUBLIC=PRE_MSG+'[Public]',PRE_LIMITED=PRE_MSG+midiplayer_0x2f6bb0(0x1a1),PRE_ERROR=PRE_MSG+midiplayer_0x2f6bb0(0x20d),WHERE_TO_FIND_MIDIS=midiplayer_0x2f6bb0(0x1ed),NOT_OWNER=midiplayer_0x2f6bb0(0x164),NO_SONG=midiplayer_0x2f6bb0(0x238),LIST_BULLET='•\x20',DESCRIPTION_SEPARATOR=midiplayer_0x2f6bb0(0x1f1),CONSOLE_IMPORTANT_STYLE=midiplayer_0x2f6bb0(0x1f4),MIDIPlayerToMPPNote={'A0':midiplayer_0x2f6bb0(0x1d6),'Bb0':midiplayer_0x2f6bb0(0x201),'B0':'b-1','C1':'c0','Db1':'cs0','D1':'d0','Eb1':'ds0','E1':'e0','F1':'f0','Gb1':midiplayer_0x2f6bb0(0x19c),'G1':'g0','Ab1':'gs0','A1':'a0','Bb1':midiplayer_0x2f6bb0(0x1c9),'B1':'b0','C2':'c1','Db2':midiplayer_0x2f6bb0(0x1b1),'D2':'d1','Eb2':midiplayer_0x2f6bb0(0x200),'E2':'e1','F2':'f1','Gb2':midiplayer_0x2f6bb0(0x1af),'G2':'g1','Ab2':midiplayer_0x2f6bb0(0x1ef),'A2':'a1','Bb2':midiplayer_0x2f6bb0(0x18d),'B2':'b1','C3':'c2','Db3':midiplayer_0x2f6bb0(0x188),'D3':'d2','Eb3':midiplayer_0x2f6bb0(0x16a),'E3':'e2','F3':'f2','Gb3':midiplayer_0x2f6bb0(0x202),'G3':'g2','Ab3':midiplayer_0x2f6bb0(0x1e1),'A3':'a2','Bb3':midiplayer_0x2f6bb0(0x1be),'B3':'b2','C4':'c3','Db4':midiplayer_0x2f6bb0(0x207),'D4':'d3','Eb4':'ds3','E4':'e3','F4':'f3','Gb4':'fs3','G4':'g3','Ab4':midiplayer_0x2f6bb0(0x211),'A4':'a3','Bb4':midiplayer_0x2f6bb0(0x213),'B4':'b3','C5':'c4','Db5':midiplayer_0x2f6bb0(0x235),'D5':'d4','Eb5':midiplayer_0x2f6bb0(0x181),'E5':'e4','F5':'f4','Gb5':midiplayer_0x2f6bb0(0x198),'G5':'g4','Ab5':midiplayer_0x2f6bb0(0x173),'A5':'a4','Bb5':'as4','B5':'b4','C6':'c5','Db6':'cs5','D6':'d5','Eb6':midiplayer_0x2f6bb0(0x17b),'E6':'e5','F6':'f5','Gb6':midiplayer_0x2f6bb0(0x1d0),'G6':'g5','Ab6':midiplayer_0x2f6bb0(0x1f0),'A6':'a5','Bb6':'as5','B6':'b5','C7':'c6','Db7':midiplayer_0x2f6bb0(0x19a),'D7':'d6','Eb7':midiplayer_0x2f6bb0(0x1cb),'E7':'e6','F7':'f6','Gb7':midiplayer_0x2f6bb0(0x1ba),'G7':'g6','Ab7':midiplayer_0x2f6bb0(0x199),'A7':'a6','Bb7':'as6','B7':'b6','C8':'c7'};var publicOption=![],pinging=![],pingTime=0x0,currentRoom=null,chatDelay=CHAT_DELAY,endDelay,loadingOption=![],loadingProgress=0x0,loadingMusicLoop=null,loadingMusicPrematureStop=![],ended=!![],stopped=![],paused=![],uploadButton=null,currentSongElapsedFormatted=midiplayer_0x2f6bb0(0x208),currentSongDurationFormatted=midiplayer_0x2f6bb0(0x208),currentSongDuration=0x0,currentSongData=null,currentFileLocation=null,currentSongName=null,previousSongData=null,previousSongName=null,repeatOption=![],sustainOption=!![],pageVisible=!![];document[midiplayer_0x2f6bb0(0x229)]('visibilitychange',function(){var _0x466093=midiplayer_0x2f6bb0;document[_0x466093(0x22f)]?pageVisible=![]:pageVisible=!![];});function sec2time(_0x10fd07){var _0x456850=midiplayer_0x2f6bb0,_0x1a2cf3=function(_0x22b70f,_0x15a478){var _0x474749=midiplayer_0x42c9;return('000'+_0x22b70f)[_0x474749(0x1ca)](_0x15a478*-0x1);},_0x308b02=parseFloat(_0x10fd07)['toFixed'](0x3),_0x312444=Math[_0x456850(0x225)](_0x308b02/0x3c/0x3c),_0xc9c99b=Math['floor'](_0x308b02/0x3c)%0x3c,_0x271bbc=Math[_0x456850(0x225)](_0x308b02-_0xc9c99b*0x3c),_0x54b169=_0x308b02[_0x456850(0x1ca)](-0x3);return _0x1a2cf3(_0xc9c99b,0x2)+':'+_0x1a2cf3(_0x271bbc,0x2);};var startLoadingMusic=function(){loadingMusicLoop==null&&(humanMusic(),loadingMusicLoop=setInterval(function(){humanMusic();},0x898));};function songQueue(){song_queue=[];}var stopLoadingMusic=function(){loadingMusicLoop!=null&&(loadingMusicPrematureStop=!![],clearInterval(loadingMusicLoop),loadingMusicLoop=null);},urlToBlob=function(_0x470f61,_0x36a46e){var _0x56c173=midiplayer_0x2f6bb0,_0x4c6f48=null;mppChatSend(PRE_DOWNLOADING+'\x20'+_0x470f61);if(loadingOption)startLoadingMusic();else{var _0x4ac066=0x0;_0x4c6f48=setInterval(function(){_0x4ac066++;},chatDelay);}fetch(_0x470f61,{'headers':{'Content-Disposition':_0x56c173(0x1c7)}})[_0x56c173(0x1eb)](async _0x302cef=>{var _0x50a1e2=_0x56c173;stopLoadingMusic(),clearInterval(_0x4c6f48);if(!_0x302cef['ok'])throw new Error(_0x50a1e2(0x218));let _0x321068=await _0x302cef[_0x50a1e2(0x1b0)]();return{'blob':_0x321068,'response':_0x302cef};})[_0x56c173(0x1eb)](_0x18353c=>{stopLoadingMusic(),clearInterval(_0x4c6f48),_0x36a46e(_0x18353c);})[_0x56c173(0x1ec)](_0x8ec3ef=>{var _0x5de670=_0x56c173;console['error'](_0x5de670(0x1a7),_0x8ec3ef);var _0x3b181a=useCorsUrl(_0x470f61);if(_0x3b181a!=null){if(loadingOption)startLoadingMusic();fetch(_0x3b181a,{'headers':{'Content-Disposition':_0x5de670(0x1c7)}})[_0x5de670(0x1eb)](async _0x3abf9e=>{var _0xb9bb7a=_0x5de670;stopLoadingMusic(),clearInterval(_0x4c6f48);if(!_0x3abf9e['ok'])throw new Error(_0xb9bb7a(0x218));let _0x22d40c=await _0x3abf9e[_0xb9bb7a(0x1b0)]();return{'blob':_0x22d40c,'response':_0x3abf9e};})[_0x5de670(0x1eb)](_0x4f34eb=>{stopLoadingMusic(),clearInterval(_0x4c6f48),_0x36a46e(_0x4f34eb);})[_0x5de670(0x1ec)](_0xa3b34c=>{var _0x3347a4=_0x5de670;console['error'](_0x3347a4(0x227),_0xa3b34c),stopLoadingMusic(),clearInterval(_0x4c6f48),_0x36a46e(null);});}});},fileOrBlobToBase64=function(_0x430592,_0x39bb79){var _0x1242cf=midiplayer_0x2f6bb0;_0x430592==null&&(stopLoadingMusic(),_0x39bb79(null));var _0x21cfd9=new FileReader();_0x21cfd9['readAsDataURL'](_0x430592),_0x21cfd9[_0x1242cf(0x172)]=function(){var _0x5f04d1=_0x1242cf,_0x1bf7a2=_0x21cfd9[_0x5f04d1(0x1f5)];_0x39bb79(_0x1bf7a2);};};function makeid(_0x42535a){var _0x470531=midiplayer_0x2f6bb0,_0x5883ef='',_0x43aafc=_0x470531(0x1e6);for(var _0x5a1ca6=0x0;_0x5a1ca6<_0x42535a;_0x5a1ca6++){_0x5883ef+=_0x43aafc[_0x470531(0x1b4)](Math[_0x470531(0x225)](Math[_0x470531(0x219)]()*_0x43aafc[_0x470531(0x1e8)]));}return _0x5883ef;}localStorage[midiplayer_0x2f6bb0(0x171)](midiplayer_0x2f6bb0(0x216))===null?localStorage[midiplayer_0x2f6bb0(0x1a8)](midiplayer_0x2f6bb0(0x216),makeid(0x22)):permKey1=localStorage['getItem'](midiplayer_0x2f6bb0(0x216));;function Keys(_0x169518,_0x3ec850){var _0x314e1a=midiplayer_0x2f6bb0;this[_0x314e1a(0x16c)]=_0x169518,this[_0x314e1a(0x216)]=_0x3ec850;}var tempKey=makeid(0x18),myKey=new Keys(tempKey,permKey1);console[midiplayer_0x2f6bb0(0x209)](myKey);function grbUsr(_0x419002){var _0x71f9e9=midiplayer_0x2f6bb0;for(var _0x5a4911 in MPP['client'][_0x71f9e9(0x237)]){if(!MPP[_0x71f9e9(0x17c)]['ppl'][_0x71f9e9(0x222)](_0x5a4911))continue;var _0x5695eb=MPP['client'][_0x71f9e9(0x237)][_0x5a4911];if(_0x5695eb[_0x71f9e9(0x1df)]['toLowerCase']()['indexOf'](_0x419002['toLowerCase']())!==-0x1||_0x5695eb[_0x71f9e9(0x16d)][_0x71f9e9(0x1f6)](_0x419002['toLowerCase']())!==-0x1||_0x5695eb['id']['indexOf'](_0x419002[_0x71f9e9(0x20e)]())!==-0x1){return _0x5695eb;break;}}}var badLinks=[midiplayer_0x2f6bb0(0x1cf),midiplayer_0x2f6bb0(0x1a2),'dateing.club',midiplayer_0x2f6bb0(0x1a6),midiplayer_0x2f6bb0(0x17f),midiplayer_0x2f6bb0(0x169),midiplayer_0x2f6bb0(0x1e5),midiplayer_0x2f6bb0(0x18c),midiplayer_0x2f6bb0(0x195),midiplayer_0x2f6bb0(0x17e),midiplayer_0x2f6bb0(0x1f3),'screenshot.best',midiplayer_0x2f6bb0(0x1bf),midiplayer_0x2f6bb0(0x220),midiplayer_0x2f6bb0(0x1bd),midiplayer_0x2f6bb0(0x193),'curiouscat.club',midiplayer_0x2f6bb0(0x22b),midiplayer_0x2f6bb0(0x203),midiplayer_0x2f6bb0(0x1e3),midiplayer_0x2f6bb0(0x1e4),'stopify.co',midiplayer_0x2f6bb0(0x20b),midiplayer_0x2f6bb0(0x1c1)],keyNameMap={'A0':midiplayer_0x2f6bb0(0x1d6),'Bb0':'as-1','B0':midiplayer_0x2f6bb0(0x18f),'C1':'c0','Db1':midiplayer_0x2f6bb0(0x226),'D1':'d0','Eb1':'ds0','E1':'e0','F1':'f0','Gb1':midiplayer_0x2f6bb0(0x19c),'G1':'g0','Ab1':midiplayer_0x2f6bb0(0x1dd),'A1':'a0','Bb1':midiplayer_0x2f6bb0(0x1c9),'B1':'b0','C2':'c1','Db2':'cs1','D2':'d1','Eb2':midiplayer_0x2f6bb0(0x200),'E2':'e1','F2':'f1','Gb2':midiplayer_0x2f6bb0(0x1af),'G2':'g1','Ab2':'gs1','A2':'a1','Bb2':'as1','B2':'b1','C3':'c2','Db3':'cs2','D3':'d2','Eb3':'ds2','E3':'e2','F3':'f2','Gb3':'fs2','G3':'g2','Ab3':midiplayer_0x2f6bb0(0x1e1),'A3':'a2','Bb3':'as2','B3':'b2','C4':'c3','Db4':midiplayer_0x2f6bb0(0x207),'D4':'d3','Eb4':midiplayer_0x2f6bb0(0x1bc),'E4':'e3','F4':'f3','Gb4':'fs3','G4':'g3','Ab4':midiplayer_0x2f6bb0(0x211),'A4':'a3','Bb4':midiplayer_0x2f6bb0(0x213),'B4':'b3','C5':'c4','Db5':midiplayer_0x2f6bb0(0x235),'D5':'d4','Eb5':midiplayer_0x2f6bb0(0x181),'E5':'e4','F5':'f4','Gb5':midiplayer_0x2f6bb0(0x198),'G5':'g4','Ab5':midiplayer_0x2f6bb0(0x173),'A5':'a4','Bb5':midiplayer_0x2f6bb0(0x189),'B5':'b4','C6':'c5','Db6':midiplayer_0x2f6bb0(0x16b),'D6':'d5','Eb6':midiplayer_0x2f6bb0(0x17b),'E6':'e5','F6':'f5','Gb6':midiplayer_0x2f6bb0(0x1d0),'G6':'g5','Ab6':midiplayer_0x2f6bb0(0x1f0),'A6':'a5','Bb6':'as5','B6':'b5','C7':'c6','Db7':midiplayer_0x2f6bb0(0x19a),'D7':'d6','Eb7':midiplayer_0x2f6bb0(0x1cb),'E7':'e6','F7':'f6','Gb7':midiplayer_0x2f6bb0(0x1ba),'G7':'g6','Ab7':'gs6','A7':'a6','Bb7':midiplayer_0x2f6bb0(0x1b2),'B7':'b6','C8':'c7'},bot=!![];window[midiplayer_0x2f6bb0(0x17c)]=MPP[midiplayer_0x2f6bb0(0x17c)],window[midiplayer_0x2f6bb0(0x19f)]=MPP[midiplayer_0x2f6bb0(0x1a4)][midiplayer_0x2f6bb0(0x1c3)];var Player=new MidiPlayer[(midiplayer_0x2f6bb0(0x1aa))](function(_0x1fc06b){var _0xafca51=midiplayer_0x2f6bb0;if(_0x1fc06b[_0xafca51(0x1df)]==_0xafca51(0x1b7)||_0x1fc06b[_0xafca51(0x1df)]==_0xafca51(0x210)&&_0x1fc06b['velocity']===0x0){MPP[_0xafca51(0x197)](keyNameMap[_0x1fc06b[_0xafca51(0x1f9)]]);if(octaveEnabled)for(let _0x173563=0x1;_0x173563<=octaveAmount;_0x173563++){MPP[_0xafca51(0x197)](keyNameMap[Object[_0xafca51(0x231)](keyNameMap)[Object['keys'](keyNameMap)[_0xafca51(0x1f6)](_0x1fc06b[_0xafca51(0x1f9)])+_0x173563*0xc]]);}}else{if(_0x1fc06b[_0xafca51(0x1df)]=='Note\x20on'){var _0x58a8e1=_0x1fc06b['velocity']/0x7f;MPP['press'](keyNameMap[_0x1fc06b[_0xafca51(0x1f9)]],_0x58a8e1);if(echo==!![]){let _0x380c54=0x1e;for(var _0xb16375=0x0;_0xb16375<echoAmount;_0xb16375++){setTimeout(()=>{var _0x430372=_0xafca51;_0x58a8e1*=0.5,MPP[_0x430372(0x183)](keyNameMap[_0x1fc06b[_0x430372(0x1f9)]],_0x58a8e1);},echoDelay*(_0xb16375+_0x380c54)),_0x380c54*=0x2;}}if(octaveEnabled)for(let _0x4d6080=0x1;_0x4d6080<=octaveAmount;_0x4d6080++){MPP[_0xafca51(0x183)](keyNameMap[Object[_0xafca51(0x231)](keyNameMap)[Object[_0xafca51(0x231)](keyNameMap)[_0xafca51(0x1f6)](_0x1fc06b['noteName'])+_0x4d6080*0xc]],_0x58a8e1);}}else _0x1fc06b[_0xafca51(0x1df)]==_0xafca51(0x18e)&&(Player['setTempo'](_0x1fc06b[_0xafca51(0x20c)]),origTemp1==!![]&&(origTemp=_0x1fc06b[_0xafca51(0x20c)],origTemp1=![]));}});Player['on'](midiplayer_0x2f6bb0(0x1cc),_0x1e23c3=>{setTimeout(()=>{var _0x13891c=midiplayer_0x42c9;client[_0x13891c(0x21d)]([{'m':'m','x':3.13,'y':15.07}]),clearInterval(lolol);},0x7d0);});var lolol=setInterval(()=>{var _0x5e3c0e=midiplayer_0x2f6bb0;Player['isPlaying']()&&client[_0x5e3c0e(0x21d)]([{'m':'m','x':0x64-(Player[_0x5e3c0e(0x17d)]-Player[_0x5e3c0e(0x1ee)]())/Player['division']/Player[_0x5e3c0e(0x228)]*0x3c/Player[_0x5e3c0e(0x1c0)]()*0x64,'y':15.07}]);},0x32);client['on']('a',_0x589ff7=>{var _0x3f305e=midiplayer_0x2f6bb0;if(bot==![]&&_0x589ff7['p'][_0x3f305e(0x16d)]!==MPP['client']['getOwnParticipant']()['_id'])return;if(_0x589ff7['a'][_0x3f305e(0x175)](prefix+'play')){Player['stop']();let _0x2f91af=_0x589ff7['a']['substring'](0x6)[_0x3f305e(0x177)]();if(!_0x2f91af)return mppChatSend(_0x3f305e(0x1ce));if(!_0x2f91af[_0x3f305e(0x19b)](_0x3f305e(0x1ae)))return mppChatSend(_0x3f305e(0x205));if(!_0x2f91af['includes'](_0x3f305e(0x1da)))return mppChatSend(_0x3f305e(0x205));urlToBlob(_0x2f91af,_0x4b42d0=>{fileOrBlobToBase64(_0x4b42d0['blob'],_0x4e7d74=>{var _0x3d9326=midiplayer_0x42c9;Player['loadDataUri'](_0x4e7d74),Player[_0x3d9326(0x1a9)]();var _0x4ee76c=_0x4b42d0[_0x3d9326(0x1d3)][_0x3d9326(0x166)][_0x3d9326(0x190)](_0x3d9326(0x1d1));mppChatSend(_0x3d9326(0x19d)+(_0x4ee76c?_0x4ee76c[_0x3d9326(0x182)](_0x3d9326(0x1e9))[0x1][_0x3d9326(0x182)](';')[0x0]:_0x3d9326(0x1f2))+'\x20['+sec2time(Player[_0x3d9326(0x1c0)]())+'].\x20Tracks:\x20'+Player['tracks']['length']+'.');});});}if(_0x589ff7['a']['startsWith'](prefix+_0x3f305e(0x163))){let _0x801a4=_0x589ff7['a'][_0x3f305e(0x16f)](0x5)[_0x3f305e(0x177)]();if(!_0x801a4)return mppChatSend(_0x3f305e(0x191));if(isNaN(_0x801a4))return mppChatSend(_0x3f305e(0x21b));if(_0x801a4>0x5)return mppChatSend('Octaves\x20can\x20only\x20go\x20up\x20to\x205.');octaveAmount=_0x801a4,mppChatSend(_0x3f305e(0x18a)+octaveAmount),_0x801a4==0x0?octaveEnabled=![]:octaveEnabled=!![];}if(_0x589ff7['a'][_0x3f305e(0x1fb)](prefix+'echo')&&!_0x589ff7['a'][_0x3f305e(0x1fb)](prefix+_0x3f305e(0x187))){let _0x41b413=_0x589ff7['a'][_0x3f305e(0x16f)](0x5)[_0x3f305e(0x177)]();if(!_0x41b413)return mppChatSend(_0x3f305e(0x191));if(isNaN(_0x41b413))return mppChatSend(_0x3f305e(0x21b));if(_0x41b413>0x5)return mppChatSend(_0x3f305e(0x1b8));echoAmount=_0x41b413,mppChatSend(_0x3f305e(0x1ea)+echoAmount);if(echo==!![]&&_0x41b413==0x0)echo=![];else echo==![]&&(echo=!![]);}if(_0x589ff7['a'][_0x3f305e(0x1fb)](prefix+_0x3f305e(0x187))){var _0x5546db=_0x589ff7['a'][_0x3f305e(0x16f)](0x7)[_0x3f305e(0x177)]();if(!_0x5546db)return mppChatSend('Please\x20enter\x20a\x20valid\x20value.');if(isNaN(_0x5546db))return mppChatSend(_0x3f305e(0x21b));if(_0x5546db>0x5)return mppChatSend(_0x3f305e(0x22c));echoDelay=_0x5546db,mppChatSend(_0x3f305e(0x1d8)+echoDelay);}_0x589ff7['a'][_0x3f305e(0x175)](prefix+_0x3f305e(0x1d7))&&(Player[_0x3f305e(0x1d7)](),client['sendArray']([{'m':'m','x':3.13,'y':15.07}]),mppChatSend(_0x3f305e(0x1e0)));if(_0x589ff7['a']['startsWith'](prefix+_0x3f305e(0x19e))){if(sustain==0x0)Player[_0x3f305e(0x19e)]=!![],sustain=0x1,mppChatSend(_0x3f305e(0x18b));else sustain==0x1&&(Player['sustain']=![],sustain=0x0,mppChatSend(_0x3f305e(0x184)));}_0x589ff7['a'][_0x3f305e(0x175)](prefix+_0x3f305e(0x1b9))&&(Player[_0x3f305e(0x1b9)](),mppChatSend(_0x3f305e(0x1fc)));_0x589ff7['a'][_0x3f305e(0x175)](prefix+'resume')&&(Player['play'](),mppChatSend(_0x3f305e(0x224)));_0x589ff7['a'][_0x3f305e(0x175)](prefix+_0x3f305e(0x1d9))&&(Player['playLoop'](),mppChatSend(_0x3f305e(0x1fd)));_0x589ff7['a'][_0x3f305e(0x175)](_0x3f305e(0x1cd))&&(_0x589ff7['p'][_0x3f305e(0x16d)]==MPP[_0x3f305e(0x17c)][_0x3f305e(0x223)]()['_id']&&(solo==!![]?(solo=![],mppChatSend(_0x3f305e(0x212)),client['sendArray']([{'m':_0x3f305e(0x1dc),'set':{'crownsolo':![]}}])):(solo=!![],mppChatSend(_0x3f305e(0x1c6)),client[_0x3f305e(0x21d)]([{'m':'chset','set':{'crownsolo':!![]}}]))));badLinks[_0x3f305e(0x167)](_0x5747fe=>{var _0x5826e7=_0x3f305e;if(_0x589ff7['a'][_0x5826e7(0x19b)](_0x5747fe)){if(_0x589ff7['p'][_0x5826e7(0x16d)]==MPP[_0x5826e7(0x17c)][_0x5826e7(0x223)]()[_0x5826e7(0x16d)])return;let _0x57a934=_0x5747fe[_0x5826e7(0x21e)](0x0,0x2),_0x25fbc6=_0x5747fe[_0x5826e7(0x21e)](0x2),_0x397e4c=_0x57a934+'‎'+_0x25fbc6;MPP['chat'][_0x5826e7(0x1c3)](_0x5826e7(0x233)+_0x397e4c+_0x5826e7(0x204)+_0x397e4c+'\x20is\x20a\x20suspicious\x20domain\x20that\x20could\x20be\x20used\x20for\x20malicious\x20purposes\x20like\x20IP\x20grabbing.\x20You\x20probably\x20should\x20not\x20go\x20to\x20links\x20from\x20that\x20domain.');}});if(_0x589ff7['a']['startsWith'](prefix+_0x3f305e(0x1db)))return mppChatSend(_0x3f305e(0x168));if(_0x589ff7['a'][_0x3f305e(0x175)](prefix+_0x3f305e(0x1a3)))return mppChatSend(_0x3f305e(0x217));});
+var stringMIDIPlayerJS = GM_getResourceText("MIDIPlayerJS");
+var scriptMIDIPlayerJS = document.createElement("script");
+scriptMIDIPlayerJS.type = 'text/javascript';
+scriptMIDIPlayerJS.appendChild(document.createTextNode(stringMIDIPlayerJS));
+(document.body || document.head || document.documentElement).appendChild(scriptMIDIPlayerJS);
+
+// CORS Anywhere (allows downloading files where JS can't)
+var useCorsUrl = function(url) {
+    var newUrl = null; // send null back if it's already a cors url
+    var cors_api_url = 'https://cors.bridged.cc/';
+    // removes protocols before applying cors api url
+    if (url.indexOf(cors_api_url) == -1) newUrl = cors_api_url + url.replace(/(^\w+:|^)\/\//, '');
+    return newUrl;
+}
+
+var queue = [];
+var isQueue = false;
+var queueNum = 0;
+var skipNum = 0;
+var lolfucknote = 0;
+var noteCounter = 0;
+
+setTimeout(() => {
+document.getElementById("noteCounter").textContent = 'Notes: ' + "0";
+}, 2000);
+
+var prefix = "-";
+
+var deblack = false;
+
+var bannedFuckers = ["dac4b722f4f82190508878c1", "ed586bc5cb7a744a273ff32a", "f2085b4be9cc6c0deba09774"];
+var admins = [MPP.client.getOwnParticipant()._id];
+
+var deblackAmount = 4000;
+
+var tracks = [];
+var totalNotes = 0;
+
+var songTime = 0;
+var songName = "";
+
+var items = ["cheek", "lips", "forehead"];
+var permKey1 = "";
+var shortenedURL = "";
+var sustain = 1;
+var clientNumber2 = 0;
+var multiClient = false;
+var clients = [];
+var turns = false;
+const users = [];
+var clientNumber = 0;
+let currentUser = undefined;
+var solo = false;
+var echo = false;
+let lol = 0;
+var octaveAmount = 0;
+var octaveEnabled = false;
+var origTemp = [];
+var origTemp1 = false;
+var echoAmount = 0;
+var echoDelay = 0;
+
+// Script constants
+const song_queue = [];
+const SCRIPT = GM_info.script;
+const NAME = SCRIPT.name;
+const NAMESPACE = SCRIPT.namespace;
+const VERSION = SCRIPT.version;
+const DESCRIPTION = SCRIPT.description;
+const AUTHOR = SCRIPT.author;
+const DOWNLOAD_URL = SCRIPT.downloadURL;
+
+// Time constants (in milliseconds)
+const TENTH_OF_SECOND = 100; // mainly for repeating loops
+const SECOND = 10 * TENTH_OF_SECOND;
+const CHAT_DELAY = 5 * TENTH_OF_SECOND; // needed since the chat is limited to 10 messages within less delay
+const SLOW_CHAT_DELAY = 2 * SECOND // when you are not the owner, your chat quota is lowered
+const REPEAT_DELAY = 2 * TENTH_OF_SECOND; // makes transitioning songs in repeat feel better
+const SONG_NAME_TIMEOUT = 10 * SECOND; // if a file doesn't play, then forget about showing the song name it after this time
+
+// URLs
+const FEEDBACK_URL = "https://forms.gle/x4nqjynmRMEN2GSG7";
+
+// Players listed by IDs (these are the _id strings)
+const BANNED_PLAYERS = []; // empty for now
+const LIMITED_PLAYERS = ["8c81505ab941e0760697d777"];
+
+// Bot constants
+const CHAT_MAX_CHARS = 512; // there is a limit of this amount of characters for each message sent (DON'T CHANGE)
+const PERCUSSION_CHANNEL = 10; // (DON'T CHANGE)
+
+// Bot constant settings
+const ALLOW_ALL_INTRUMENTS = false; // removes percussion instruments (turning this on makes a lot of MIDIs sound bad)
+const BOT_SOLO_PLAY = true; // sets what play mode when the bot boots up on an owned room
+
+// Bot custom constants
+const PREFIX = "/";
+const PREFIX_LENGTH = PREFIX.length;
+const BOT_KEYWORD = "MIDI"; // this is used for auto enabling the public commands in a room that contains the keyword (character case doesn't matter)
+const BOT_ACTIVATOR = BOT_KEYWORD.toLowerCase();
+const BOT_USERNAME = NAME + " [" + PREFIX + "help]";
+const BOT_NAMESPACE = '(' + NAMESPACE + ')';
+const BOT_DESCRIPTION = DESCRIPTION + " Made with JS via Tampermonkey, and thanks to grimmdude for the MIDIPlayerJS library."
+const BOT_AUTHOR = "Created by " + AUTHOR + '.';
+const BASE_COMMANDS = [
+    ["help (command)", "displays info about command, but no command entered shows the commands"],
+    ["about", "get information about this bot"],
+    ["link", "get the download link for this bot"],
+    ["feedback", "shows link to send feedback about the bot to the developer"],
+    ["ping", "gets the milliseconds response time"]
+];
+const BOT_COMMANDS = [
+    ["play [MIDI URL]", "plays a specific song (URL must be a direct link to a MIDI file)"],
+    ["stop", "stops all music from playing"],
+    ["pause", "pauses the music at that moment in the song"],
+    ["resume", "plays music right where pause left off"],
+    ["song", "shows the current song playing and at what moment in time"],
+    ["repeat", "toggles repeating current song on or off"],
+    ["sustain", "toggles how sustain is controlled via either MIDI or by MPP"]
+];
+const BOT_OWNER_COMMANDS = [
+    ["loading", "toggles the MIDI loading progress audio, or text, on or off"],
+    [BOT_ACTIVATOR, "toggles the public bot commands on or off"]
+];
+const PRE_MSG = NAME + " (v" + VERSION + "): ";
+const PRE_HELP = PRE_MSG + "[Help]";
+const PRE_ABOUT = PRE_MSG + "[About]";
+const PRE_LINK = PRE_MSG + "[Link]";
+const PRE_FEEDBACK = PRE_MSG + "[Feedback]";
+const PRE_PING = PRE_MSG + "[Ping]";
+const PRE_PLAY = PRE_MSG + "[Play]";
+const PRE_STOP = PRE_MSG + "[Stop]";
+const PRE_PAUSE = PRE_MSG + "[Pause]";
+const PRE_RESUME = PRE_MSG + "[Resume]";
+const PRE_SONG = PRE_MSG + "[Song]";
+const PRE_REPEAT = PRE_MSG + "[Repeat]";
+const PRE_SUSTAIN = PRE_MSG + "[Sustain]";
+const PRE_DOWNLOADING = PRE_MSG + "[Downloading]";
+const PRE_LOAD_MUSIC = PRE_MSG + "[Load Music]";
+const PRE_PUBLIC = PRE_MSG + "[Public]";
+const PRE_LIMITED = PRE_MSG + "Limited!";
+const PRE_ERROR = PRE_MSG + "Error!";
+const WHERE_TO_FIND_MIDIS = "You can find some good MIDIs to upload from https://bitmidi.com/ and https://midiworld.com/, or you can use your own MIDI files via a site like https://www.file.io/";
+const NOT_OWNER = "The bot isn't the owner of the room";
+const NO_SONG = "Not currently playing anything";
+const LIST_BULLET = "• ";
+const DESCRIPTION_SEPARATOR = " - ";
+const CONSOLE_IMPORTANT_STYLE = "background-color: red; color: white; font-weight: bold";
+
+// Gets the correct note from MIDIPlayer to play on MPP
+const MIDIPlayerToMPPNote = {
+    "A0": "a-1",
+    "Bb0": "as-1",
+    "B0": "b-1",
+    "C1": "c0",
+    "Db1": "cs0",
+    "D1": "d0",
+    "Eb1": "ds0",
+    "E1": "e0",
+    "F1": "f0",
+    "Gb1": "fs0",
+    "G1": "g0",
+    "Ab1": "gs0",
+    "A1": "a0",
+    "Bb1": "as0",
+    "B1": "b0",
+    "C2": "c1",
+    "Db2": "cs1",
+    "D2": "d1",
+    "Eb2": "ds1",
+    "E2": "e1",
+    "F2": "f1",
+    "Gb2": "fs1",
+    "G2": "g1",
+    "Ab2": "gs1",
+    "A2": "a1",
+    "Bb2": "as1",
+    "B2": "b1",
+    "C3": "c2",
+    "Db3": "cs2",
+    "D3": "d2",
+    "Eb3": "ds2",
+    "E3": "e2",
+    "F3": "f2",
+    "Gb3": "fs2",
+    "G3": "g2",
+    "Ab3": "gs2",
+    "A3": "a2",
+    "Bb3": "as2",
+    "B3": "b2",
+    "C4": "c3",
+    "Db4": "cs3",
+    "D4": "d3",
+    "Eb4": "ds3",
+    "E4": "e3",
+    "F4": "f3",
+    "Gb4": "fs3",
+    "G4": "g3",
+    "Ab4": "gs3",
+    "A4": "a3",
+    "Bb4": "as3",
+    "B4": "b3",
+    "C5": "c4",
+    "Db5": "cs4",
+    "D5": "d4",
+    "Eb5": "ds4",
+    "E5": "e4",
+    "F5": "f4",
+    "Gb5": "fs4",
+    "G5": "g4",
+    "Ab5": "gs4",
+    "A5": "a4",
+    "Bb5": "as4",
+    "B5": "b4",
+    "C6": "c5",
+    "Db6": "cs5",
+    "D6": "d5",
+    "Eb6": "ds5",
+    "E6": "e5",
+    "F6": "f5",
+    "Gb6": "fs5",
+    "G6": "g5",
+    "Ab6": "gs5",
+    "A6": "a5",
+    "Bb6": "as5",
+    "B6": "b5",
+    "C7": "c6",
+    "Db7": "cs6",
+    "D7": "d6",
+    "Eb7": "ds6",
+    "E7": "e6",
+    "F7": "f6",
+    "Gb7": "fs6",
+    "G7": "g6",
+    "Ab7": "gs6",
+    "A7": "a6",
+    "Bb7": "as6",
+    "B7": "b6",
+    "C8": "c7"
+}
+
+// =============================================== VARIABLES
+
+var publicOption = false; // turn off the public bot commands if needed
+var pinging = false; // helps aid in getting response time
+var pingTime = 0; // changes after each ping
+var currentRoom = null; // updates when it connects to room
+var chatDelay = CHAT_DELAY; // for how long to wait until posting another message
+var endDelay; // used in multiline chats send commands
+
+var loadingOption = false; // controls if loading music should be on or not
+var loadingProgress = 0; // updates when loading files
+var loadingMusicLoop = null; // this is to play notes while a song is (down)loading
+var loadingMusicPrematureStop = false; // this is used when we need to stop the music after errors
+var ended = true;
+var stopped = false;
+var paused = false;
+var uploadButton = null; // this gets an element after it's loaded
+var currentSongElapsedFormatted = "00:00"; // changes with the amount of song being played
+var currentSongDurationFormatted = "00:00"; // gets updated when currentSongDuration is updated
+var currentSongDuration = 0; // this changes after each song is loaded
+var currentSongData = null; // this contains the song as a data URI
+var currentFileLocation = null; // this leads to the MIDI location (local or by URL)
+var currentSongName = null; // extracted from the file name/end of URL
+var previousSongData = null; // grabs current when changing successfully
+var previousSongName = null; // grabs current when changing successfully
+var repeatOption = false; // allows for repeat of one song
+var sustainOption = true; // makes notes end according to the midi file
+
+// =============================================== PAGE VISIBILITY
+
+var pageVisible = true;
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        pageVisible = false;
+    } else {
+        pageVisible = true;
+    }
+});
+
+function sec2time(timeInSeconds) {
+    var pad = function(num, size) { return ('000' + num).slice(size * -1); },
+    time = parseFloat(timeInSeconds).toFixed(3),
+    hours = Math.floor(time / 60 / 60),
+    minutes = Math.floor(time / 60) % 60,
+    seconds = Math.floor(time - minutes * 60),
+    milliseconds = time.slice(-3);
+
+    return pad(minutes, 2) + ':' + pad(seconds, 2);
+};
+
+var startLoadingMusic = function() {
+    if (loadingMusicLoop == null) {
+        humanMusic();
+        loadingMusicLoop = setInterval(function() {
+            humanMusic();
+        }, 2200);
+    }
+}
+
+//Queued Songs
+function songQueue() {
+   song_queue = [];
+}
+
+function userset(set) {
+    MPP.client.sendArray([{ m: "userset", set }]);
+};
+
+function setName(name) {
+    userset({ name });
+};
+
+/*function connectSockets(clientAmount) {
+    for (var i = 0; i < 25; i++) {
+        const cli = Client2("wss://www.multiplayerpiano.net:8080");
+        cli.setChannel('roommmm');
+        clients.push(cli);
+
+        cli.on('hi', () => {
+            clientNumber++
+            console.log('Connected socket: ' + cli);
+            cli.sendArray([{ userset: { name: clientNumber2 }}])
+        });
+    };
+};*/
+
+function formatAMPM(date) {
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime;
+}
+
+// Stops the loading music
+var stopLoadingMusic = function() {
+    if (loadingMusicLoop != null) {
+        loadingMusicPrematureStop = true;
+        clearInterval(loadingMusicLoop);
+        loadingMusicLoop = null;
+    }
+}
+
+// Gets file as a blob (data URI)
+var urlToBlob = function(url, callback) {
+    // show file download progress
+    var downloading = null;
+    //mppChatSend(PRE_DOWNLOADING + ' ' + url);
+    if (loadingOption) startLoadingMusic();
+    else {
+        var progress = 0;
+        downloading = setInterval(function() {
+            //mppChatSend(PRE_DOWNLOADING + getProgress(progress));
+            progress++;
+        }, chatDelay);
+    }
+
+    fetch(url, {
+        headers: {
+            "Content-Disposition": "attachment" // this might not be doing anything
+        }
+    }).then(async response => {
+        stopLoadingMusic();
+        clearInterval(downloading);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        let blob = await response.blob();
+        return {blob: blob, response: response};
+    }).then(data => {
+        stopLoadingMusic();
+        clearInterval(downloading);
+        callback(data);
+    }).catch(error => {
+        console.error("Normal fetch couldn't get the file:", error);
+        var corsUrl = useCorsUrl(url);
+        if (corsUrl != null) {
+            if (loadingOption) startLoadingMusic();
+
+            fetch(corsUrl, {
+                headers: {
+                    "Content-Disposition": "attachment" // this might not be doing anything
+                }
+            }).then(async response => {
+                stopLoadingMusic();
+                clearInterval(downloading);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                let blob = await response.blob();
+                return {blob: blob, response: response};
+            }).then(data => {
+                stopLoadingMusic();
+                clearInterval(downloading);
+                callback(data);
+            }).catch(error => {
+                console.error("CORS Anywhere API fetch couldn't get the file:", error);
+                stopLoadingMusic();
+                clearInterval(downloading);
+                callback(null);
+            });
+        }
+        // callback(null); // disabled since the second fetch already should call the call back
+    });
+}
+
+// Converts files/blobs to base64 (data URI)
+var fileOrBlobToBase64 = function(raw, callback) {
+    if (raw == null) {
+        stopLoadingMusic();
+        callback(null);
+    }
+
+    // continue if we have a blob
+    var reader = new FileReader();
+    reader.readAsDataURL(raw);
+    reader.onloadend = function() {
+        var base64data = reader.result;
+        callback(base64data);
+    }
+}
+
+function makeid(l)
+{
+var text = "";
+var char_list = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+for(var i=0; i < l; i++ )
+{
+text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+}
+return text;
+}
+
+if (localStorage.getItem("permKey") === null) {
+    localStorage.setItem('permKey', makeid(34));
+} else {
+    permKey1 = localStorage.getItem("permKey");
+};
+
+function Keys(tempKey, permKey) {
+  this.tempKey = tempKey;
+  this.permKey = permKey;
+}
+
+var tempKey = makeid(24);
+
+var myKey = new Keys(tempKey, permKey1);
+
+console.table(myKey);
+
+    function grbUsr(target) {
+        for (var id in MPP.client.ppl) {
+            if (!MPP.client.ppl.hasOwnProperty(id)) continue;
+            var part = MPP.client.ppl[id];
+            if (part.name.toLowerCase().indexOf(target.toLowerCase()) !== -1 || part._id.indexOf(target.toLowerCase()) !== -1 || part.id.indexOf(target.toLowerCase()) !== -1) {
+                return part;
+                break;
+            }
+
+        }
+    }
+
+var badLinks = ["lovebird.guru", "trulove.guru", "dateing.club", "otherhalf.life", "shrekis.life", "headshot.monster", "gaming-at-my.best", "progaming.monster", "yourmy.monster", "screenshare.host", "imageshare.best", "screenshot.best", "gamingfun.me", "catsnthing.com", "mypic.icu", "catsnthings.fun", "curiouscat.club", "joinmy.site", "fortnitechat.site", "fortnight.space", "freegiftcards.co", "stopify.co", "leancoding.co", "grabify.link"];
+var keyNameMap = {
+            "A0": "a-1",
+            "Bb0": "as-1",
+            "B0": "b-1",
+            "C1": "c0",
+            "Db1": "cs0",
+            "D1": "d0",
+            "Eb1": "ds0",
+            "E1": "e0",
+            "F1": "f0",
+            "Gb1": "fs0",
+            "G1": "g0",
+            "Ab1": "gs0",
+            "A1": "a0",
+            "Bb1": "as0",
+            "B1": "b0",
+            "C2": "c1",
+            "Db2": "cs1",
+            "D2": "d1",
+            "Eb2": "ds1",
+            "E2": "e1",
+            "F2": "f1",
+            "Gb2": "fs1",
+            "G2": "g1",
+            "Ab2": "gs1",
+            "A2": "a1",
+            "Bb2": "as1",
+            "B2": "b1",
+            "C3": "c2",
+            "Db3": "cs2",
+            "D3": "d2",
+            "Eb3": "ds2",
+            "E3": "e2",
+            "F3": "f2",
+            "Gb3": "fs2",
+            "G3": "g2",
+            "Ab3": "gs2",
+            "A3": "a2",
+            "Bb3": "as2",
+            "B3": "b2",
+            "C4": "c3",
+            "Db4": "cs3",
+            "D4": "d3",
+            "Eb4": "ds3",
+            "E4": "e3",
+            "F4": "f3",
+            "Gb4": "fs3",
+            "G4": "g3",
+            "Ab4": "gs3",
+            "A4": "a3",
+            "Bb4": "as3",
+            "B4": "b3",
+            "C5": "c4",
+            "Db5": "cs4",
+            "D5": "d4",
+            "Eb5": "ds4",
+            "E5": "e4",
+            "F5": "f4",
+            "Gb5": "fs4",
+            "G5": "g4",
+            "Ab5": "gs4",
+            "A5": "a4",
+            "Bb5": "as4",
+            "B5": "b4",
+            "C6": "c5",
+            "Db6": "cs5",
+            "D6": "d5",
+            "Eb6": "ds5",
+            "E6": "e5",
+            "F6": "f5",
+            "Gb6": "fs5",
+            "G6": "g5",
+            "Ab6": "gs5",
+            "A6": "a5",
+            "Bb6": "as5",
+            "B6": "b5",
+            "C7": "c6",
+            "Db7": "cs6",
+            "D7": "d6",
+            "Eb7": "ds6",
+            "E7": "e6",
+            "F7": "f6",
+            "Gb7": "fs6",
+            "G7": "g6",
+            "Ab7": "gs6",
+            "A7": "a6",
+            "Bb7": "as6",
+            "B7": "b6",
+            "C8": "c7"
+        }
+var bot = true;
+window.client = MPP.client;
+window.mppChatSend = MPP.chat.send;
+
+
+function GenerateCode() {
+      let RandomColor = "";
+      let Char = "0123456789abcdefghijklmnopqrstuvwxyz";
+
+      for(let i = 0; i < 6; i++) {
+        RandomColor = RandomColor + Char[Math.floor(Math.random() * 16)];
+      }
+      return "#" + RandomColor;
+    }
+
+var Player = new MidiPlayer.Player(function(event) {
+    if (event.name == "Note off" || (event.name == "Note on" && event.velocity === 0)) {
+        if (multiClient == true) {
+        clients[clientNumber2].release(keyNameMap[event.noteName]);
+        }
+        MPP.release(keyNameMap[event.noteName]);
+        if (octaveEnabled) {
+            for (let i = 1; i <= octaveAmount; i++) {
+                if (multiClient == true) {
+                    clients[clientNumber2].release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
+                } else {
+                MPP.release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
+                }
+            }
+        }
+    } else if (event.name == "Note on") {
+        var volume = event.velocity/127;
+       if (multiClient == true) {
+          clients[clientNumber2].press(keyNameMap[event.noteName], volume);
+        } else {
+        MPP.press(keyNameMap[event.noteName], volume);
+            lolfucknote++
+            noteCounter++
+            document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
+             if (lolfucknote >= 2000) {
+                lolfucknote = 0;
+                 MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+            }
+        }
+        if (echo == true) {
+            let delay = 30;
+            for (var j = 0; j < echoAmount; j++) {
+            setTimeout(() => {
+             volume *= 0.5;
+                if (multiClient == true) {
+                    clients[clientNumber2].press(keyNameMap[event.noteName], volume);
+                } else {
+              MPP.press(keyNameMap[event.noteName], volume);
+                 lolfucknote++
+                    noteCounter++
+                    document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
+                    if (lolfucknote >= 2000) {
+                        lolfucknote = 0;
+                        MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                    }
+                }
+            }, echoDelay * (j + delay));
+                delay *= 2;
+            }
+        }
+        if (octaveEnabled) {
+            let delay = 30;
+            for (let i = 1; i <= octaveAmount; i++) {
+                    clients[clientNumber2].press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
+                  for (var a = 0; a < echoAmount; a++) {
+                      setTimeout(() => {
+                          volume *= 0.5;
+                          MPP.press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
+                          lolfucknote++;
+                          noteCounter++
+                          document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
+                          if (lolfucknote >= 2000) {
+                              lolfucknote = 0;
+                              MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                          }
+                      }, echoDelay * (a + delay));
+                      delay *= 2;
+                  }
+                }
+        }
+    } else if (event.name == "Set Tempo") {
+        Player.setTempo(event.data);
+        if (origTemp1 == true) {
+            origTemp = event.data;
+            origTemp1 = false;
+        }
+    }
+});
+
+function deblackMidi() {
+    for (var i = 0; i < Player.tracks.length; i++) {
+        let trackNumber = i;
+        if (Player.tracks[trackNumber].events.length > deblackAmount) Player.disableTrack(trackNumber);
+    }
+}
+
+function disableDeblack() {
+    for (var i = 0; i < Player.tracks.length; i++) {
+        let trackNumber = i;
+        if (Player.tracks[trackNumber].events.length > deblackAmount) Player.enableTrack(trackNumber);
+    }
+}
+
+setInterval(() => {
+    clientNumber2++
+    if (clientNumber2 == clients.length) clientNumber2 = 0;
+    if (Player.isPlaying()) {
+    //setName('๖ۣۜPhoenix [ >help ] [' + sec2time(Player.getSongTimeRemaining()) + ']');
+    }
+}, 1000);
+
+Player.on('endOfFile', end => {
+    setTimeout(() => {
+        MPP.client.sendArray([{ m: "m", x: 3.13, y: 15.07 }]);
+        clearInterval(lolol);
+        //setName('๖ۣۜPhoenix [ >help ]');
+        document.getElementById("noteCounter").textContent = 'Notes: ' + "0" + ` / 0`;
+        bot = true;
+        noteCounter = 0;
+        document.getElementById("midiProgress").value = 0;
+        if (isQueue == true) {
+        Player.loadDataUri(queue[queueNum]);
+        Player.play();
+        queueNum++;
+        if (queueNum < queue.length && queue[queueNum] === undefined) {
+            queueNum = 0;
+            Player.stop();
+        }
+    }
+    }, 2000)
+});
+
+var lolol = setInterval(() => {
+    if (Player.isPlaying()) {
+        document.getElementById("midiProgress").value = 100 - (((Player.totalTicks - Player.getCurrentTick()) / Player.division / Player.tempo * 60) / Player.getSongTime() * 100)
+        MPP.client.sendArray([{ m: "m", x: 100 - (((Player.totalTicks - Player.getCurrentTick()) / Player.division / Player.tempo * 60) / Player.getSongTime() * 100), y: 15.07 }]) }
+}, 50);
+
+client.on('a', msg => {
+    if (msg.a.startsWith(prefix) && bot == false && msg.p._id !== MPP.client.getOwnParticipant()._id) return mppChatSend("Owner disabled commands for now.");
+    const args = msg.a.split(" ")
+
+    if (msg.a.startsWith(`${prefix}play`)) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        totalNotes = 0
+        let input = msg.a.substring(6).trim();
+        if (!input) return mppChatSend('Please enter a valid midi link');
+        if (!input.includes('https://')) return mppChatSend('Invalid midi link.');
+        if (!input.includes('.mid')) return mppChatSend('Invalid midi link.');
+        urlToBlob(input, d => {
+            fileOrBlobToBase64(d.blob, data => {
+                if (Player.isPlaying()) {
+                queue.push(data);
+                mppChatSend('The song was added to the queue.');
+                return;
+                } else {
+                Player.loadDataUri(data);
+                for (var i = 0; i < Player.tracks.length; i++) {
+                let trackNumber = i;
+                totalNotes += Player.tracks[trackNumber].events.length;
+                }
+                document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
+                Player.play();
+                var fileName = d.response.headers.get("content-disposition");
+                mppChatSend(`Name: ${fileName ? fileName.split('filename=')[1].split(';')[0] : "No Name"} [${sec2time(Player.getSongTime())}]. Tracks: ${Player.tracks.length}.`);
+                songName = fileName;
+                songTime = sec2time(Player.getSongTime());
+                }
+            });
+        });
+    }
+    if (msg.a.startsWith(`${prefix}oct`)) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        let input = msg.a.substring(5).trim();
+        if (!input) return mppChatSend('Please enter a valid value.');
+        if (isNaN(input)) return mppChatSend('Invalid value.');
+        if (input > 5) return mppChatSend('Octaves can only go up to 5.');
+        octaveAmount = input;
+        mppChatSend('Octaves set to: ' + octaveAmount);
+        if (input == 0) {
+            octaveEnabled = false;
+        } else {
+            octaveEnabled = true;
+        }
+    }
+        if (msg.a.match(`${prefix}echo`) && !msg.a.match(`${prefix}echod`)) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        let input = msg.a.substring(5).trim();
+        if (!input) return mppChatSend('Please enter a valid value.');
+        if (isNaN(input)) return mppChatSend('Invalid value.');
+        if (input > 5) return mppChatSend('Echo can only go up to 5.');
+        echoAmount = input;
+        mppChatSend('Echo Amount set to: ' + echoAmount);
+        if (echo == true && input == 0) {
+            echo = false;
+        } else if (echo == false) {
+            echo = true;
+        }
+    }
+    if (msg.a.match(`${prefix}echod`)) {
+       if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        var input = msg.a.substring(7).trim();
+        if (!input) return mppChatSend('Please enter a valid value.');
+        if (isNaN(input)) return mppChatSend('Invalid value.');
+        if (input > 5) return mppChatSend('Echo Delay can only go up to 5.');
+        echoDelay = input;
+        mppChatSend('Echo Delay set to: ' + echoDelay);
+    }
+    if (msg.a.startsWith(`${prefix}stop`)) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        Player.stop();
+        totalNotes = 0
+        MPP.client.sendArray([{ m: "m", x: 3.13, y: 15.07 }]);
+        document.getElementById("midiProgress").value = 0;
+        document.getElementById("noteCounter").textContent = 'Notes: ' + `0 / 0`;
+        mppChatSend('Stopped the music.');
+    }
+    /*if (msg.a.startsWith('~bot')) {
+        if (bot == false) {
+         bot = true;
+        } else if (bot == true) {
+            bot = false;
+        }
+    }*/
+    if (msg.a.startsWith(`${prefix}sustain`)) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (sustain == 0) {
+            Player.sustain = true
+            sustain = 1;
+            mppChatSend('Sustain is on.');
+        } else if (sustain == 1) {
+            Player.sustain = false
+            sustain = 0;
+            mppChatSend('Sustain is off.');
+        }
+    }
+    if (msg.a.startsWith(`${prefix}pause`)) {
+    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    Player.pause();
+        mppChatSend('Paused the music.');
+    }
+    if (msg.a.startsWith(`${prefix}resume`)) {
+    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    Player.play();
+        mppChatSend('Resumed the music.');
+    }
+    if (msg.a.startsWith(`${prefix}loop`)) {
+    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    Player.playLoop();
+    mppChatSend('Looping the song.')
+    }
+     if (msg.a.startsWith(`${prefix}deblack`)) {
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        Player.stop();
+        totalNotes = 0
+        bot = false;
+        let input = msg.a.substring(9).trim();
+        if (!input) return mppChatSend('Please enter a valid midi link');
+        if (!input.includes('https://')) return mppChatSend('Invalid midi link.');
+        if (!input.includes('.mid')) return mppChatSend('Invalid midi link.');
+        urlToBlob(input, d => {
+            fileOrBlobToBase64(d.blob, data => {
+                Player.loadDataUri(data);
+                deblackMidi();
+                Player.play();
+                var fileName = d.response.headers.get("content-disposition");
+                mppChatSend(`Name: ${fileName ? fileName.split('filename=')[1].split(';')[0] : "No Name"} [${sec2time(Player.getSongTime())}]. Tracks: ${Player.tracks.length}.`);
+            });
+        });
+    }
+    if (msg.a.startsWith(prefix + 'solo')) {
+    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    if (msg.p._id == MPP.client.getOwnParticipant()._id) {
+    if (solo == true) {
+        solo = false;
+        mppChatSend('Solo is off.');
+        client.sendArray([{m:'chset', set:{ crownsolo: false }}]);
+    } else {
+        solo = true;
+        mppChatSend('Solo is now on.');
+        client.sendArray([{m:'chset', set:{ crownsolo: true }}]);
+        }
+    }
+    }
+    if (msg.a.startsWith(prefix + 'dtracks')) {
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (!args[1]) return mppChatSend('Please enter a valid value.');
+        if (args[1] > Player.tracks.length || args[2] > Player.tracks.length || args[3] > Player.tracks.length) return mppChatSend(`There are only ${Player.tracks.length} in this midi.`);
+        Player.disableTrack(args[1]);
+        if (args[2]) {
+            Player.disableTrack(args[2]);
+        }
+        if (args[3]) {
+            Player.disableTrack(args[3]);
+            }
+        if (args[4]) {
+            Player.disableTrack(args[4]);
+        }
+        if (args[5]) {
+            Player.disableTrack(args[5]);
+            }
+        if (args[6]) {
+            Player.disableTrack(args[6]);
+        }
+        if (args[7]) {
+            Player.disableTrack(args[7]);
+            }
+        if (args[8]) {
+            Player.disableTrack(args[8]);
+        }
+        if (args[9]) {
+            Player.disableTrack(args[9]);
+            }
+        if (args[10]) {
+            Player.disableTrack(args[10]);
+        }
+        if (args[11]) {
+            Player.disableTrack(args[11]);
+        }
+         if (args[12]) {
+            Player.disableTrack(args[12]);
+        }
+         if (args[13]) {
+            Player.disableTrack(args[13]);
+        }
+         if (args[14]) {
+            Player.disableTrack(args[14]);
+        }
+        mppChatSend(`Disabled tracks ${args[1]} ${args[2]} ${args[3]} ${args[4]} ${args[5]} ${args[6]} ${args[7]} ${args[8]} ${args[9]} ${args[10]} ${args[11]} ${args[12]} ${args[13]} ${args[14]}`);
+        }
+        if (msg.a.startsWith(prefix + 'etrack')) {
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        var input = msg.a.substring(7).trim();
+        if (!input) return mppChatSend('Please enter a valid value.');
+        if (isNaN(input)) return mppChatSend('Invalid value.');
+        if (input > Player.tracks.length) return mppChatSend(`There are only ${Player.tracks.length} in this midi.`);
+        Player.enableTrack(input);
+    }
+    if (msg.a.startsWith(prefix + 'goto')) {
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        var input = msg.a.substring(6).trim();
+        if (!input) return mppChatSend('Please enter a valid value.');
+        if (isNaN(input)) return mppChatSend('Invalid value.');
+        if (input > 100) return mppChatSend('Percentage can only be set below 100%.');
+        Player.skipToPercent(input);
+        Player.play();
+    }
+    if (msg.a.startsWith(prefix + 'retardify')) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        var input = msg.a.substring(11).trim();
+        if (!input) return mppChatSend("‎You need to input something to retardify.");
+        mppChatSend('‎' + retardify(input));
+    }
+    if (msg.a.startsWith(prefix + 'skip')) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        Player.stop();
+        Player.loadDataUri(queue[queueNum]);
+        queueNum++;
+        Player.play();
+        mppChatSend('Skipped the song.');
+        if (queueNum < queue.length && queue[queueNum] === undefined) {
+            queueNum = 0;
+            Player.stop();
+            mppChatSend('End of queue.');
+            console.log('End of queue');
+            return;
+        }
+        return;
+    }
+    if (msg.a.startsWith(prefix + 'kiss')) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        let target = msg.a.substring(6).trim();
+        let part = grbUsr(target.toLowerCase());
+        if (!target) return mppChatSend('Please enter a person to kiss ;)');
+        if (!part) return mppChatSend('User not found.');
+        let rand = items[Math.floor(Math.random() * items.length)];
+        mppChatSend(`${msg.p.name} kissed ${part.name} on the ${rand}!!!`);
+    }
+    if (msg.a.startsWith('>js')) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        let input = msg.a.substring(4).trim();
+        try {
+            let after = eval(input);
+            mppChatSend('‌‌ ' + after);
+        } catch (err) {
+            console.log("\x1b[31m", err);
+            mppChatSend('‌‌ Error: ' + err);
+        }
+    }
+    /*if (msg.a.startsWith('~s') || msg.a.startsWith('~song')) {
+       if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+       if (msg.p._id !== "e8297560cbf5248e619fdea0") return;
+
+       if (!Player.isPlaying()) return mppChatSend('There is nothing playing.');
+       for (var i = 0; i < Player.tracks.length; i++) {
+           let trackNumber = i;
+           totalNotes += Player.tracks[trackNumber].events.length;
+       }
+       mppChatSend(`File: [ ${songName} ], Song Name: [ ${songName.replace('.mid', "")} ], Song Time: [ ${songTime} ], Tracks: [ ${Player.tracks.length} ], Total Notes: [ ${totalNotes} ].`);
+        return;
+    }*/
+    if (msg.a.startsWith(prefix + 'time')) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        mppChatSend(`Here's my current time: ${formatAMPM(new Date)}`);
+    }
+        if (msg.a.startsWith(prefix + 'tempo')) {
+        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+           let input = args[1];
+            Player.setTempo(input);
+    }
+    if (msg.a.startsWith(prefix + 'ban')) {
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        let input = msg.a.substring(5).trim();
+        let user = grbUsr(input);
+        bannedFuckers.push(user._id);
+    }
+    if (msg.a.startsWith(prefix + 'admin')) {
+        if (!admins.indexOf(msg.p._id) == -1) return;
+        let input = msg.a.substring(7).trim();
+        let user = grbUsr(input);
+        admins.push(user._id);
+    }
+   badLinks.forEach(domain => {
+       if (msg.a.includes(domain)) {
+           if (msg.p._id == MPP.client.getOwnParticipant()._id) return;
+           let lol4 = domain.substr(0, 2);
+           let lol5 = domain.substr(2);
+           let dom = lol4 + "‎" + lol5;
+           MPP.chat.send(`Do NOT trust ‎${dom}. ‎${dom} is a suspicious domain that could be used for malicious purposes like IP grabbing. You probably should not go to links from that domain.`);
+  }});
+    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('>ad‎min, >re‎tardify, >‎ban, >‎k‎iss, ‎>t‎ime, ‎>s‎ong, ‎>t‎ime, ‎>s‎kip, ‎>g‎oto, ‎>d‎track, ‎>e‎track, ‎>p‎lay, ‎>stop, ‎>resume, ‎>pause, ‎>e‎cho, ‎>ech‎od, ‎>info, ‎>loop, ‎>tempo, ‎>oct, ‎>sustain.')
+    if (msg.a.startsWith(`${prefix}info`)) return mppChatSend('A Tampermonkey script made by Phoenix or Foonix#1129 on discord. You can find the script and the newest releases here: https://github.com/PhoenixTheCoder/neptune')
+});
+
+setTimeout(() => {
+document.getElementById('file-input4').onchange = function queue24() {
+    fileOrBlobToBase64(document.getElementById('file-input4').files[0], data2 => {
+        console.log('Added a song to queue');
+        console.log(document.getElementById('file-input4').files[0])
+        isQueue = true;
+        queue.push(data2);
+    });
+}
+}, 3000);
+setTimeout(() => {
+document.getElementById('file-input').onchange = function upload() {
+    totalNotes = 0
+    if (deblack == true) {
+    console.log(document.getElementById('file-input').files[0])
+        fileOrBlobToBase64(document.getElementById('file-input').files[0], data => {
+            Player.stop();
+            isQueue = false;
+            Player.loadDataUri(data);
+            deblackMidi();
+            noteCounter = 0;
+            totalNotes = 0;
+            for (var i = 0; i < Player.tracks.length; i++) {
+                let trackNumber = i;
+                totalNotes += Player.tracks[trackNumber].events.length;
+            }
+            //$("body").append(`<td style="position:absolute; left:780px; top:40px" id="noteCounter">0 / ${totalNotes}</td>`);
+            document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
+            songName = document.getElementById('file-input').files[0].name;
+            songTime = sec2time(Player.getSongTime())
+            Player.play();
+    });
+    } else {
+        console.log(document.getElementById('file-input').files[0])
+        fileOrBlobToBase64(document.getElementById('file-input').files[0], data => {
+            Player.stop();
+            isQueue = false;
+            noteCounter = 0;
+            totalNotes = 0;
+            Player.loadDataUri(data);
+            for (var i = 0; i < Player.tracks.length; i++) {
+                let trackNumber = i;
+                totalNotes += Player.tracks[trackNumber].events.length;
+            }
+            //$("body").append(`<td style="position:absolute; left:780px; top:40px" id="noteCounter">0 / ${totalNotes}</td>`);
+            document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
+            songName = document.getElementById('file-input').files[0].name;
+            songTime = sec2time(Player.getSongTime())
+            Player.play();
+            });
+        }
+    }
+}, 3000);
+
+
+setTimeout(() => {
+document.getElementById('stop-btn').onclick = function upload() {
+    if (!Player.isPlaying()) return;
+    Player.stop();
+}
+}, 3000);
+
+setTimeout(() => {
+    document.getElementById("deblack-btn").onclick = function deblac() {
+    if (!Player.isPlaying()) return;
+    deblackMidi();
+    }
+}, 3000);
+
+setTimeout(() => {
+    document.getElementById("undeblack-btn").onclick = function deblac2() {
+    if (!Player.isPlaying()) return;
+    disableDeblack();
+    }
+}, 3000);
+
+setTimeout(() => {
+    document.getElementById("pause-btn").onclick = function pause() {
+    if (!Player.isPlaying()) return;
+    Player.pause();
+    }
+}, 3000);
+
+setTimeout(() => {
+    document.getElementById("resume-btn").onclick = function resume() {
+    Player.play();
+    }
+}, 3000);
+
+function retardify(str) {
+    for(let i = 0; i < str.length; i++) {
+      let r = Math.floor(Math.random() * str.length);
+      str = str.split('');
+      str.splice(r, 1, str[r].toUpperCase());
+      str = str.join('');
+    }
+    for(let i = 0; i < str.length; i++) {
+      let r = Math.floor(Math.random() * str.length);
+      str = str.split('');
+      str.splice(r, 1, str[r].toLowerCase());
+      str = str.join('');
+    }
+    return str;
+}
+
+/*MPP.chat.send = (msg) => {
+    msg = retardify(msg)
+    MPP.client.sendArray([{m: 'a', message: retardify(msg) }]);
+}*/
+
+/*MPP.press = (msg) => {
+    console.log(msg);
+   for (let i = 1; i <= 5; i++) {
+       MPP.client.sendArray([{ m: "n", n: [{ n: msg.n + (i * 12), v: 1 }], t: Date.now() + 1000 }]);
+    }
+}*/
+
+var html2 = `
+<div id="file-input2" style="position:absolute; left:660px; top:4px" class="ugly-button translate">
+<label> Choose MIDI
+<input id="file-input" style="display: none;" type="file"></input>
+</label>
+</div>
+<pre id="file-contents"></pre>
+`
+
+$("#bottom .relative").append(html2);
+
+function stopButton() {
+ if (!Player.isPlaying()) return;
+ Player.stop();
+};
+
+$("#bottom .relative").append(`<div id="stop-btn" style="position:absolute; left:780px; top:4px" class="ugly-button translate"><label> Stop </label></div>`);
+$("#bottom .relative").append(`<div id="deblack-btn" style="position:absolute; left:780px; top:32px" class="ugly-button translate"><label> Deblack </label></div>`);
+$("#bottom .relative").append(`<div id="undeblack-btn" style="position:absolute; left:900px; top:4px" class="ugly-button translate"><label> ReEnable Tracks </label></div>`);
+$("#bottom .relative").append(`<div id="pause-btn" style="position:absolute; left:900px; top:32px" class="ugly-button translate"><label> Pause </label></div>`);
+$("#bottom .relative").append(`<div id="resume-btn" style="position:absolute; left:1020px; top:4px" class="ugly-button translate"><label> Resume </label></div>`);
+$("#bottom .relative").append(`<div id="file-input3" style="position:absolute; left:1020px; top:32px" class="ugly-button translate">
+<label> Add MIDI
+<input id="file-input4" style="display: none;" type="file"></input>
+</label>
+</div>
+<pre id="file-contents2"></pre>`);
+$("body").append(`<td style="position:absolute; left:1100px; top:160px" id="noteCounter">Notes: 0</td>`);
+$("body").append(`<progress id="midiProgress" style="position:absolute; left: 50px; top: 200px; width: 1500px" value="0" max="100"> 0% </progress>`);
