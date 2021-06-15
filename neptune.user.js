@@ -733,7 +733,7 @@ client.on('a', msg => {
                 return;
                 } else {
                 Player.loadDataUri(data);
-                for (var i = 0; i < Player.tracks.length; i++) {
+                for (var i = 1; i < Player.tracks.length; i++) {
                 let trackNumber = i;
                 totalNotes += Player.tracks[trackNumber].events.length;
                 }
@@ -1038,7 +1038,7 @@ document.getElementById('file-input').onchange = function upload() {
             deblackMidi();
             noteCounter = 0;
             totalNotes = 0;
-            for (var i = 0; i < Player.tracks.length; i++) {
+            for (var i = 1; i < Player.tracks.length; i++) {
                 let trackNumber = i;
                 totalNotes += Player.tracks[trackNumber].events.length;
             }
@@ -1056,7 +1056,7 @@ document.getElementById('file-input').onchange = function upload() {
             noteCounter = 0;
             totalNotes = 0;
             Player.loadDataUri(data);
-            for (var i = 0; i < Player.tracks.length; i++) {
+            for (var i = 1; i < Player.tracks.length; i++) {
                 let trackNumber = i;
                 totalNotes += Player.tracks[trackNumber].events.length;
             }
