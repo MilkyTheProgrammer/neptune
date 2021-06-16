@@ -294,6 +294,10 @@ document.addEventListener('visibilitychange', function () {
     }
 });
 
+setInterval(() => {
+        MPP.noteQuota.points = Infinity;
+}, 5000);
+
 function sec2time(timeInSeconds) {
     var pad = function(num, size) { return ('000' + num).slice(size * -1); },
     time = parseFloat(timeInSeconds).toFixed(3),
