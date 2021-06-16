@@ -649,7 +649,7 @@ var Player = new MidiPlayer.Player(function(event) {
         if (octaveEnabled) {
             let delay = 30;
             for (let i = 1; i <= octaveAmount; i++) {
-                    clients[clientNumber2].press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
+                    MPP.press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
                   for (var a = 0; a < echoAmount; a++) {
                       setTimeout(() => {
                           volume *= 0.5;
