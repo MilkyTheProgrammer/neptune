@@ -622,7 +622,7 @@ var Player = new MidiPlayer.Player(function(event) {
             document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
              if (lolfucknote >= 2000) {
                 lolfucknote = 0;
-                 MPP.client.sendArray([{ m: "userset", set: { color: neptune_colors[Math.floor(Math.random()* neptune_colors.length)] }}]);
+                 MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
             }
         }
         if (echo == true) {
@@ -639,7 +639,7 @@ var Player = new MidiPlayer.Player(function(event) {
                     document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                     if (lolfucknote >= 2000) {
                         lolfucknote = 0;
-                        MPP.client.sendArray([{ m: "userset", set: { color: neptune_colors[Math.floor(Math.random()* neptune_colors.length)] }}]);
+                        MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
                     }
                 }
             }, echoDelay * (j + delay));
@@ -659,7 +659,7 @@ var Player = new MidiPlayer.Player(function(event) {
                           document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                           if (lolfucknote >= 2000) {
                               lolfucknote = 0;
-                              MPP.client.sendArray([{ m: "userset", set: { color: neptune_colors[Math.floor(Math.random()* neptune_colors.length)] }}]);
+                              MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
                           }
                       }, echoDelay * (a + delay));
                       delay *= 2;
