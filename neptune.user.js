@@ -46,7 +46,7 @@ var deblack = false;
 
 var bannedFuckers = ["dac4b722f4f82190508878c1", "ed586bc5cb7a744a273ff32a", "f2085b4be9cc6c0deba09774"];
 
-var admins = [MPP.client.getOwnParticipant()._id];
+var admins = [];
 var neptune_colors = ["7d9cf5", "4b70dd", "0000ff", "#4b70dd", "4169e1", "3967ef", "1245db"];
 
 var deblackAmount = 4000;
@@ -834,7 +834,7 @@ client.on('a', msg => {
     mppChatSend('Looping the song.')
     }
      if (msg.a.startsWith(`${prefix}deblack`)) {
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         Player.stop();
         totalNotes = 0
@@ -868,7 +868,7 @@ client.on('a', msg => {
     }
     }
     if (msg.a.startsWith(prefix + 'dtracks')) {
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         if (!args[1]) return mppChatSend('Please enter a valid value.');
         if (args[1] > Player.tracks.length || args[2] > Player.tracks.length || args[3] > Player.tracks.length) return mppChatSend(`There are only ${Player.tracks.length} in this midi.`);
@@ -915,7 +915,7 @@ client.on('a', msg => {
         mppChatSend(`Disabled tracks ${args[1]} ${args[2]} ${args[3]} ${args[4]} ${args[5]} ${args[6]} ${args[7]} ${args[8]} ${args[9]} ${args[10]} ${args[11]} ${args[12]} ${args[13]} ${args[14]}`);
         }
         if (msg.a.startsWith(prefix + 'etrack')) {
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         var input = msg.a.substring(7).trim();
         if (!input) return mppChatSend('Please enter a valid value.');
@@ -924,7 +924,7 @@ client.on('a', msg => {
         Player.enableTrack(input);
     }
     if (msg.a.startsWith(prefix + 'goto')) {
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         var input = msg.a.substring(6).trim();
         if (!input) return mppChatSend('Please enter a valid value.');
@@ -935,7 +935,7 @@ client.on('a', msg => {
     }
     if (msg.a.startsWith(prefix + 'retardify')) {
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         var input = msg.a.substring(11).trim();
         if (!input) return mppChatSend("‎You need to input something to retardify.");
         mppChatSend('‎' + retardify(input));
@@ -967,7 +967,7 @@ client.on('a', msg => {
     }
     if (msg.a.startsWith(prefix + 'js')) {
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(4).trim();
         try {
             let after = eval(input);
@@ -999,7 +999,7 @@ client.on('a', msg => {
             Player.setTempo(input);
     }
     if (msg.a.startsWith(prefix + 'ban')) {
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(5).trim();
          if (!input) return mppChatSend('Please input a user to ban.');
         let user = grbUsr(input);
@@ -1007,7 +1007,7 @@ client.on('a', msg => {
         mppChatSend(`${user.name} was added to the ban list.`);
     }
     if (msg.a.startsWith(prefix + 'admin')) {
-        if (!admins.indexOf(msg.p._id) == -1) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(7).trim();
         if (!input) return mppChatSend('Please input a user to admin.');
         let user = grbUsr(input);
