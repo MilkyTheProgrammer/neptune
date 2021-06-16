@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Neptune v5
+// @name         Neptune
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
@@ -40,13 +40,202 @@ setTimeout(() => {
     document.getElementById("noteCounter").textContent = 'Notes: ' + "0";
 }, 2000);
 
-var prefix = "-";
+var languages = [
+	"ab",
+	"aa",
+	"af",
+	"ak",
+	"sq",
+	"am",
+	"ar",
+	"an",
+	"hy",
+	"as",
+	"av",
+	"ae",
+	"ay",
+	"az",
+	"bm",
+	"ba",
+	"eu",
+	"be",
+	"bn",
+	"bh",
+	"bi",
+	"bs",
+	"br",
+	"bg",
+	"my",
+	"ca",
+	"km",
+	"ch",
+	"ce",
+	"ny",
+	"zh",
+	"cu",
+	"cv",
+	"kw",
+	"co",
+	"cr",
+	"hr",
+	"cs",
+	"da",
+	"dv",
+	"nl",
+	"dz",
+	"en",
+	"eo",
+	"et",
+	"ee",
+	"fo",
+	"fj",
+	"fi",
+	"fr",
+	"ff",
+	"gd",
+	"gl",
+	"lg",
+	"ka",
+	"de",
+	"ki",
+	"el",
+	"kl",
+	"gn",
+	"gu",
+	"ht",
+	"ha",
+	"he",
+	"hz",
+	"hi",
+	"ho",
+	"hu",
+	"is",
+	"io",
+	"ig",
+	"id",
+	"ia",
+	"ie",
+	"iu",
+	"ik",
+	"ga",
+	"it",
+	"ja",
+	"jv",
+	"kn",
+	"kr",
+	"ks",
+	"kk",
+	"rw",
+	"kv",
+	"kg",
+	"ko",
+	"kj",
+	"ku",
+	"ky",
+	"lo",
+	"la",
+	"lv",
+	"lb",
+	"li",
+	"ln",
+	"lt",
+	"lu",
+	"mk",
+	"mg",
+	"ms",
+	"ml",
+	"mt",
+	"gv",
+	"mi",
+	"mr",
+	"mh",
+	"ro",
+	"mn",
+	"na",
+	"nv",
+	"nd",
+	"ng",
+	"ne",
+	"se",
+	"no",
+	"nb",
+	"nn",
+	"ii",
+	"oc",
+	"oj",
+	"or",
+	"om",
+	"os",
+	"pi",
+	"pa",
+	"ps",
+	"fa",
+	"pl",
+	"pt",
+	"qu",
+	"rm",
+	"rn",
+	"ru",
+	"sm",
+	"sg",
+	"sa",
+	"sc",
+	"sr",
+	"sn",
+	"sd",
+	"si",
+	"sk",
+	"sl",
+	"so",
+	"st",
+	"nr",
+	"es",
+	"su",
+	"sw",
+	"ss",
+	"sv",
+	"tl",
+	"ty",
+	"tg",
+	"ta",
+	"tt",
+	"te",
+	"th",
+	"bo",
+	"ti",
+	"to",
+	"ts",
+	"tn",
+	"tr",
+	"tk",
+	"tw",
+	"ug",
+	"uk",
+	"ur",
+	"uz",
+	"ve",
+	"vi",
+	"vo",
+	"wa",
+	"cy",
+	"fy",
+	"wo",
+	"xh",
+	"yi",
+	"yo",
+	"za",
+	"zu",
+];
+
+var followCursor = null;
+
+var prefix = "~";
 
 var deblack = false;
 
 var bannedFuckers = ["dac4b722f4f82190508878c1", "ed586bc5cb7a744a273ff32a", "f2085b4be9cc6c0deba09774"];
 
-var admins = [];
+var admins = ["e8297560cbf5248e619fdea0"];
 var neptune_colors = ["7d9cf5", "4b70dd", "0000ff", "#4b70dd", "4169e1", "3967ef", "1245db"];
 
 var deblackAmount = 4000;
@@ -165,6 +354,29 @@ const LIST_BULLET = "• ";
 const DESCRIPTION_SEPARATOR = " - ";
 const CONSOLE_IMPORTANT_STYLE = "background-color: red; color: white; font-weight: bold";
 
+
+function fetchTranslation(text, lang){
+const data = `q=${text}&target=${lang}&source=en`;
+
+const xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		text = JSON.parse(this.response).data.translations[0].translatedText;
+        MPP.chat.send(text);
+	}
+});
+
+xhr.open("POST", "https://google-translate1.p.rapidapi.com/language/translate/v2");
+xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+xhr.setRequestHeader("accept-encoding", "application/gzip");
+xhr.setRequestHeader("x-rapidapi-key", "7c6ac91f4fmshac91f4fc2b2b284p11f5cfjsna8c162994379");
+xhr.setRequestHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
+
+xhr.send(data);
+}
+
 // Gets the correct note from MIDIPlayer to play on MPP
 const MIDIPlayerToMPPNote = {
     "A0": "a-1",
@@ -258,10 +470,6 @@ const MIDIPlayerToMPPNote = {
 }
 
 // =============================================== VARIABLES
-
-setInterval(() => {
-    MPP.noteQuota.points = Infinity;
-}, 5000);
 
 var publicOption = false; // turn off the public bot commands if needed
 var pinging = false; // helps aid in getting response time
@@ -429,6 +637,10 @@ var urlToBlob = function(url, callback) {
         // callback(null); // disabled since the second fetch already should call the call back
     });
 }
+
+var moveMouse = function(x, y) {
+    MPP.client.sendArray([{ m: "m", x, y }]);
+};
 
 // Converts files/blobs to base64 (data URI)
 var fileOrBlobToBase64 = function(raw, callback) {
@@ -602,13 +814,9 @@ var Player = new MidiPlayer.Player(function(event) {
         //document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
         if (octaveEnabled) {
             for (let i = 1; i <= octaveAmount; i++) {
-                if (multiClient == true) {
-                    clients[clientNumber2].release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
-                } else {
                     //noteCounter++
                     //document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                 MPP.release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
-                }
             }
         }
     } else if (event.name == "Note on") {
@@ -785,6 +993,24 @@ client.on('a', msg => {
             echo = true;
         }
     }
+
+    if (msg.a.startsWith(prefix + 'follow')) {
+    let input = msg.a.substring(8).trim();
+    let user = grbUsr(input);
+    if (followCursor) return clearInterval(followCursor);
+    if (!user) return mppChatSend('User not found.');
+    if (!input) {
+        let user = msg.p;
+    }
+    mppChatSend('Following ' + user.name + "'s cursor");
+    followCursor = setInterval(() => { MPP.client.sendArray([{m: "m", x: Object.values(MPP.client.ppl).find(p => p._id === user._id).x, y: Object.values(MPP.client.ppl).find(p => p._id === user._id).y}]) }, 50);
+    }
+
+    if (msg.a.startsWith(prefix + 'stopfollow')) {
+    clearInterval(followCursor);
+    return;
+    }
+
     if (msg.a.match(`${prefix}echod`)) {
        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         var input = msg.a.substring(7).trim();
@@ -803,13 +1029,15 @@ client.on('a', msg => {
         document.getElementById("noteCounter").textContent = 'Notes: ' + `0 / 0`;
         mppChatSend('Stopped the music.');
     }
-    /*if (msg.a.startsWith('>bot')) {
+    if (msg.a.startsWith(prefix + 'public')) {
         if (bot == false) {
          bot = true;
+         mppChatSend('Public commands were enabled.');
         } else if (bot == true) {
             bot = false;
+             mppChatSend('Public commands were disabled.');
         }
-    }*/
+    }
     if (msg.a.startsWith(`${prefix}sustain`)) {
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         if (sustain == 0) {
@@ -821,6 +1049,13 @@ client.on('a', msg => {
             sustain = 0;
             mppChatSend('Sustain is off.');
         }
+    }
+    if (msg.a.startsWith(prefix + 'translate')) {
+        let text = args.slice(2).join(' ');
+        let lang = args[1];
+        if (!lang) return mppChatSend('Please input something to translate');
+        if (languages.indexOf(lang) == -1) return mppChatSend('Invalid Language format. (E.g) ~translate <language> <text>.');
+        fetchTranslation(text, lang);
     }
     if (msg.a.startsWith(`${prefix}pause`)) {
     if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
@@ -1025,7 +1260,7 @@ client.on('a', msg => {
            let dom = lol4 + "‎" + lol5;
            MPP.chat.send(`Do NOT trust ‎${dom}. ‎${dom} is a suspicious domain that could be used for malicious purposes like IP grabbing. You probably should not go to links from that domain.`);
   }});
-    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('‎ ' + prefix + 'ad‎min, ' + prefix + 're‎tardify, ' + prefix + 'di‎scord, ' + prefix + '‎ban, ' + prefix + '‎k‎iss, ' + prefix + 't‎ime, ' + prefix + 's‎ong, ' + prefix + 't‎ime, ' + prefix + 's‎kip, ' + prefix + 'g‎oto, ' + prefix + 'd‎track, ' + prefix + 'e‎track, ' + prefix + 'p‎lay, ', + prefix + 'stop, ' + prefix + 'resume, ' + prefix + 'pause, ' + prefix + 'e‎cho, ' + prefix + 'ech‎od, ' + prefix + 'info, ' + prefix + 'loop, ' + prefix + 'tempo, ' + prefix + 'oct, ' + prefix + 'sustain.')
+    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('‎ ' + prefix + 'ad‎min, ' + prefix + 'public, ' + prefix + 'translate, ' + prefix + 'follow, ' + prefix + 'stopfollow, ' + prefix + 're‎tardify, ' + prefix + 'di‎scord, ' + prefix + '‎ban, ' + prefix + '‎k‎iss, ' + prefix + 't‎ime, ' + prefix + 's‎ong, ' + prefix + 't‎ime, ' + prefix + 's‎kip, ' + prefix + 'g‎oto, ' + prefix + 'd‎track, ' + prefix + 'e‎track, ' + prefix + 'p‎lay, ', + prefix + 'stop, ' + prefix + 'resume, ' + prefix + 'pause, ' + prefix + 'e‎cho, ' + prefix + 'ech‎od, ' + prefix + 'info, ' + prefix + 'loop, ' + prefix + 'tempo, ' + prefix + 'oct, ' + prefix + 'sustain.')
     if (msg.a.startsWith(`${prefix}info`)) return mppChatSend('A Tampermonkey script made by Phoenix or Foonix#1129 on discord. You can find the script and the newest releases here: https://github.com/PhoenixTheCoder/neptune')
     if (msg.a.startsWith(`${prefix}discord`)) return mppChatSend(`Here's my official Discord Server: https://discord.gg/TSVEekMBzc`);
 });
@@ -1061,7 +1296,6 @@ document.getElementById('file-input').onchange = function upload() {
             });
     }
 }, 3000);
-
 
 setTimeout(() => {
 document.getElementById('stop-btn').onclick = function upload() {
@@ -1113,7 +1347,7 @@ function retardify(str) {
     return str;
 }
 
-/*MPP.chat.send = (msg) => { if (!input) return mppChatSend('Please input a user to admin.');
+/*MPP.chat.send = (msg) => {
     msg = retardify(msg)
     MPP.client.sendArray([{m: 'a', message: retardify(msg) }]);
 }*/
