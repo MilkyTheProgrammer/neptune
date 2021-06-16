@@ -259,6 +259,10 @@ const MIDIPlayerToMPPNote = {
 
 // =============================================== VARIABLES
 
+setInterval(() => {
+    MPP.noteQuota.points = Infinity;
+}, 5000);
+
 var publicOption = false; // turn off the public bot commands if needed
 var pinging = false; // helps aid in getting response time
 var pingTime = 0; // changes after each ping
