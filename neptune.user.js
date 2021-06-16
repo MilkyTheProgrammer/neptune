@@ -1138,7 +1138,7 @@ function retardify(str) {
 }*/
 
 var html2 = `
-<div id="file-input2" style="position:absolute; left:660px; top:4px" class="ugly-button translate">
+<div id="file-input2" style="position:absolute; left:1140px; top:4px" class="ugly-button translate">
 <label> Choose MIDI
 <input id="file-input" style="display: none;" type="file"></input>
 </label>
