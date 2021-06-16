@@ -1,11 +1,12 @@
 // ==UserScript==
-// @name         Neptune v3
+// @name         Neptune
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  A really amazing MPP midi script
+// @description  try to take over the world!
 // @author       Phoenix, AlienDrew
 // @match        https://www.multiplayerpiano.net/*
 // @match        https://mppclone.com/*
+// @match        https://www.multiplayerpiano.com/*
 // @icon         https://www.google.com/s2/favicons?domain=mppclone.com
 // @grant        GM_info
 // @grant        GM_getResourceText
@@ -37,7 +38,7 @@ var lolfucknote = 0;
 var noteCounter = 0;
 
 setTimeout(() => {
-document.getElementById("noteCounter").textContent = 'Notes: ' + "0";
+    document.getElementById("noteCounter").textContent = 'Notes: ' + "0";
 }, 2000);
 
 var prefix = "-";
@@ -46,6 +47,7 @@ var deblack = false;
 
 var bannedFuckers = ["dac4b722f4f82190508878c1", "ed586bc5cb7a744a273ff32a", "f2085b4be9cc6c0deba09774"];
 var admins = [MPP.client.getOwnParticipant()._id];
+var neptune_colors = ["7d9cf5", "4b70dd", "0000ff", "#4b70dd", "4169e1", "3967ef", "1245db"];
 
 var deblackAmount = 4000;
 
@@ -294,10 +296,6 @@ document.addEventListener('visibilitychange', function () {
     }
 });
 
-setInterval(() => {
-        MPP.noteQuota.points = Infinity;
-}, 5000);
-
 function sec2time(timeInSeconds) {
     var pad = function(num, size) { return ('000' + num).slice(size * -1); },
     time = parseFloat(timeInSeconds).toFixed(3),
@@ -337,7 +335,7 @@ function setName(name) {
         cli.setChannel('roommmm');
         clients.push(cli);
 
-        cli.on('hi', () => {
+        cli.on('hi', () =~ {
             clientNumber++
             console.log('Connected socket: ' + cli);
             cli.sendArray([{ userset: { name: clientNumber2 }}])
@@ -596,11 +594,15 @@ var Player = new MidiPlayer.Player(function(event) {
         clients[clientNumber2].release(keyNameMap[event.noteName]);
         }
         MPP.release(keyNameMap[event.noteName]);
+        //noteCounter++
+        //document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
         if (octaveEnabled) {
             for (let i = 1; i <= octaveAmount; i++) {
                 if (multiClient == true) {
                     clients[clientNumber2].release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
                 } else {
+                    //noteCounter++
+                    //document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                 MPP.release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
                 }
             }
@@ -616,7 +618,7 @@ var Player = new MidiPlayer.Player(function(event) {
             document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
              if (lolfucknote >= 2000) {
                 lolfucknote = 0;
-                 MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                 MPP.client.sendArray([{ m: "userset", set: { color: neptune_colors[Math.floor(Math.random()* neptune_colors.length)] }}]);
             }
         }
         if (echo == true) {
@@ -633,7 +635,7 @@ var Player = new MidiPlayer.Player(function(event) {
                     document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                     if (lolfucknote >= 2000) {
                         lolfucknote = 0;
-                        MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                        MPP.client.sendArray([{ m: "userset", set: { color: neptune_colors[Math.floor(Math.random()* neptune_colors.length)] }}]);
                     }
                 }
             }, echoDelay * (j + delay));
@@ -653,7 +655,7 @@ var Player = new MidiPlayer.Player(function(event) {
                           document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                           if (lolfucknote >= 2000) {
                               lolfucknote = 0;
-                              MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                              MPP.client.sendArray([{ m: "userset", set: { color: neptune_colors[Math.floor(Math.random()* neptune_colors.length)] }}]);
                           }
                       }, echoDelay * (a + delay));
                       delay *= 2;
@@ -797,7 +799,7 @@ client.on('a', msg => {
         document.getElementById("noteCounter").textContent = 'Notes: ' + `0 / 0`;
         mppChatSend('Stopped the music.');
     }
-    /*if (msg.a.startsWith('~bot')) {
+    /*if (msg.a.startsWith('>bot')) {
         if (bot == false) {
          bot = true;
         } else if (bot == true) {
@@ -963,7 +965,7 @@ client.on('a', msg => {
         let rand = items[Math.floor(Math.random() * items.length)];
         mppChatSend(`${msg.p.name} kissed ${part.name} on the ${rand}!!!`);
     }
-    if (msg.a.startsWith('>js')) {
+    if (msg.a.startsWith(prefix + 'js')) {
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         if (!admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(4).trim();
@@ -975,7 +977,7 @@ client.on('a', msg => {
             mppChatSend('‌‌ Error: ' + err);
         }
     }
-    /*if (msg.a.startsWith('~s') || msg.a.startsWith('~song')) {
+    /*if (msg.a.startsWith('>s') || msg.a.startsWith('>song')) {
        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
        if (msg.p._id !== "e8297560cbf5248e619fdea0") return;
 
@@ -1001,12 +1003,14 @@ client.on('a', msg => {
         let input = msg.a.substring(5).trim();
         let user = grbUsr(input);
         bannedFuckers.push(user._id);
+        mppChatSend(`${user.name} was added to the ban list.`);
     }
     if (msg.a.startsWith(prefix + 'admin')) {
         if (!admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(7).trim();
         let user = grbUsr(input);
         admins.push(user._id);
+        mppChatSend(`${user.name} was added to the admin list.`);
     }
    badLinks.forEach(domain => {
        if (msg.a.includes(domain)) {
@@ -1016,8 +1020,9 @@ client.on('a', msg => {
            let dom = lol4 + "‎" + lol5;
            MPP.chat.send(`Do NOT trust ‎${dom}. ‎${dom} is a suspicious domain that could be used for malicious purposes like IP grabbing. You probably should not go to links from that domain.`);
   }});
-    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('>ad‎min, >re‎tardify, >‎ban, >‎k‎iss, ‎>t‎ime, ‎>s‎ong, ‎>t‎ime, ‎>s‎kip, ‎>g‎oto, ‎>d‎track, ‎>e‎track, ‎>p‎lay, ‎>stop, ‎>resume, ‎>pause, ‎>e‎cho, ‎>ech‎od, ‎>info, ‎>loop, ‎>tempo, ‎>oct, ‎>sustain.')
+    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('‎ ' + prefix + 'ad‎min, ' + prefix + 're‎tardify, ' + prefix + 'di‎scord, ' + prefix + '‎ban, ' + prefix + '‎k‎iss, ' + prefix + 't‎ime, ' + prefix + 's‎ong, ' + prefix + 't‎ime, ' + prefix + 's‎kip, ' + prefix + 'g‎oto, ' + prefix + 'd‎track, ' + prefix + 'e‎track, ' + prefix + 'p‎lay, ', + prefix + 'stop, ' + prefix + 'resume, ' + prefix + 'pause, ' + prefix + 'e‎cho, ' + prefix + 'ech‎od, ' + prefix + 'info, ' + prefix + 'loop, ' + prefix + 'tempo, ' + prefix + 'oct, ' + prefix + 'sustain.')
     if (msg.a.startsWith(`${prefix}info`)) return mppChatSend('A Tampermonkey script made by Phoenix or Foonix#1129 on discord. You can find the script and the newest releases here: https://github.com/PhoenixTheCoder/neptune')
+    if (msg.a.startsWith(`${prefix}discord`)) return mppChatSend(`Here's my official Discord Server: https://discord.gg/TSVEekMBzc`);
 });
 
 setTimeout(() => {
@@ -1032,27 +1037,6 @@ document.getElementById('file-input4').onchange = function queue24() {
 }, 3000);
 setTimeout(() => {
 document.getElementById('file-input').onchange = function upload() {
-    totalNotes = 0
-    if (deblack == true) {
-    console.log(document.getElementById('file-input').files[0])
-        fileOrBlobToBase64(document.getElementById('file-input').files[0], data => {
-            Player.stop();
-            isQueue = false;
-            Player.loadDataUri(data);
-            deblackMidi();
-            noteCounter = 0;
-            totalNotes = 0;
-            for (var i = 1; i < Player.tracks.length; i++) {
-                let trackNumber = i;
-                totalNotes += Player.tracks[trackNumber].events.length;
-            }
-            //$("body").append(`<td style="position:absolute; left:780px; top:40px" id="noteCounter">0 / ${totalNotes}</td>`);
-            document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
-            songName = document.getElementById('file-input').files[0].name;
-            songTime = sec2time(Player.getSongTime())
-            Player.play();
-    });
-    } else {
         console.log(document.getElementById('file-input').files[0])
         fileOrBlobToBase64(document.getElementById('file-input').files[0], data => {
             Player.stop();
@@ -1070,7 +1054,6 @@ document.getElementById('file-input').onchange = function upload() {
             songTime = sec2time(Player.getSongTime())
             Player.play();
             });
-        }
     }
 }, 3000);
 
@@ -1164,5 +1147,5 @@ $("#bottom .relative").append(`<div id="file-input3" style="position:absolute; l
 </label>
 </div>
 <pre id="file-contents2"></pre>`);
-$("body").append(`<td style="position:absolute; left:1100px; top:130px" id="noteCounter">Notes: 0</td>`);
-$("body").append(`<progress id="midiProgress" style="position:absolute; left: 50px; top: 170px; width: 1500px" value="0" max="100"> 0% </progress>`);
+$("body").append(`<td style="position:absolute; left:1100px; top:160px" id="noteCounter">Notes: 0</td>`);
+$("body").append(`<progress id="midiProgress" style="position:absolute; left: 50px; top: 200px; width: 1500px" value="0" max="100"> 0% </progress>`);
