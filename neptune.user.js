@@ -1,12 +1,11 @@
 // ==UserScript==
-// @name         Neptune v4
+// @name         Neptune
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
 // @author       Phoenix, AlienDrew
 // @match        https://www.multiplayerpiano.net/*
 // @match        https://mppclone.com/*
-// @match        https://www.multiplayerpiano.com/*
 // @icon         https://www.google.com/s2/favicons?domain=mppclone.com
 // @grant        GM_info
 // @grant        GM_getResourceText
@@ -46,6 +45,7 @@ var prefix = "-";
 var deblack = false;
 
 var bannedFuckers = ["dac4b722f4f82190508878c1", "ed586bc5cb7a744a273ff32a", "f2085b4be9cc6c0deba09774"];
+
 var admins = [MPP.client.getOwnParticipant()._id];
 var neptune_colors = ["7d9cf5", "4b70dd", "0000ff", "#4b70dd", "4169e1", "3967ef", "1245db"];
 
@@ -977,7 +977,7 @@ client.on('a', msg => {
             mppChatSend('‌‌ Error: ' + err);
         }
     }
-    /*if (msg.a.startsWith('>s') || msg.a.startsWith('>song')) {
+    if (msg.a.startsWith(prefix + 'song')) {
        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
        if (msg.p._id !== "e8297560cbf5248e619fdea0") return;
 
@@ -988,7 +988,7 @@ client.on('a', msg => {
        }
        mppChatSend(`File: [ ${songName} ], Song Name: [ ${songName.replace('.mid', "")} ], Song Time: [ ${songTime} ], Tracks: [ ${Player.tracks.length} ], Total Notes: [ ${totalNotes} ].`);
         return;
-    }*/
+    }
     if (msg.a.startsWith(prefix + 'time')) {
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
         mppChatSend(`Here's my current time: ${formatAMPM(new Date)}`);
@@ -1001,6 +1001,7 @@ client.on('a', msg => {
     if (msg.a.startsWith(prefix + 'ban')) {
         if (!admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(5).trim();
+         if (!input) return mppChatSend('Please input a user to ban.');
         let user = grbUsr(input);
         bannedFuckers.push(user._id);
         mppChatSend(`${user.name} was added to the ban list.`);
@@ -1008,6 +1009,7 @@ client.on('a', msg => {
     if (msg.a.startsWith(prefix + 'admin')) {
         if (!admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(7).trim();
+        if (!input) return mppChatSend('Please input a user to admin.');
         let user = grbUsr(input);
         admins.push(user._id);
         mppChatSend(`${user.name} was added to the admin list.`);
@@ -1108,7 +1110,7 @@ function retardify(str) {
     return str;
 }
 
-/*MPP.chat.send = (msg) => {
+/*MPP.chat.send = (msg) => { if (!input) return mppChatSend('Please input a user to admin.');
     msg = retardify(msg)
     MPP.client.sendArray([{m: 'a', message: retardify(msg) }]);
 }*/
