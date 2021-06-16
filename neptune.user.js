@@ -242,6 +242,10 @@ var deblackAmount = 4000;
 var tracks = [];
 var totalNotes = 0;
 
+setInterval(() => {
+	MPP.noteQuota.points = Infinity;
+}, 5000);
+
 var songTime = 0;
 var songName = "";
 
