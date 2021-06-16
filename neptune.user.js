@@ -29,6 +29,7 @@ var useCorsUrl = function(url) {
     return newUrl;
 }
 
+var prefix = "-";
 var queue = [];
 var isQueue = false;
 var queueNum = 0;
@@ -228,8 +229,6 @@ var languages = [
 ];
 
 var followCursor = null;
-
-var prefix = "~";
 
 var deblack = false;
 
