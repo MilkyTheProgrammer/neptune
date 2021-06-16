@@ -1029,6 +1029,7 @@ client.on('a', msg => {
         mppChatSend('Stopped the music.');
     }
     if (msg.a.startsWith(prefix + 'public')) {
+	if (admins.indexOf(msg.p._id) == -1 || msg.p._id !== MPP.client.getOwnParticipant()._id) return;
         if (bot == false) {
          bot = true;
          mppChatSend('Public commands were enabled.');
