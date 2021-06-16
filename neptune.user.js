@@ -983,7 +983,6 @@ client.on('a', msg => {
     }
     if (msg.a.startsWith(prefix + 'song')) {
        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
-       if (msg.p._id !== "e8297560cbf5248e619fdea0") return;
 
        if (!Player.isPlaying()) return mppChatSend('There is nothing playing.');
        for (var i = 0; i < Player.tracks.length; i++) {
