@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Neptune
+// @name         Neptune v6
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      6
 // @description  try to take over the world!
 // @author       Phoenix, AlienDrew
 // @match        https://www.multiplayerpiano.net/*
