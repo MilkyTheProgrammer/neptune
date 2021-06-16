@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      6
 // @description  try to take over the world!
-// @author       Phoenix, AlienDrew
+// @author       Phoenix
 // @match        https://www.multiplayerpiano.net/*
 // @match        https://mppclone.com/*
 // @icon         https://www.google.com/s2/favicons?domain=mppclone.com
@@ -13,6 +13,9 @@
 // @resource     MIDIPlayerJS https://raw.githubusercontent.com/PhoenixTheCoder/midiplayerjs/main/midiplayer.js
 // @run-at       document-end
 // ==/UserScript==
+
+
+// Credits to AlienDrew for MIDI Player stuff //
 
 var stringMIDIPlayerJS = GM_getResourceText("MIDIPlayerJS");
 var scriptMIDIPlayerJS = document.createElement("script");
