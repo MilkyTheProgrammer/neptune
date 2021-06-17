@@ -3,9 +3,10 @@
 // @namespace    http://tampermonkey.net/
 // @version      6
 // @description  try to take over the world!
-// @author       Phoenix
+// @author       Phoenix, AlienDrew
 // @match        https://www.multiplayerpiano.net/*
 // @match        https://mppclone.com/*
+// @match        https://www.multiplayerpiano.com/*
 // @icon         https://www.google.com/s2/favicons?domain=mppclone.com
 // @grant        GM_info
 // @grant        GM_getResourceText
@@ -13,9 +14,6 @@
 // @resource     MIDIPlayerJS https://raw.githubusercontent.com/PhoenixTheCoder/midiplayerjs/main/midiplayer.js
 // @run-at       document-end
 // ==/UserScript==
-
-
-// Credits to AlienDrew for MIDI Player stuff //
 
 var stringMIDIPlayerJS = GM_getResourceText("MIDIPlayerJS");
 var scriptMIDIPlayerJS = document.createElement("script");
@@ -33,12 +31,14 @@ var useCorsUrl = function(url) {
 }
 
 var prefix = "-";
+
 var queue = [];
 var isQueue = false;
 var queueNum = 0;
 var skipNum = 0;
 var lolfucknote = 0;
 var noteCounter = 0;
+var songFileName = "";
 
 setTimeout(() => {
     document.getElementById("noteCounter").textContent = 'Notes: ' + "0";
@@ -231,6 +231,75 @@ var languages = [
 	"zu",
 ];
 
+// Neptune's Favorite songs //
+
+/* To add songs, you must add this to the jsonSongs
+
+"Song name": {
+        songName: "Song name",
+        url: "midi link"
+    },
+
+*/
+const jsonSongs = {
+    "bad apple": {
+        songName: "Bad Apple",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Bad%2BApple7.mid"
+    },
+    "death waltz": {
+        songName: "Death Waltz",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Death%20Waltz.mid"
+    },
+    "renai circulation": {
+        songName: "Renai Circulation",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Renai_Circulation.mid"
+    },
+    "polish cow": {
+        songName: "Polish Cow",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/PolishCowPiano.mid"
+    },
+    "sweden": {
+        songName: "Sweden",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Sweden_Minecraft.mid"
+    },
+    "necrofantasia": {
+        songName: "Necrofantasia",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Necrofantasia.mid"
+    },
+    "payphone": {
+        songName: "Payphone",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Payphone.mid"
+    },
+    "hey there delilah": {
+        songName: "Hey there Delilah",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Hey_There_Delilah.mid"
+    },
+    "circus galop": {
+        songName: "Circus Galop",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Circus%2BGalop.mid"
+    },
+    "blend s opening": {
+        songName: "Blend S Opening",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Blend_S_OP.mid"
+    },
+    "impossible despacito": {
+        songName: "Impossible Despacito",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Despacito%20Deblacked.mid"
+    },
+    "impossible let it go": {
+        songName: "Impossible Let It Go",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Let%20It%20Go%20by%20MBMS%20Deblacked.mid"
+    },
+    "impossible heart afire": {
+        songName: "Impossible Heart Afire",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Heart%20Afire%20Deblacked.mid"
+    },
+    "impossible ghost busters theme": {
+       songName: "Impossible Ghost Busters Theme",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Ghost%20Busters%20Deblacked.mid"
+    }
+};
+
 var followCursor = null;
 
 var deblack = false;
@@ -244,10 +313,6 @@ var deblackAmount = 4000;
 
 var tracks = [];
 var totalNotes = 0;
-
-setInterval(() => {
-	MPP.noteQuota.points = Infinity;
-}, 5000);
 
 var songTime = 0;
 var songName = "";
@@ -382,6 +447,10 @@ xhr.setRequestHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
 
 xhr.send(data);
 }
+
+setIntveral(() => {
+	MPP.noteQuota.points = Infinity;
+}, 5000);
 
 // Gets the correct note from MIDIPlayer to play on MPP
 const MIDIPlayerToMPPNote = {
@@ -853,7 +922,7 @@ var Player = new MidiPlayer.Player(function(event) {
                     document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                     if (lolfucknote >= 2000) {
                         lolfucknote = 0;
-                        MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                        MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode()  }}]);
                     }
                 }
             }, echoDelay * (j + delay));
@@ -947,7 +1016,38 @@ client.on('a', msg => {
         totalNotes = 0
         let input = msg.a.substring(6).trim();
         if (!input) return mppChatSend('Please enter a valid midi link');
-        if (!input.includes('https://')) return mppChatSend('Invalid midi link.');
+        if (!input.includes('https://') || !input.includes('.mid')) {
+            const file = Object.keys(jsonSongs).filter(a => a.includes(input.toLowerCase()));
+            if (file === undefined) return mppChatSend('Song not found.');
+            input = jsonSongs[file].url
+            songFileName = jsonSongs[file].songName;
+            urlToBlob(input, d => {
+            fileOrBlobToBase64(d.blob, data => {
+                if (Player.isPlaying()) {
+                queue.push(data);
+                mppChatSend('The song was added to the queue.');
+                return;
+                } else {
+                try {
+                Player.loadDataUri(data);
+                for (var i = 1; i < Player.tracks.length; i++) {
+                let trackNumber = i;
+                totalNotes += Player.tracks[trackNumber].events.length;
+                }
+                document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
+                Player.play();
+                var fileName = d.response.headers.get("content-disposition");
+                mppChatSend(`Name: ${songFileName} [${sec2time(Player.getSongTime())}]. Tracks: ${Player.tracks.length}.`);
+                songName = songFileName;
+                songTime = sec2time(Player.getSongTime());
+                    } catch (err) {
+                      mppChatSend(err);
+                      return
+                    }
+                }
+            });
+        });
+        } else {
         if (!input.includes('.mid')) return mppChatSend('Invalid midi link.');
         urlToBlob(input, d => {
             fileOrBlobToBase64(d.blob, data => {
@@ -956,6 +1056,7 @@ client.on('a', msg => {
                 mppChatSend('The song was added to the queue.');
                 return;
                 } else {
+                try {
                 Player.loadDataUri(data);
                 for (var i = 1; i < Player.tracks.length; i++) {
                 let trackNumber = i;
@@ -965,11 +1066,20 @@ client.on('a', msg => {
                 Player.play();
                 var fileName = d.response.headers.get("content-disposition");
                 mppChatSend(`Name: ${fileName ? fileName.split('filename=')[1].split(';')[0] : "No Name"} [${sec2time(Player.getSongTime())}]. Tracks: ${Player.tracks.length}.`);
-                songName = fileName;
+                songName = fileName || songFileName;
                 songTime = sec2time(Player.getSongTime());
+                    } catch (err) {
+                      mppChatSend(err);
+                      return
+                    }
                 }
             });
         });
+        }
+    }
+    if (msg.a.startsWith(prefix + 'list')) {
+        mppChatSend(`${Object.values(jsonSongs).map(a => a.songName).join(", ")}`);
+        return;
     }
     if (msg.a.startsWith(`${prefix}oct`)) {
         if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
@@ -1036,7 +1146,6 @@ client.on('a', msg => {
         mppChatSend('Stopped the music.');
     }
     if (msg.a.startsWith(prefix + 'public')) {
-	if (admins.indexOf(msg.p._id) == -1 || msg.p._id !== MPP.client.getOwnParticipant()._id) return;
         if (bot == false) {
          bot = true;
          mppChatSend('Public commands were enabled.');
@@ -1267,7 +1376,7 @@ client.on('a', msg => {
            let dom = lol4 + "‎" + lol5;
            MPP.chat.send(`Do NOT trust ‎${dom}. ‎${dom} is a suspicious domain that could be used for malicious purposes like IP grabbing. You probably should not go to links from that domain.`);
   }});
-    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('‎ ' + prefix + 'ad‎min, ' + prefix + 'public, ' + prefix + 'translate, ' + prefix + 'follow, ' + prefix + 'stopfollow, ' + prefix + 're‎tardify, ' + prefix + 'di‎scord, ' + prefix + '‎ban, ' + prefix + '‎k‎iss, ' + prefix + 't‎ime, ' + prefix + 's‎ong, ' + prefix + 't‎ime, ' + prefix + 's‎kip, ' + prefix + 'g‎oto, ' + prefix + 'd‎track, ' + prefix + 'e‎track, ' + prefix + 'p‎lay, ', + prefix + 'stop, ' + prefix + 'resume, ' + prefix + 'pause, ' + prefix + 'e‎cho, ' + prefix + 'ech‎od, ' + prefix + 'info, ' + prefix + 'loop, ' + prefix + 'tempo, ' + prefix + 'oct, ' + prefix + 'sustain.')
+    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('‎ ' + prefix + 'ad‎min, ' + prefix + 'public, ' + prefix + 'list, ' + prefix + 'translate, ' + prefix + 'follow, ' + prefix + 'stopfollow, ' + prefix + 're‎tardify, ' + prefix + 'di‎scord, ' + prefix + '‎ban, ' + prefix + '‎k‎iss, ' + prefix + 't‎ime, ' + prefix + 's‎ong, ' + prefix + 't‎ime, ' + prefix + 's‎kip, ' + prefix + 'g‎oto, ' + prefix + 'd‎track, ' + prefix + 'e‎track, ' + prefix + 'p‎lay, ', + prefix + 'stop, ' + prefix + 'resume, ' + prefix + 'pause, ' + prefix + 'e‎cho, ' + prefix + 'ech‎od, ' + prefix + 'info, ' + prefix + 'loop, ' + prefix + 'tempo, ' + prefix + 'oct, ' + prefix + 'sustain.')
     if (msg.a.startsWith(`${prefix}info`)) return mppChatSend('A Tampermonkey script made by Phoenix or Foonix#1129 on discord. You can find the script and the newest releases here: https://github.com/PhoenixTheCoder/neptune')
     if (msg.a.startsWith(`${prefix}discord`)) return mppChatSend(`Here's my official Discord Server: https://discord.gg/TSVEekMBzc`);
 });
