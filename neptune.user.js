@@ -448,7 +448,7 @@ xhr.setRequestHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
 xhr.send(data);
 }
 
-setIntveral(() => {
+setInterval(() => {
 	MPP.noteQuota.points = Infinity;
 }, 5000);
 
