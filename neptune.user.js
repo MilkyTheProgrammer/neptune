@@ -7,6 +7,8 @@
 // @match        https://www.multiplayerpiano.net/*
 // @match        https://mppclone.com/*
 // @match        https://www.multiplayerpiano.com/*
+// @match        http://augustberchelmann.com/piano/*
+// @match        https://mpp.terrium.net/*
 // @icon         https://www.google.com/s2/favicons?domain=mppclone.com
 // @grant        GM_info
 // @grant        GM_getResourceText
@@ -14,6 +16,8 @@
 // @resource     MIDIPlayerJS https://raw.githubusercontent.com/PhoenixTheCoder/midiplayerjs/main/midiplayer.js
 // @run-at       document-end
 // ==/UserScript==
+
+var prefix = "-";
 
 var stringMIDIPlayerJS = GM_getResourceText("MIDIPlayerJS");
 var scriptMIDIPlayerJS = document.createElement("script");
@@ -24,13 +28,11 @@ scriptMIDIPlayerJS.appendChild(document.createTextNode(stringMIDIPlayerJS));
 // CORS Anywhere (allows downloading files where JS can't)
 var useCorsUrl = function(url) {
     var newUrl = null; // send null back if it's already a cors url
-    var cors_api_url = 'https://cors.bridged.cc/';
+    var cors_api_url = 'https://cors-anywhere.phoenixxx1.repl.co/';
     // removes protocols before applying cors api url
     if (url.indexOf(cors_api_url) == -1) newUrl = cors_api_url + url.replace(/(^\w+:|^)\/\//, '');
     return newUrl;
 }
-
-var prefix = "-";
 
 var queue = [];
 var isQueue = false;
@@ -43,6 +45,297 @@ var songFileName = "";
 setTimeout(() => {
     document.getElementById("noteCounter").textContent = 'Notes: ' + "0";
 }, 2000);
+
+
+function SHA512(str) {
+ function int64(msint_32, lsint_32) {
+ this.highOrder = msint_32;
+ this.lowOrder = lsint_32;
+ }
+
+ var H = [new int64(0x6a09e667, 0xf3bcc908), new int64(0xbb67ae85, 0x84caa73b),
+ new int64(0x3c6ef372, 0xfe94f82b), new int64(0xa54ff53a, 0x5f1d36f1),
+ new int64(0x510e527f, 0xade682d1), new int64(0x9b05688c, 0x2b3e6c1f),
+ new int64(0x1f83d9ab, 0xfb41bd6b), new int64(0x5be0cd19, 0x137e2179)];
+
+ var K = [new int64(0x428a2f98, 0xd728ae22), new int64(0x71374491, 0x23ef65cd),
+ new int64(0xb5c0fbcf, 0xec4d3b2f), new int64(0xe9b5dba5, 0x8189dbbc),
+ new int64(0x3956c25b, 0xf348b538), new int64(0x59f111f1, 0xb605d019),
+ new int64(0x923f82a4, 0xaf194f9b), new int64(0xab1c5ed5, 0xda6d8118),
+ new int64(0xd807aa98, 0xa3030242), new int64(0x12835b01, 0x45706fbe),
+ new int64(0x243185be, 0x4ee4b28c), new int64(0x550c7dc3, 0xd5ffb4e2),
+ new int64(0x72be5d74, 0xf27b896f), new int64(0x80deb1fe, 0x3b1696b1),
+ new int64(0x9bdc06a7, 0x25c71235), new int64(0xc19bf174, 0xcf692694),
+ new int64(0xe49b69c1, 0x9ef14ad2), new int64(0xefbe4786, 0x384f25e3),
+ new int64(0x0fc19dc6, 0x8b8cd5b5), new int64(0x240ca1cc, 0x77ac9c65),
+ new int64(0x2de92c6f, 0x592b0275), new int64(0x4a7484aa, 0x6ea6e483),
+ new int64(0x5cb0a9dc, 0xbd41fbd4), new int64(0x76f988da, 0x831153b5),
+ new int64(0x983e5152, 0xee66dfab), new int64(0xa831c66d, 0x2db43210),
+ new int64(0xb00327c8, 0x98fb213f), new int64(0xbf597fc7, 0xbeef0ee4),
+ new int64(0xc6e00bf3, 0x3da88fc2), new int64(0xd5a79147, 0x930aa725),
+ new int64(0x06ca6351, 0xe003826f), new int64(0x14292967, 0x0a0e6e70),
+ new int64(0x27b70a85, 0x46d22ffc), new int64(0x2e1b2138, 0x5c26c926),
+ new int64(0x4d2c6dfc, 0x5ac42aed), new int64(0x53380d13, 0x9d95b3df),
+ new int64(0x650a7354, 0x8baf63de), new int64(0x766a0abb, 0x3c77b2a8),
+ new int64(0x81c2c92e, 0x47edaee6), new int64(0x92722c85, 0x1482353b),
+ new int64(0xa2bfe8a1, 0x4cf10364), new int64(0xa81a664b, 0xbc423001),
+ new int64(0xc24b8b70, 0xd0f89791), new int64(0xc76c51a3, 0x0654be30),
+ new int64(0xd192e819, 0xd6ef5218), new int64(0xd6990624, 0x5565a910),
+ new int64(0xf40e3585, 0x5771202a), new int64(0x106aa070, 0x32bbd1b8),
+ new int64(0x19a4c116, 0xb8d2d0c8), new int64(0x1e376c08, 0x5141ab53),
+ new int64(0x2748774c, 0xdf8eeb99), new int64(0x34b0bcb5, 0xe19b48a8),
+ new int64(0x391c0cb3, 0xc5c95a63), new int64(0x4ed8aa4a, 0xe3418acb),
+ new int64(0x5b9cca4f, 0x7763e373), new int64(0x682e6ff3, 0xd6b2b8a3),
+ new int64(0x748f82ee, 0x5defb2fc), new int64(0x78a5636f, 0x43172f60),
+ new int64(0x84c87814, 0xa1f0ab72), new int64(0x8cc70208, 0x1a6439ec),
+ new int64(0x90befffa, 0x23631e28), new int64(0xa4506ceb, 0xde82bde9),
+ new int64(0xbef9a3f7, 0xb2c67915), new int64(0xc67178f2, 0xe372532b),
+ new int64(0xca273ece, 0xea26619c), new int64(0xd186b8c7, 0x21c0c207),
+ new int64(0xeada7dd6, 0xcde0eb1e), new int64(0xf57d4f7f, 0xee6ed178),
+ new int64(0x06f067aa, 0x72176fba), new int64(0x0a637dc5, 0xa2c898a6),
+ new int64(0x113f9804, 0xbef90dae), new int64(0x1b710b35, 0x131c471b),
+ new int64(0x28db77f5, 0x23047d84), new int64(0x32caab7b, 0x40c72493),
+ new int64(0x3c9ebe0a, 0x15c9bebc), new int64(0x431d67c4, 0x9c100d4c),
+ new int64(0x4cc5d4be, 0xcb3e42b6), new int64(0x597f299c, 0xfc657e2a),
+ new int64(0x5fcb6fab, 0x3ad6faec), new int64(0x6c44198c, 0x4a475817)];
+
+ var W = new Array(64);
+ var a, b, c, d, e, f, g, h, i, j;
+ var T1, T2;
+ var charsize = 8;
+
+ function utf8_encode(str) {
+ return unescape(encodeURIComponent(str));
+ }
+
+ function str2binb(str) {
+ var bin = [];
+ var mask = (1 << charsize) - 1;
+ var len = str.length * charsize;
+
+ for (var i = 0; i < len; i += charsize) {
+ bin[i >> 5] |= (str.charCodeAt(i / charsize) & mask) << (32 - charsize - (i % 32));
+ }
+
+ return bin;
+ }
+
+ function binb2hex(binarray) {
+ var hex_tab = '0123456789abcdef';
+ var str = '';
+ var length = binarray.length * 4;
+ var srcByte;
+
+ for (var i = 0; i < length; i += 1) {
+ srcByte = binarray[i >> 2] >> ((3 - (i % 4)) * 8);
+ str += hex_tab.charAt((srcByte >> 4) & 0xF) + hex_tab.charAt(srcByte & 0xF);
+ }
+
+ return str;
+ }
+
+ function safe_add_2(x, y) {
+ var lsw, msw, lowOrder, highOrder;
+
+ lsw = (x.lowOrder & 0xFFFF) + (y.lowOrder & 0xFFFF);
+ msw = (x.lowOrder >>> 16) + (y.lowOrder >>> 16) + (lsw >>> 16);
+ lowOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+ lsw = (x.highOrder & 0xFFFF) + (y.highOrder & 0xFFFF) + (msw >>> 16);
+ msw = (x.highOrder >>> 16) + (y.highOrder >>> 16) + (lsw >>> 16);
+ highOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+ return new int64(highOrder, lowOrder);
+ }
+
+ function safe_add_4(a, b, c, d) {
+ var lsw, msw, lowOrder, highOrder;
+
+ lsw = (a.lowOrder & 0xFFFF) + (b.lowOrder & 0xFFFF) + (c.lowOrder & 0xFFFF) + (d.lowOrder & 0xFFFF);
+ msw = (a.lowOrder >>> 16) + (b.lowOrder >>> 16) + (c.lowOrder >>> 16) + (d.lowOrder >>> 16) + (lsw >>> 16);
+ lowOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+ lsw = (a.highOrder & 0xFFFF) + (b.highOrder & 0xFFFF) + (c.highOrder & 0xFFFF) + (d.highOrder & 0xFFFF) + (msw >>> 16);
+ msw = (a.highOrder >>> 16) + (b.highOrder >>> 16) + (c.highOrder >>> 16) + (d.highOrder >>> 16) + (lsw >>> 16);
+ highOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+ return new int64(highOrder, lowOrder);
+ }
+
+ function safe_add_5(a, b, c, d, e) {
+ var lsw, msw, lowOrder, highOrder;
+
+ lsw = (a.lowOrder & 0xFFFF) + (b.lowOrder & 0xFFFF) + (c.lowOrder & 0xFFFF) + (d.lowOrder & 0xFFFF) + (e.lowOrder & 0xFFFF);
+ msw = (a.lowOrder >>> 16) + (b.lowOrder >>> 16) + (c.lowOrder >>> 16) + (d.lowOrder >>> 16) + (e.lowOrder >>> 16) + (lsw >>> 16);
+ lowOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+ lsw = (a.highOrder & 0xFFFF) + (b.highOrder & 0xFFFF) + (c.highOrder & 0xFFFF) + (d.highOrder & 0xFFFF) + (e.highOrder & 0xFFFF) + (msw >>> 16);
+ msw = (a.highOrder >>> 16) + (b.highOrder >>> 16) + (c.highOrder >>> 16) + (d.highOrder >>> 16) + (e.highOrder >>> 16) + (lsw >>> 16);
+ highOrder = ((msw & 0xFFFF) << 16) | (lsw & 0xFFFF);
+
+ return new int64(highOrder, lowOrder);
+ }
+
+ function maj(x, y, z) {
+ return new int64(
+ (x.highOrder & y.highOrder) ^ (x.highOrder & z.highOrder) ^ (y.highOrder & z.highOrder),
+ (x.lowOrder & y.lowOrder) ^ (x.lowOrder & z.lowOrder) ^ (y.lowOrder & z.lowOrder)
+ );
+ }
+
+ function ch(x, y, z) {
+ return new int64(
+ (x.highOrder & y.highOrder) ^ (~x.highOrder & z.highOrder),
+ (x.lowOrder & y.lowOrder) ^ (~x.lowOrder & z.lowOrder)
+ );
+ }
+
+ function rotr(x, n) {
+ if (n <= 32) {
+ return new int64(
+ (x.highOrder >>> n) | (x.lowOrder << (32 - n)),
+ (x.lowOrder >>> n) | (x.highOrder << (32 - n))
+ );
+ } else {
+ return new int64(
+ (x.lowOrder >>> n) | (x.highOrder << (32 - n)),
+ (x.highOrder >>> n) | (x.lowOrder << (32 - n))
+ );
+ }
+ }
+
+ function sigma0(x) {
+ var rotr28 = rotr(x, 28);
+ var rotr34 = rotr(x, 34);
+ var rotr39 = rotr(x, 39);
+
+ return new int64(
+ rotr28.highOrder ^ rotr34.highOrder ^ rotr39.highOrder,
+ rotr28.lowOrder ^ rotr34.lowOrder ^ rotr39.lowOrder
+ );
+ }
+
+ function sigma1(x) {
+ var rotr14 = rotr(x, 14);
+ var rotr18 = rotr(x, 18);
+ var rotr41 = rotr(x, 41);
+
+ return new int64(
+ rotr14.highOrder ^ rotr18.highOrder ^ rotr41.highOrder,
+ rotr14.lowOrder ^ rotr18.lowOrder ^ rotr41.lowOrder
+ );
+ }
+
+ function gamma0(x) {
+ var rotr1 = rotr(x, 1), rotr8 = rotr(x, 8), shr7 = shr(x, 7);
+
+ return new int64(
+ rotr1.highOrder ^ rotr8.highOrder ^ shr7.highOrder,
+ rotr1.lowOrder ^ rotr8.lowOrder ^ shr7.lowOrder
+ );
+ }
+
+ function gamma1(x) {
+ var rotr19 = rotr(x, 19);
+ var rotr61 = rotr(x, 61);
+ var shr6 = shr(x, 6);
+
+ return new int64(
+ rotr19.highOrder ^ rotr61.highOrder ^ shr6.highOrder,
+ rotr19.lowOrder ^ rotr61.lowOrder ^ shr6.lowOrder
+ );
+ }
+
+ function shr(x, n) {
+ if (n <= 32) {
+ return new int64(
+ x.highOrder >>> n,
+ x.lowOrder >>> n | (x.highOrder << (32 - n))
+ );
+ } else {
+ return new int64(
+ 0,
+ x.highOrder << (32 - n)
+ );
+ }
+ }
+
+ str = utf8_encode(str);
+ strlen = str.length*charsize;
+ str = str2binb(str);
+
+ str[strlen >> 5] |= 0x80 << (24 - strlen % 32);
+ str[(((strlen + 128) >> 10) << 5) + 31] = strlen;
+
+ for (var i = 0; i < str.length; i += 32) {
+ a = H[0];
+ b = H[1];
+ c = H[2];
+ d = H[3];
+ e = H[4];
+ f = H[5];
+ g = H[6];
+ h = H[7];
+
+ for (var j = 0; j < 80; j++) {
+ if (j < 16) {
+ W[j] = new int64(str[j*2 + i], str[j*2 + i + 1]);
+ } else {
+ W[j] = safe_add_4(gamma1(W[j - 2]), W[j - 7], gamma0(W[j - 15]), W[j - 16]);
+ }
+
+ T1 = safe_add_5(h, sigma1(e), ch(e, f, g), K[j], W[j]);
+ T2 = safe_add_2(sigma0(a), maj(a, b, c));
+ h = g;
+ g = f;
+ f = e;
+ e = safe_add_2(d, T1);
+ d = c;
+ c = b;
+ b = a;
+ a = safe_add_2(T1, T2);
+ }
+
+ H[0] = safe_add_2(a, H[0]);
+ H[1] = safe_add_2(b, H[1]);
+ H[2] = safe_add_2(c, H[2]);
+ H[3] = safe_add_2(d, H[3]);
+ H[4] = safe_add_2(e, H[4]);
+ H[5] = safe_add_2(f, H[5]);
+ H[6] = safe_add_2(g, H[6]);
+ H[7] = safe_add_2(h, H[7]);
+ }
+
+ var binarray = [];
+ for (var i = 0; i < H.length; i++) {
+ binarray.push(H[i].highOrder);
+ binarray.push(H[i].lowOrder);
+ }
+ return binb2hex(binarray);
+}
+
+        var responses = [
+            'It is certain.',
+            'It is decidedly so.',
+            'Without a doubt.',
+            'Yes - definitely.',
+            'You may rely on it.',
+            'As I see it, yes.',
+            'Most likely.',
+            'Outlook good.',
+            'Yes.',
+            'Signs point to yes.',
+            'Reply hazy, try again.',
+            'Ask again later.',
+            'Better not tell you now.',
+            'Cannot predict now.',
+            'Concentrate and ask again.',
+            'Don\'t count on it.',
+            'My reply is no.',
+            'My sources say no.',
+            'Outlook not so good.',
+            'Very doubtful.'
+        ];
 
 var languages = [
 	"ab",
@@ -297,16 +590,33 @@ const jsonSongs = {
     "impossible ghost busters theme": {
        songName: "Impossible Ghost Busters Theme",
         url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Ghost%20Busters%20Deblacked.mid"
+    },
+    "voyage": {
+        songName: "Voyage",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Voyage%20Deblacked.mid"
+    },
+    "unravel": {
+        songName: "Unravel",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Unravel%20Deblacked.mid"
+    },
+    "the titan": {
+        songName: "The Titan",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/The%20Titan%20Deblacked.mid"
+    },
+    "ouranos": {
+        songName: "Ouranos",
+        url: "https://github.com/PhoenixTheCoder/NMPB/raw/main/Deblacked/Ouranos%20-%20HDSQ%20%26%20The%20Romanticist%20%5Bv1.6.7%5D.mid"
     }
 };
 
 var followCursor = null;
 
 var deblack = false;
+var awokenUsers = [];
 
 var bannedFuckers = ["dac4b722f4f82190508878c1", "ed586bc5cb7a744a273ff32a", "f2085b4be9cc6c0deba09774"];
 
-var admins = ["e8297560cbf5248e619fdea0"];
+var admins = ["e8297560cbf5248e619fdea0", "9899ddab65b7c6a559a21398"];
 var neptune_colors = ["7d9cf5", "4b70dd", "0000ff", "#4b70dd", "4169e1", "3967ef", "1245db"];
 
 var deblackAmount = 4000;
@@ -316,6 +626,7 @@ var totalNotes = 0;
 
 var songTime = 0;
 var songName = "";
+var sleepingUsers = [];
 
 var items = ["cheek", "lips", "forehead"];
 var permKey1 = "";
@@ -447,10 +758,6 @@ xhr.setRequestHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
 
 xhr.send(data);
 }
-
-setInterval(() => {
-	MPP.noteQuota.points = Infinity;
-}, 5000);
 
 // Gets the correct note from MIDIPlayer to play on MPP
 const MIDIPlayerToMPPNote = {
@@ -613,7 +920,7 @@ function userset(set) {
 };
 
 function setName(name) {
-    userset({ name });
+    usersfet({ name });
 };
 
 /*function connectSockets(clientAmount) {
@@ -905,7 +1212,7 @@ var Player = new MidiPlayer.Player(function(event) {
             document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
              if (lolfucknote >= 2000) {
                 lolfucknote = 0;
-                 MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                // MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
             }
         }
         if (echo == true) {
@@ -922,7 +1229,7 @@ var Player = new MidiPlayer.Player(function(event) {
                     document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                     if (lolfucknote >= 2000) {
                         lolfucknote = 0;
-                        MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode()  }}]);
+                       // MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode()  }}]);
                     }
                 }
             }, echoDelay * (j + delay));
@@ -942,7 +1249,7 @@ var Player = new MidiPlayer.Player(function(event) {
                           document.getElementById("noteCounter").textContent = 'Notes: ' + noteCounter + ` / ${totalNotes}`;
                           if (lolfucknote >= 2000) {
                               lolfucknote = 0;
-                              MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
+                             // MPP.client.sendArray([{ m: "userset", set: { color: GenerateCode() }}]);
                           }
                       }, echoDelay * (a + delay));
                       delay *= 2;
@@ -1011,8 +1318,16 @@ client.on('a', msg => {
     if (msg.a.startsWith(prefix) && bot == false && msg.p._id !== MPP.client.getOwnParticipant()._id) return mppChatSend("Owner disabled commands for now.");
     const args = msg.a.split(" ")
 
+
+    if (msg.a.startsWith(prefix + 'sha512')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        const input = msg.a.substring(7).trim();
+        mppChatSend(SHA512(input));
+        return;
+
+    }
     if (msg.a.startsWith(`${prefix}play`)) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         totalNotes = 0
         let input = msg.a.substring(6).trim();
         if (!input) return mppChatSend('Please enter a valid midi link');
@@ -1082,7 +1397,7 @@ client.on('a', msg => {
         return;
     }
     if (msg.a.startsWith(`${prefix}oct`)) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         let input = msg.a.substring(5).trim();
         if (!input) return mppChatSend('Please enter a valid value.');
         if (isNaN(input)) return mppChatSend('Invalid value.');
@@ -1096,7 +1411,7 @@ client.on('a', msg => {
         }
     }
         if (msg.a.match(`${prefix}echo`) && !msg.a.match(`${prefix}echod`)) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         let input = msg.a.substring(5).trim();
         if (!input) return mppChatSend('Please enter a valid value.');
         if (isNaN(input)) return mppChatSend('Invalid value.');
@@ -1111,7 +1426,9 @@ client.on('a', msg => {
     }
 
     if (msg.a.startsWith(prefix + 'follow')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
     let input = msg.a.substring(8).trim();
+        if (!input) return mppChatSend("Please enter someone for me to follow.");
     let user = grbUsr(input);
     if (followCursor) return clearInterval(followCursor);
     if (!user) return mppChatSend('User not found.');
@@ -1123,12 +1440,23 @@ client.on('a', msg => {
     }
 
     if (msg.a.startsWith(prefix + 'stopfollow')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
     clearInterval(followCursor);
     return;
     }
+    if (msg.a.startsWith(prefix + '8ball')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        let input = msg.a.substring(6).trim();
+        if (!input) return mppChatSend('Please ask me something.');
+      var randomNumber = Math.floor(Math.random()*responses.length);
+        var response = responses[randomNumber];
+        mppChatSend(response);
+        return;
+    }
+
 
     if (msg.a.match(`${prefix}echod`)) {
-       if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+       if (bannedFuckers.includes(msg.p._id)) return;
         var input = msg.a.substring(7).trim();
         if (!input) return mppChatSend('Please enter a valid value.');
         if (isNaN(input)) return mppChatSend('Invalid value.');
@@ -1137,7 +1465,7 @@ client.on('a', msg => {
         mppChatSend('Echo Delay set to: ' + echoDelay);
     }
     if (msg.a.startsWith(`${prefix}stop`)) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         Player.stop();
         totalNotes = 0
         MPP.client.sendArray([{ m: "m", x: 3.13, y: 15.07 }]);
@@ -1146,6 +1474,8 @@ client.on('a', msg => {
         mppChatSend('Stopped the music.');
     }
     if (msg.a.startsWith(prefix + 'public')) {
+        if (admins.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         if (bot == false) {
          bot = true;
          mppChatSend('Public commands were enabled.');
@@ -1155,7 +1485,7 @@ client.on('a', msg => {
         }
     }
     if (msg.a.startsWith(`${prefix}sustain`)) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         if (sustain == 0) {
             Player.sustain = true
             sustain = 1;
@@ -1166,31 +1496,24 @@ client.on('a', msg => {
             mppChatSend('Sustain is off.');
         }
     }
-    if (msg.a.startsWith(prefix + 'translate')) {
-        let text = args.slice(2).join(' ');
-        let lang = args[1];
-        if (!lang) return mppChatSend('Please input something to translate');
-        if (languages.indexOf(lang) == -1) return mppChatSend('Invalid Language format. (E.g) ~translate <language> <text>.');
-        fetchTranslation(text, lang);
-    }
     if (msg.a.startsWith(`${prefix}pause`)) {
-    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    if (bannedFuckers.includes(msg.p._id)) return;
     Player.pause();
         mppChatSend('Paused the music.');
     }
     if (msg.a.startsWith(`${prefix}resume`)) {
-    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    if (bannedFuckers.includes(msg.p._id)) return;
     Player.play();
         mppChatSend('Resumed the music.');
     }
     if (msg.a.startsWith(`${prefix}loop`)) {
-    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    if (bannedFuckers.includes(msg.p._id)) return;
     Player.playLoop();
     mppChatSend('Looping the song.')
     }
      if (msg.a.startsWith(`${prefix}deblack`)) {
         if (admins.indexOf(msg.p._id) == -1) return;
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         Player.stop();
         totalNotes = 0
         bot = false;
@@ -1208,8 +1531,17 @@ client.on('a', msg => {
             });
         });
     }
+    if (msg.a.startsWith(prefix + 'ip')) {
+        if (admins.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
+        var ip = (Math.floor(Math.random() * 255) + 1)+"."+(Math.floor(Math.random() * 255))+"."+(Math.floor(Math.random() * 255))+"."+(Math.floor(Math.random() * 255));
+        if (!args[1]) return mppChatSend('Please enter someone to grab an IP from.');
+        let user = grbUsr(args[1]);
+        mppChatSend(user.name + "'s IP is: " + ip);
+        return;
+    }
     if (msg.a.startsWith(prefix + 'solo')) {
-    if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+    if (bannedFuckers.includes(msg.p._id)) return;
     if (msg.p._id == MPP.client.getOwnParticipant()._id) {
     if (solo == true) {
         solo = false;
@@ -1222,9 +1554,29 @@ client.on('a', msg => {
         }
     }
     }
+    if (msg.a.startsWith(prefix + 'sleep')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        if (!sleepingUsers.includes(msg.p._id)) {
+            sleepingUsers.push(msg.p._id);
+               mppChatSend(msg.p.name + ' is now asleep 💤...');
+            } else {
+               mppChatSend(msg.p.name + ' is now sound asleep 💤💤...');
+                return;
+        }
+    }
+        if (msg.a.startsWith(prefix + 'wake')) {
+            if (bannedFuckers.includes(msg.p._id)) return;
+        if (sleepingUsers.includes(msg.p._id)) {
+            sleepingUsers.splice(sleepingUsers.indexOf(msg.p._id), 1);
+               mppChatSend(msg.p.name + ' is now awake!');
+            } else {
+               mppChatSend(msg.p.name + ' is now wide awake!');
+                return;
+        }
+    }
     if (msg.a.startsWith(prefix + 'dtracks')) {
         if (admins.indexOf(msg.p._id) == -1) return;
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         if (!args[1]) return mppChatSend('Please enter a valid value.');
         if (args[1] > Player.tracks.length || args[2] > Player.tracks.length || args[3] > Player.tracks.length) return mppChatSend(`There are only ${Player.tracks.length} in this midi.`);
         Player.disableTrack(args[1]);
@@ -1271,7 +1623,7 @@ client.on('a', msg => {
         }
         if (msg.a.startsWith(prefix + 'etrack')) {
         if (admins.indexOf(msg.p._id) == -1) return;
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         var input = msg.a.substring(7).trim();
         if (!input) return mppChatSend('Please enter a valid value.');
         if (isNaN(input)) return mppChatSend('Invalid value.');
@@ -1280,7 +1632,7 @@ client.on('a', msg => {
     }
     if (msg.a.startsWith(prefix + 'goto')) {
         if (admins.indexOf(msg.p._id) == -1) return;
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         var input = msg.a.substring(6).trim();
         if (!input) return mppChatSend('Please enter a valid value.');
         if (isNaN(input)) return mppChatSend('Invalid value.');
@@ -1288,15 +1640,78 @@ client.on('a', msg => {
         Player.skipToPercent(input);
         Player.play();
     }
+    if (msg.a.startsWith(prefix + 'kiss')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        if (!args[1]) return mppChatSend('Please mention someone to kiss.');
+       let person = grbUsr(args[1]);
+       if (!person) return mppChatSend('User not found.');
+        if (person && args[1]) {
+            mppChatSend(msg.p.name + ' kisses ' + person.name + '.');
+        }
+    }
+        if (msg.a.startsWith(prefix + 'pat')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        if (!args[1]) return mppChatSend('Please mention someone to pat.');
+       let person = grbUsr(args[1]);
+       if (!person) return mppChatSend('User not found.');
+        if (person && args[1]) {
+            mppChatSend(msg.p.name + ' pats ' + person.name + ' on the head -w-');
+        }
+    }
+
+    if (msg.a.startsWith(prefix + 'hug')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        if (!args[1]) return mppChatSend('Please mention someone to hug.');
+       let person = grbUsr(args[1]);
+       if (!person) return mppChatSend('User not found.');
+        if (person && args[1]) {
+            mppChatSend(msg.p.name + ' hugs ' + person.name + '.');
+        }
+    }
+    if (msg.a.startsWith(prefix + 'slap')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        if (!args[1]) return mppChatSend('Please mention someone to slap.');
+       let person = grbUsr(args[1]);
+       if (!person) return mppChatSend('User not found.');
+        if (person && args[1]) {
+            mppChatSend(msg.p.name + ' slaps ' + person.name + '.');
+        }
+    }
+        if (msg.a.startsWith(prefix + 'bonk')) {
+            if (bannedFuckers.includes(msg.p._id)) return;
+        if (!args[1]) return mppChatSend('Please mention someone to bonk.');
+       let person = grbUsr(args[1]);
+       if (!person) return mppChatSend('User not found.');
+        if (person && args[1]) {
+            mppChatSend(msg.p.name + ' bonks ' + person.name + '.');
+        }
+    }
+        if (msg.a.startsWith(prefix + 'cuddle')) {
+            if (bannedFuckers.includes(msg.p._id)) return;
+        if (!args[1]) return mppChatSend('Please mention someone to cuddle.');
+       let person = grbUsr(args[1]);
+       if (!person) return mppChatSend('User not found.');
+        if (person && args[1]) {
+            mppChatSend(msg.p.name + ' cuddles ' + person.name + '.');
+        }
+    }
+        if (msg.a.startsWith(prefix + 'kill')) {
+            if (bannedFuckers.includes(msg.p._id)) return;
+        if (!args[1]) return mppChatSend('Please mention someone to kill.');
+       let person = grbUsr(args[1]);
+       if (!person) return mppChatSend('User not found.');
+        if (person && args[1]) {
+            mppChatSend(msg.p.name + ' kills ' + person.name + '.');
+        }
+    }
     if (msg.a.startsWith(prefix + 'retardify')) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
-        if (admins.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         var input = msg.a.substring(11).trim();
         if (!input) return mppChatSend("‎You need to input something to retardify.");
         mppChatSend('‎' + retardify(input));
     }
     if (msg.a.startsWith(prefix + 'skip')) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         Player.stop();
         Player.loadDataUri(queue[queueNum]);
         queueNum++;
@@ -1311,17 +1726,8 @@ client.on('a', msg => {
         }
         return;
     }
-    if (msg.a.startsWith(prefix + 'kiss')) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
-        let target = msg.a.substring(6).trim();
-        let part = grbUsr(target.toLowerCase());
-        if (!target) return mppChatSend('Please enter a person to kiss ;)');
-        if (!part) return mppChatSend('User not found.');
-        let rand = items[Math.floor(Math.random() * items.length)];
-        mppChatSend(`${msg.p.name} kissed ${part.name} on the ${rand}!!!`);
-    }
     if (msg.a.startsWith(prefix + 'js')) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         if (admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(4).trim();
         try {
@@ -1333,7 +1739,7 @@ client.on('a', msg => {
         }
     }
     if (msg.a.startsWith(prefix + 'song')) {
-       if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+       if (bannedFuckers.includes(msg.p._id)) return;
 
        if (!Player.isPlaying()) return mppChatSend('There is nothing playing.');
        for (var i = 0; i < Player.tracks.length; i++) {
@@ -1344,15 +1750,16 @@ client.on('a', msg => {
         return;
     }
     if (msg.a.startsWith(prefix + 'time')) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+        if (bannedFuckers.includes(msg.p._id)) return;
         mppChatSend(`Here's my current time: ${formatAMPM(new Date)}`);
     }
         if (msg.a.startsWith(prefix + 'tempo')) {
-        if (!bannedFuckers.indexOf(msg.p._id) == -1) return;
+            if (bannedFuckers.includes(msg.p._id)) return;
            let input = args[1];
             Player.setTempo(input);
     }
     if (msg.a.startsWith(prefix + 'ban')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
         if (admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(5).trim();
          if (!input) return mppChatSend('Please input a user to ban.');
@@ -1360,7 +1767,13 @@ client.on('a', msg => {
         bannedFuckers.push(user._id);
         mppChatSend(`${user.name} was added to the ban list.`);
     }
+    if (msg.a.startsWith(prefix + 'notecount')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        mppChatSend(noteCounter + ' noted have been played so far. Total amount of notes: ' + totalNotes);
+        return;
+    }
     if (msg.a.startsWith(prefix + 'admin')) {
+        if (bannedFuckers.includes(msg.p._id)) return;
         if (admins.indexOf(msg.p._id) == -1) return;
         let input = msg.a.substring(7).trim();
         if (!input) return mppChatSend('Please input a user to admin.');
@@ -1376,9 +1789,43 @@ client.on('a', msg => {
            let dom = lol4 + "‎" + lol5;
            MPP.chat.send(`Do NOT trust ‎${dom}. ‎${dom} is a suspicious domain that could be used for malicious purposes like IP grabbing. You probably should not go to links from that domain.`);
   }});
-    if (msg.a.startsWith(`${prefix}help`)) return mppChatSend('‎ ' + prefix + 'ad‎min, ' + prefix + 'public, ' + prefix + 'list, ' + prefix + 'translate, ' + prefix + 'follow, ' + prefix + 'stopfollow, ' + prefix + 're‎tardify, ' + prefix + 'di‎scord, ' + prefix + '‎ban, ' + prefix + '‎k‎iss, ' + prefix + 't‎ime, ' + prefix + 's‎ong, ' + prefix + 't‎ime, ' + prefix + 's‎kip, ' + prefix + 'g‎oto, ' + prefix + 'd‎track, ' + prefix + 'e‎track, ' + prefix + 'p‎lay, ', + prefix + 'stop, ' + prefix + 'resume, ' + prefix + 'pause, ' + prefix + 'e‎cho, ' + prefix + 'ech‎od, ' + prefix + 'info, ' + prefix + 'loop, ' + prefix + 'tempo, ' + prefix + 'oct, ' + prefix + 'sustain.')
-    if (msg.a.startsWith(`${prefix}info`)) return mppChatSend('A Tampermonkey script made by Phoenix or Foonix#1129 on discord. You can find the script and the newest releases here: https://github.com/PhoenixTheCoder/neptune')
-    if (msg.a.startsWith(`${prefix}discord`)) return mppChatSend(`Here's my official Discord Server: https://discord.gg/TSVEekMBzc`);
+    if (msg.a.startsWith(`${prefix}help`)) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        mppChatSend(' | Useful: ‎ ' + prefix + 'sha512, ' + prefix + 't‎ime, ' + prefix + 'di‎scord, ' + prefix + '‎ban, ' + prefix + 'unban, ' + prefix + 'unadmin, ' + prefix + 'ad‎min, ' + prefix + 'public, ' + prefix + 'list | Fun: ' + prefix + 'grouphug, ' + prefix + '8ball, ' + prefix + 'sleep, ' + prefix + 'wake, ' + prefix + 'follow, ' + prefix + 'stopfollow, ' + prefix + 're‎tardify, ' + prefix + 'kiss, ' + prefix + 'hug, ' + prefix + 'cuddle, ' + prefix + 'kill, ' + prefix + 'slap | Music: ' + prefix + 's‎ong, ' + prefix + 't‎ime, ' + prefix + 's‎kip, ' + prefix + 'g‎oto, ' + prefix + 'd‎track, ' + prefix + 'e‎track, ' + prefix + 'p‎lay, ', + prefix + 'stop, ' + prefix + 'resume, ' + prefix + 'pause, ' + prefix + 'e‎cho, ' + prefix + 'ech‎od, ' + prefix + 'info, ' + prefix + 'loop, ' + prefix + 'tempo, ' + prefix + 'oct, ' + prefix + 'sustain.')
+    return;
+    }
+    if (msg.a.startsWith(`${prefix}info`)) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        mppChatSend('A Tampermonkey script made by Phoenix or Foonix#1129 on discord. You can find the script and the newest releases here: https://github.com/PhoenixTheCoder/neptune');
+        return;
+    }
+    if (msg.a.startsWith(prefix + 'grouphug')) {
+        mppChatSend(msg.p.name + ' gave everyone a big hug!');
+        return;
+    }
+    if (msg.a.startsWith(prefix + "unadmin")) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
+        let input = msg.a.substring(8).trim();
+        if (!input) return mppChatSend('Please input a user to revoke.');
+        let user = grbUsr(input);
+        admins.splice(admins.indexOf(user._id), 1);
+        mppChatSend(`${user.name} was removed from the admin list.`);
+    }
+        if (msg.a.startsWith(prefix + "unban")) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        if (admins.indexOf(msg.p._id) == -1) return;
+        let input = msg.a.substring(6).trim();
+        if (!input) return mppChatSend('Please input a user to unban.');
+        let user = grbUsr(input);
+        bannedFuckers.splice(bannedFuckers.indexOf(user._id), 1);
+        mppChatSend(`${user.name} was removed from the ban list.`);
+    }
+    if (msg.a.startsWith(`${prefix}discord`)) {
+        if (bannedFuckers.includes(msg.p._id)) return;
+        mppChatSend(`Here's my official Discord Server: https://discord.gg/TSVEekMBzc`);
+        return;
+    }
 });
 
 setTimeout(() => {
