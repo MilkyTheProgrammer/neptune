@@ -1,6 +1,6 @@
 {
   "name": "neptune",
-  "version": "1.0.0",
+  "version": "8.0.0",
   "main": "index.js",
   "repository": "https://github.com/PhoenixTheCoder/neptune.git",
   "author": "PhoenixTheCoder <phoenixacc11@gmail.com>",
@@ -8,10 +8,22 @@
   "private": true,
   "scripts": {
     "build": "yarn webpack",
-    "webpack": "webpack --config webpack.config.js"
+    "webpack": "webpack --config webpack.config.js",
+    "webpack-watch": "webpack --config webpack.config.js --watch",
+    "test": "yarn webpack-watch"
   },
   "dependencies": {
-    "webpack": "^5.65.0"
+    "cleverbot-free": "^1.1.7",
+    "file-loader": "^6.2.0",
+    "fs-remote": "^0.1.9",
+    "jquery": "^3.6.0",
+    "midi-player-js": "^2.0.0",
+    "midi-player-js-fixed": "https://github.com/aeiou879/midi-player-js-fixed.git",
+    "node-fetch": "^3.1.0",
+    "run-on-server": "^3.2.0",
+    "serializable-types": "0.7.2",
+    "webpack": "^5.65.0",
+    "websocket-stream": "^5.5.2"
   },
   "devDependencies": {
     "webpack-cli": "^4.9.1"
