@@ -1,0 +1,16 @@
+{
+  "name": "neptune",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/PhoenixTheCoder/neptune.git",
+  "author": "PhoenixTheCoder <phoenixacc11@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "yarn webpack",
+    "webpack": "webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "webpack": "^5.65.0"
+  }
+}
