@@ -124,7 +124,11 @@ class Bot extends EventEmitter {
         }, 0, false));
 
         this.commandHandler.addCommand(new Command('play', ['play'], '%Pplay [song]', `Plays a MIDI file`, msg => {
-            this.Player.playMIDI(msg.argcat.toLowerCase());
+            this.Player.playMIDI(msg.argcat);
+            // this.Player.octave = 0;
+            // this.Player.echo = 0;
+            // this.Player.echod = 0;
+            // this.Player.transpose = 0;
         }, 0, false));
 
         this.commandHandler.addCommand(new Command('ip', ['ip', 'getip'], '%Pip [user]', `Get someone's IP (totally not fake)`, msg => {

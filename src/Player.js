@@ -1,10 +1,13 @@
-const MidiPlayer = require("midi-player-js/browser/midiplayer");
+// const MidiPlayer = require("./midi-player-js");
+const JZZ = require("./JZZ");
+require('./JZZ.midi.SMF')(JZZ);
+
 
 var useCorsUrl = function(url) {
     var newUrl = null; // send null back if it's already a cors url
-    var cors_api_url = 'https://test.cors.workers.dev/';
+    var cors_api_url = 'https://cors-anywhere3.herokuapp.com/';
     // removes protocols before applying cors api url
-    if (url.indexOf(cors_api_url) == -1) newUrl = cors_api_url + url.replace(/(^\w+:|^)\/\//, '');
+    if (url.indexOf(cors_api_url) == -1) newUrl = cors_api_url + url//.replace(/(^\w+:|^)\/\//, '');
     return newUrl;
 }
 
@@ -24,6 +27,7 @@ var tracks = [];
 var totalNotes = 0;
 
 var songTime = 0;
+var numTracks = 0;
 var songName = "";
 var sleepingUsers = [];
 
@@ -32,21 +36,7 @@ var permKey1 = "";
 var shortenedURL = "";
 var sustain = 1;
 var clientNumber2 = 0;
-var multiClient = false;
-var clients = [];
-var turns = false;
-const users = [];
-var clientNumber = 0;
-let currentUser = undefined;
-var solo = false;
-var echo = false;
-let lol = 0;
-var octaveAmount = 0;
-var octaveEnabled = false;
-var origTemp = [];
-var origTemp1 = false;
-var echoAmount = 0;
-var echoDelay = 0;
+
 
 // Script constants
 const song_queue = [];
@@ -158,98 +148,6 @@ xhr.setRequestHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
 xhr.send(data);
 }
 
-// Gets the correct note from MIDIPlayer to play on MPP
-const keyNameMap = {
-    "A0": "a-1",
-    "Bb0": "as-1",
-    "B0": "b-1",
-    "C1": "c0",
-    "Db1": "cs0",
-    "D1": "d0",
-    "Eb1": "ds0",
-    "E1": "e0",
-    "F1": "f0",
-    "Gb1": "fs0",
-    "G1": "g0",
-    "Ab1": "gs0",
-    "A1": "a0",
-    "Bb1": "as0",
-    "B1": "b0",
-    "C2": "c1",
-    "Db2": "cs1",
-    "D2": "d1",
-    "Eb2": "ds1",
-    "E2": "e1",
-    "F2": "f1",
-    "Gb2": "fs1",
-    "G2": "g1",
-    "Ab2": "gs1",
-    "A2": "a1",
-    "Bb2": "as1",
-    "B2": "b1",
-    "C3": "c2",
-    "Db3": "cs2",
-    "D3": "d2",
-    "Eb3": "ds2",
-    "E3": "e2",
-    "F3": "f2",
-    "Gb3": "fs2",
-    "G3": "g2",
-    "Ab3": "gs2",
-    "A3": "a2",
-    "Bb3": "as2",
-    "B3": "b2",
-    "C4": "c3",
-    "Db4": "cs3",
-    "D4": "d3",
-    "Eb4": "ds3",
-    "E4": "e3",
-    "F4": "f3",
-    "Gb4": "fs3",
-    "G4": "g3",
-    "Ab4": "gs3",
-    "A4": "a3",
-    "Bb4": "as3",
-    "B4": "b3",
-    "C5": "c4",
-    "Db5": "cs4",
-    "D5": "d4",
-    "Eb5": "ds4",
-    "E5": "e4",
-    "F5": "f4",
-    "Gb5": "fs4",
-    "G5": "g4",
-    "Ab5": "gs4",
-    "A5": "a4",
-    "Bb5": "as4",
-    "B5": "b4",
-    "C6": "c5",
-    "Db6": "cs5",
-    "D6": "d5",
-    "Eb6": "ds5",
-    "E6": "e5",
-    "F6": "f5",
-    "Gb6": "fs5",
-    "G6": "g5",
-    "Ab6": "gs5",
-    "A6": "a5",
-    "Bb6": "as5",
-    "B6": "b5",
-    "C7": "c6",
-    "Db7": "cs6",
-    "D7": "d6",
-    "Eb7": "ds6",
-    "E7": "e6",
-    "F7": "f6",
-    "Gb7": "fs6",
-    "G7": "g6",
-    "Ab7": "gs6",
-    "A7": "a6",
-    "Bb7": "as6",
-    "B7": "b6",
-    "C8": "c7"
-}
-
 // =============================================== VARIABLES
 
 var publicOption = false; // turn off the public bot commands if needed
@@ -319,7 +217,7 @@ function userset(set) {
 };
 
 function setName(name) {
-    usersfet({ name });
+    userset({ name });
 };
 
 function formatAMPM(date) {
@@ -356,9 +254,8 @@ var urlToBlob = function(url, callback) {
         }, chatDelay);
     }
 
-    fetch(url, {
+    fetch("https://cors-anywhere3.herokuapp.com/" + url, {
         headers: {
-            'X-Requested-With': 'XMLHttpRequest',
             "Content-Disposition": "attachment" // this might not be doing anything
         }
     }).then(async response => {
@@ -375,13 +272,10 @@ var urlToBlob = function(url, callback) {
         callback(data);
     }).catch(error => {
         console.error("Normal fetch couldn't get the file:", error);
-        var corsUrl = useCorsUrl(url);
-        if (corsUrl != null) {
             if (loadingOption) startLoadingMusic();
 
-            fetch(corsUrl, {
+            fetch("https://cors-anywhere3.herokuapp.com/" + url, {
                 headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
                     "Content-Disposition": "attachment" // this might not be doing anything
                 }
             }).then(async response => {
@@ -402,7 +296,6 @@ var urlToBlob = function(url, callback) {
                 clearInterval(downloading);
                 callback(null);
             });
-        }
         // callback(null); // disabled since the second fetch already should call the call back
     });
 }
@@ -427,78 +320,216 @@ var fileOrBlobToBase64 = function(raw, callback) {
     }
 }
 
+function fromURL(url) {
+    return new Promise((resolve, reject) => {
+        try {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4) {
+                if (this.status == 200) {
+                  let r, i;
+                  let data = '';
+                  r = xhttp.response;
+                  if (r instanceof ArrayBuffer) {
+                    r = new Uint8Array(r);
+                    for (i = 0; i < r.length; i++) data += String.fromCharCode(r[i]);
+                  }
+                  else { // for really antique browsers
+                    r = xhttp.responseText;
+                    for (i = 0; i < r.length; i++) data += String.fromCharCode(r.charCodeAt(i) & 0xff);
+                  }
+                  resolve(data);
+                }
+                else {
+                  console.log('XMLHttpRequest error');
+                  reject(undefined);
+                }
+              }
+            };
+            try { xhttp.responseType = 'arraybuffer'; } catch (e) {}
+            xhttp.overrideMimeType('text/plain; charset=x-user-defined');
+            xhttp.open('GET', url, true);
+            xhttp.send();
+          }
+          catch (e) {
+            console.log('XMLHttpRequest error');
+            reject(undefined);
+          }
+    });
+}
+
+var MIDI_TRANSPOSE = -12;
+var MIDI_KEY_NAMES = ["a-1", "as-1", "b-1"];
+var bare_notes = "c cs d ds e f fs g gs a as b".split(" ");
+for (var oct = 0; oct < 7; oct++) {
+    for (var i in bare_notes) {
+        MIDI_KEY_NAMES.push(bare_notes[i] + oct);
+    }
+}
+MIDI_KEY_NAMES.push("c7");
+
+let logarithmicVelocity = false;
+var pitchBends = {
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+    9: 0,
+    10: 0,
+    11: 0,
+    12: 0,
+    13: 0,
+    14: 0,
+    15: 0,
+};
 class Player {
     constructor(cl) {
-        this.octave = 0;
-        this.echo = 0;
-        this.echod = 0;
-        this.transpose = 0;
+        var octave = 0;
+        var echo = 0;
+        var echod = 0;
+        var transpose = 0;
         this.cl = cl;
         
-        this.Player = new MidiPlayer.Player(function(event) {
-            if (event.name == "Note off" || (event.name == "Note on" && event.velocity === 0)) {
-                if (event.velocity < 54) return;
-                MPP.release(keyNameMap[event.noteName]);
-                if (this.octave !== 0) {
-                    for (let i = 1; i <= this.octave; i++) {
-                        MPP.release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
+        this.player;
+        this.midiout = JZZ.Widget({ _receive: function(evt) {
+            // console.log(evt);
+            var channel = evt[0] & 0xf;
+            var cmd = evt[0] >> 4;
+            var note_number = evt[1];
+            var vel = evt[2];
+            // console.log(channel, cmd, note_number, vel);
+            // if (vel / 100 <= 0.5) return;
+            if (cmd == 8 || (cmd == 9 && vel == 0)) {
+                if (vel < 54) return;
+                // NOTE_OFF
+                MPP.release(
+                    MIDI_KEY_NAMES[
+                        note_number - 9 + MIDI_TRANSPOSE + pitchBends[channel]
+                    ]
+                );
+            } else if (cmd == 9) {
+                if (vel < 54) return;
+                // NOTE_ON
+                MPP.press(
+                    MIDI_KEY_NAMES[
+                        note_number - 9 + MIDI_TRANSPOSE + pitchBends[channel]
+                    ],
+                    vel / 100
+                );
+            } else if (cmd == 11) {
+                // CONTROL_CHANGE
+                if (!MPP.gAutoSustain) {
+                    if (note_number == 64) {
+                        if (vel > 0) {
+                            MPP.pressSustain();
+                        } else {
+                            MPP.releaseSustain();
+                        }
                     }
                 }
-            } else if (event.name == "Note on") {
-                if (event.velocity < 54) return;
-                var volume = event.velocity/127;
-                MPP.press(keyNameMap[event.noteName], volume);
+            } else if (cmd == 14) {
+                var pitchMod = evt[1] + (evt[2] << 7) - 0x2000;
+                pitchMod = Math.round(pitchMod / 1000);
+                pitchBends[channel] = pitchMod;
             }
-            if (this.echo !== 0) {
-                let delay = 30;
-                for (var j = 0; j < this.echo; j++) {
-                    setTimeout(() => {
-                        volume *= 0.5;
-                            MPP.press(keyNameMap[event.noteName], volume);
-                    }, this.echod * (j + delay));
-                    delay *= 2;
-                }
-            }
-            if (this.echo !== 0) {
-                let delay = 30;
-                for (let i = 1; i <= this.octave; i++) {
-                    MPP.press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
-                    for (var a = 0; a < this.echo; a++) {
-                        setTimeout(() => {
-                            volume *= 0.5;
-                            MPP.press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
-                        }, this.echod * (a + delay));
-                        delay *= 2;
-                    }
-                }
-            } else if (event.name == "Set tempo") {
+        }});
+        navigator.requestMIDIAccess = JZZ.requestMIDIAccess;
+        JZZ.addMidiOut('Neptune MIDI Port #1', this.midiout);
+        JZZ.requestMIDIAccess();
+
+    //     this.Player = new MidiPlayer.Player(function(event) {
+    //         if (event.name == "Note off" || (event.name == "Note on" && event.velocity === 0)) {
+    //             if (event.velocity < 54) return;
+    //             MPP.release(keyNameMap[event.noteName]);
+    //             if (octave !== 0) {
+    //                 for (let i = 1; i <= octave; i++) {
+    //                     MPP.release(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]]);
+    //                 } 
+    //             }
+    //         } else if (event.name == "Note on") {
+    //             if (event.velocity < 54) return;
+    //             var volume = event.velocity/127;
+    //             MPP.press(keyNameMap[event.noteName], volume);
+    //         }
+    //         if (echo !== 0) {
+    //             let delay = 30;
+    //             for (var j = 0; j < echo; j++) {
+    //                 setTimeout(() => {
+    //                     volume *= 0.5;
+    //                         MPP.press(keyNameMap[event.noteName], volume);
+    //                 }, echod * (j + delay));
+    //                 delay *= 2;
+    //             }
+    //         }
+    //         if (echo !== 0) {
+    //             let delay = 30;
+    //             for (let i = 1; i <= this.octave; i++) {
+    //                 MPP.press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
+    //                 for (var a = 0; a < echo; a++) {
+    //                     setTimeout(() => {
+    //                         volume *= 0.5;
+    //                         MPP.press(keyNameMap[Object.keys(keyNameMap)[Object.keys(keyNameMap).indexOf(event.noteName) + (i * 12)]], volume);
+    //                     }, echod * (a + delay));
+    //                     delay *= 2;
+    //                 }
+    //             }
+    //         } else if (event.name == "Set tempo") {
                 
-            }
-        });
+    //         }
+    //     });
     }
 
-    playMIDI(songName) {
-        urlToBlob(songName, d => {
-            fileOrBlobToBase64(d.blob, data => {
-                try {
-                        this.Player.stop();
-                        this.Player.loadDataUri(data);
-                        this.Player.play();
-                        var fileName = d.response.headers.get("content-disposition");
-                        this.cl.send(`Name: ${fileName ? fileName.split('filename=')[1].split(';')[0] : "No Name"} [${sec2time(this.Player.getSongTime())}]. Tracks: ${this.Player.tracks.length}.`);
-                        songName = fileName || songFileName;
-                        songTime = sec2time(this.Player.getSongTime());
-                    } catch (err) {
-                        this.cl.send(err);
-                    return
-                }
-            });
-        });
+    async playMIDI(url) {
+        try {
+            if (this.player) this.player.stop();
+            let data = await fromURL("https://cors-anywhere3.herokuapp.com/" + url);
+            let smf = new JZZ.MIDI.SMF(data);
+            let output = JZZ().openMidiOut('Neptune MIDI Port #1');
+            this.player = smf.player();
+            this.player.connect(output);
+            this.player.play();
+    
+            songTime = sec2time(this.player.durationMS() * 1000);
+            numTracks = this.player.tracks();
+    
+            // this.player.onEnd(() => {});
+        } catch(err) {
+            this.cl.send(err);
+        }
     }
+
+    // playMIDI(songName) {
+    //     urlToBlob(songName, d => {
+    //         fileOrBlobToBase64(d.blob, data => {
+    //             try {
+    //                     this.Player.stop();
+    //                     this.Player.loadDataUri(data);
+    //                     this.Player.play();
+    //                     var fileName = d.response.headers.get("content-disposition");
+    //                     this.cl.send(`Name: ${fileName ? fileName.split('filename=')[1].split(';')[0] : "No Name"} [${sec2time(this.Player.getSongTime())}]. Tracks: ${this.Player.tracks.length}.`);
+    //                     songName = fileName || songFileName;
+    //                     songTime = sec2time(this.Player.getSongTime());
+    //                 } catch (err) {
+    //                     this.cl.send(err);
+    //                 return
+    //             }
+    //         });
+    //     });
+    // }
 
     stopMIDI() {
-        this.Player.stop();
+        this.player.stop();
         this.cl.send("Stopping music...");
+    }
+
+    pauseMIDI() {
+        this.player.pause();
+        this.cl.send("Pausing music...");
     }
 }
 

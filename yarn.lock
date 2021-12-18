@@ -61,6 +61,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.0.tgz#62797cee3b8b497f6547503b2312254d4fe3c2bb"
   integrity sha512-eMhwJXc931Ihh4tkU+Y7GiLzT/y/DBNpNtr4yU9O2w3SYBsr9NaOPhQlLKRmoWtI54uNwuo0IOUFQjVOTZYRvw==
 
+"@types/webmidi@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@types/webmidi/-/webmidi-2.0.6.tgz#c9b1428bbc5d5f49cc6201eae0dc5e2b3fd23e0e"
+  integrity sha512-sfS0A5IryqmBrUpcGPipEPeFdpqmZzP6b6lZFxHKgz5n2Vhzh4yJ5P2TvoDUhDjqJyv0Y25ng0Qodgo2Vu08ug==
+
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.11.1.tgz#2bfd767eae1a6996f432ff7e8d7fc75679c0b6a7"
@@ -875,6 +880,11 @@ isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
+jazz-midi@^1.7.5:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/jazz-midi/-/jazz-midi-1.7.5.tgz#2ddcc390de7e534073003fb8cf296272f4912487"
+  integrity sha512-RUxChhn388CZfSymwwgucfaBxGu4Z0eeJOSTnUMsDN2tMx5E8G+o7h2gk/xPaDTfOORnQsJk71VhSuqiw1Hy9Q==
+
 jest-worker@^27.4.1:
   version "27.4.5"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-27.4.5.tgz#d696e3e46ae0f24cff3fa7195ffba22889262242"
@@ -905,6 +915,21 @@ json5@^2.1.2:
   integrity sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
   dependencies:
     minimist "^1.2.5"
+
+jzz-midi-smf@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/jzz-midi-smf/-/jzz-midi-smf-1.6.4.tgz#3c4d8d9834ccee1116653ecff04d850f926cc99b"
+  integrity sha512-9iZDKIgEgzAjlnYQ4i+4MXUcO81SiBiOTDmmRptrk1lJcVUjldXINfaPt6/ZxLCJKTUsYQBu9Z30yKmOzk7XdQ==
+  dependencies:
+    jzz "^1.4.3"
+
+jzz@^1.4.3, jzz@^1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/jzz/-/jzz-1.4.7.tgz#0f2b148144bb40176841032bbc4af760291c388c"
+  integrity sha512-oZYqrTBlzGCGPRaAsTuhfzQINqXpVHuWdvqFCUR/NP0LcrKpda2oIq6mEclGOH6HGBB7Plf0egXEvh9Hh10XGQ==
+  dependencies:
+    "@types/webmidi" "^2.0.6"
+    jazz-midi "^1.7.5"
 
 kind-of@^6.0.2:
   version "6.0.3"
@@ -977,10 +1002,10 @@ methods@^1.1.2, methods@~1.1.2:
   version "0.0.0"
   resolved "https://github.com/aeiou879/midi-player-js-fixed.git#ea0f218875fa7a47d5a0b6e865e9130efb92ae26"
 
-midi-player-js@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/midi-player-js/-/midi-player-js-2.0.0.tgz#4f643ae44805bbda7a2078b26c85b686af5ed394"
-  integrity sha512-HjV/vonHnjOiTkz0grTD4kUYgch81FCIT3DRVueDfNsA57aPiubezd0xN35oa69pMuzijrmDjmipiKjymU7z8w==
+midi-player-js@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/midi-player-js/-/midi-player-js-1.1.4.tgz#ea84613425e98f9f93c44706b7534b376a682060"
+  integrity sha512-8zexHoPuoN2X8tEgrNphL8GfqQXhKVqMVzIpS0lTHiEOyU5Gcj6HeKXFiAwBvCrQE5Ln3r/1pW+8JZ/MdQl8Fg==
 
 mime-db@1.51.0:
   version "1.51.0"
