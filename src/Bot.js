@@ -131,6 +131,18 @@ class Bot extends EventEmitter {
             // this.Player.transpose = 0;
         }, 0, false));
 
+        this.commandHandler.addCommand(new Command('stop', ['stop'], '%Pstop', `Stops the current MIDI file`, msg => {
+            this.Player.stopMIDI();
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('pause', ['pause'], '%Ppause', `Pauses the current MIDI file`, msg => {
+            this.Player.pauseMIDI();
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('resume', ['resume'], '%Presume', `Resumes the current MIDI file`, msg => {
+            this.Player.resumeMIDI();
+        }, 0, false));
+
         this.commandHandler.addCommand(new Command('ip', ['ip', 'getip'], '%Pip [user]', `Get someone's IP (totally not fake)`, msg => {
             if (!msg.args[1]) return this.sendChat('Please enter someone to grab an IP from.');
             let user = this.getPart(msg.args[1]);

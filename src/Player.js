@@ -389,23 +389,20 @@ var pitchBends = {
 };
 class Player {
     constructor(cl) {
-        var octave = 0;
-        var echo = 0;
-        var echod = 0;
-        var transpose = 0;
+        this.octave = 0;
+        this.echo = 0;
+        this.echod = 0;
+        this.transpose = 0;
         this.cl = cl;
         
         this.player;
         this.midiout = JZZ.Widget({ _receive: function(evt) {
-            // console.log(evt);
             var channel = evt[0] & 0xf;
             var cmd = evt[0] >> 4;
             var note_number = evt[1];
             var vel = evt[2];
-            // console.log(channel, cmd, note_number, vel);
-            // if (vel / 100 <= 0.5) return;
             if (cmd == 8 || (cmd == 9 && vel == 0)) {
-                if (vel < 54) return;
+                // if (vel < 54) return;
                 // NOTE_OFF
                 MPP.release(
                     MIDI_KEY_NAMES[
@@ -413,13 +410,13 @@ class Player {
                     ]
                 );
             } else if (cmd == 9) {
-                if (vel < 54) return;
+                // if (vel < 54) return;
                 // NOTE_ON
                 MPP.press(
                     MIDI_KEY_NAMES[
                         note_number - 9 + MIDI_TRANSPOSE + pitchBends[channel]
                     ],
-                    vel / 100
+                    vel / 127
                 );
             } else if (cmd == 11) {
                 // CONTROL_CHANGE
@@ -497,30 +494,12 @@ class Player {
             songTime = sec2time(this.player.durationMS() * 1000);
             numTracks = this.player.tracks();
     
+            this.cl.send(`Playing MIDI... Time: [${songTime}]. Tracks: ${numTracks}.`);
             // this.player.onEnd(() => {});
         } catch(err) {
             this.cl.send(err);
         }
     }
-
-    // playMIDI(songName) {
-    //     urlToBlob(songName, d => {
-    //         fileOrBlobToBase64(d.blob, data => {
-    //             try {
-    //                     this.Player.stop();
-    //                     this.Player.loadDataUri(data);
-    //                     this.Player.play();
-    //                     var fileName = d.response.headers.get("content-disposition");
-    //                     this.cl.send(`Name: ${fileName ? fileName.split('filename=')[1].split(';')[0] : "No Name"} [${sec2time(this.Player.getSongTime())}]. Tracks: ${this.Player.tracks.length}.`);
-    //                     songName = fileName || songFileName;
-    //                     songTime = sec2time(this.Player.getSongTime());
-    //                 } catch (err) {
-    //                     this.cl.send(err);
-    //                 return
-    //             }
-    //         });
-    //     });
-    // }
 
     stopMIDI() {
         this.player.stop();
@@ -530,6 +509,11 @@ class Player {
     pauseMIDI() {
         this.player.pause();
         this.cl.send("Pausing music...");
+    }
+
+    resumeMIDI() {
+        this.player.resume();
+        this.cl.send("Resuming music...");
     }
 }
 
