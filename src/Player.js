@@ -1,6 +1,6 @@
 // const MidiPlayer = require("./midi-player-js");
-const JZZ = require("./JZZ");
-require('./JZZ.midi.SMF')(JZZ);
+const JZZ = require("../lib/JZZ");
+require('../lib/JZZ.midi.SMF')(JZZ);
 
 var songTime = 0;
 var numTracks = 0;

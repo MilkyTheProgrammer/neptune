@@ -3,8 +3,10 @@ const EventEmitter = require("events");
 
 const { Logger } = require('./Logger.js');
 const MIDIPlayer = require("./Player");
+const { Database, User } = require('./Database');
 
 const player = new MIDIPlayer(MPP.chat);
+
 class Command {
     constructor (id, acc, usage, desc, cb, minArgs, hidden) {
         this.id = id;
@@ -99,10 +101,16 @@ class Bot extends EventEmitter {
     }
 
     bindEventListeners() {
-        this.client.on('a', msg => {
+        this.client.on('a', async msg => {
             msg.args = msg.a.split(' ');
             msg.cmd = msg.args[0].substring(this.prefix.length).trim();
             msg.argcat = msg.a.substring(msg.args[0].length).trim();
+            let user = await Database.getUser(msg.p._id);
+            User.update(user, msg.p);
+            msg.user = await Database.getUser(msg.p._id);
+            if (msg.user == null) {
+                msg.user = await Database.createUser(msg.p);
+            }
             this.emit('chat_receive', msg);
         });
 
@@ -120,7 +128,7 @@ class Bot extends EventEmitter {
             this.logger.log("Received hi from server");
         });
 
-        this.on('chat_receive', msg => {
+        this.on('chat_receive', async msg => {
             if (!msg.a.startsWith(this.prefix)) return;
             for (let cmd of this.commandHandler.commands.values()) {
                 let usedCommand = false;
@@ -131,9 +139,15 @@ class Bot extends EventEmitter {
                 if (!usedCommand) continue;
                 if (msg.args.length - 1 < cmd.minArgs) continue;
                 try {
-                    let out = cmd.cb(msg);
+                    let out;
+                    if (cmd.cb.constructor.name == 'AsyncFunction') {
+                        out = await cmd.cb(msg);
+                    } else {
+                        out = cmd.cb(msg);
+                    }
+                    if (!out) return;
                     if (out == '') return;
-                    if (out) this.sendChat(out);
+                    this.sendChat(out);
                 } catch (err) {
                     if (err) {
                         console.error(err);
@@ -262,6 +276,24 @@ class Bot extends EventEmitter {
                 return person.name + "'s _id is: " + person._id;
             }
         }, 0, false));
+
+        this.commandHandler.addCommand(new Command('bonk', ['bonk'], '%Pbonk', `Bonk someone`, msg => {
+            if (!msg.args[1]) return 'Please mention someone to bonk.';
+            let person = this.getPart(msg.args[1]);
+            if (!person) return 'User not found.';
+            if (person && msg.args[1]) {
+                return msg.p.name + ' bonks ' + person.name + '.';
+            }
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('userdatatest', ['userdatatest'], '%Puserdatatest', `User data testing`, async msg => {
+            if (!msg.args[1]) {
+                return msg.user.name;
+            } else {
+                let user = await Database.getUser(msg.args[1]);
+                return user.name;
+            }
+        }, 0, true));
     }
     
     bindButtons() {
