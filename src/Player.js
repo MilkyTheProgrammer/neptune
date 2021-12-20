@@ -316,7 +316,7 @@ class Player {
         }
     }
 
-    async playMIDIFromData(data) {
+    async playMIDIFromData(data, fileName) {
         try {
             if (this.player) this.player.stop();
             let smf = new JZZ.MIDI.SMF(data);
@@ -329,7 +329,7 @@ class Player {
             songTime = sec2time(this.player.durationMS() * 1000);
             numTracks = this.player.tracks();
     
-            this.cl.send(`Playing MIDI... Time: [${songTime}]. Tracks: ${numTracks}.`);
+            this.cl.send(`Playing ${fileName} Time: [${songTime}]. Tracks: ${numTracks}.`);
             this.player.onEnd(() => {
                 this.isPlaying = false;
             });

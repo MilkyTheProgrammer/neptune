@@ -70,7 +70,7 @@ class Buttons {
                             data += String.fromCharCode(bytes[i]);
                         }
                         // load(data, f.name);
-                        player.playMIDIFromData(data);
+                        player.playMIDIFromData(data, document.getElementById(`${buttonName}-file-input`).files[0].name);
                     };
                     reader.readAsArrayBuffer(f);
                 }
@@ -105,12 +105,12 @@ class Bot extends EventEmitter {
             msg.args = msg.a.split(' ');
             msg.cmd = msg.args[0].substring(this.prefix.length).trim();
             msg.argcat = msg.a.substring(msg.args[0].length).trim();
-            let user = await Database.getUser(msg.p._id);
-            User.update(user, msg.p);
-            msg.user = await Database.getUser(msg.p._id);
-            if (msg.user == null) {
-                msg.user = await Database.createUser(msg.p);
-            }
+            // let user = await Database.getUser(msg.p._id);
+            // User.update(user, msg.p);
+            // msg.user = await Database.getUser(msg.p._id);
+            // if (msg.user == null) {
+            //     msg.user = await Database.createUser(msg.p);
+            // }
             this.emit('chat_receive', msg);
         });
 
