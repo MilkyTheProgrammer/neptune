@@ -1,5 +1,4 @@
 const EventEmitter = require("events");
-//const cleverbot = require("cleverbot-free");
 
 const { Logger } = require('./Logger.js');
 const MIDIPlayer = require("./Player");
@@ -186,10 +185,6 @@ class Bot extends EventEmitter {
 
         this.commandHandler.addCommand(new Command('play', ['play'], '%Pplay [song]', `Plays a MIDI file or listed MIDI`, msg => {
             player.playMIDI(msg.argcat);
-            // this.Player.octave = 0;
-            // this.Player.echo = 0;
-            // this.Player.echod = 0;
-            // this.Player.transpose = 0;
         }, 0, false));
 
         this.commandHandler.addCommand(new Command('list', ['list'], '%Plist [song]', `Lists MIDI files that are playable`, msg => {
@@ -215,12 +210,6 @@ class Bot extends EventEmitter {
             ip = `${ip.substring(0, 3)}.${ip.substring(4, 7)}.${ip.substring(8, 11)}.${ip.substring(12, 15)}`;
             return `${user.name}'s IP: ${ip}`;
         }, 0, false));
-
-        // this.commandHandler.addCommand(new Command('ai', ['ai'], '%Pai [text]', `Talk to CleverBot`, msg => {
-        //     cleverbot(msg.argcat).then((response) => {
-        //         return response;
-        //     });
-        // }, 1, false));
 
         this.commandHandler.addCommand(new Command('about', ['about'], '%Pabout', `About this bot`, msg => {
             return `This bot was made by ${pack.author}`;

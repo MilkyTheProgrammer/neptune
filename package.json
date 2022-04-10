@@ -1,9 +1,9 @@
 {
   "name": "neptune",
-  "version": "8.0.0",
+  "version": "snapshot-22w14b01 (v10.0.0-rc1)",
   "main": "index.js",
   "repository": "https://github.com/PhoenixTheCoder/neptune.git",
-  "author": "Foonix",
+  "author": "Foonix and Hri7566",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "file-loader": "^6.2.0",
-    "idb": "^7.0.0",
+    "idb": "^7.0.1",
     "jquery": "^3.6.0",
     "jzz": "^1.4.7",
     "jzz-midi-smf": "^1.6.4",
