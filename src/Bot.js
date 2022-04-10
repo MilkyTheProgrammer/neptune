@@ -3,6 +3,10 @@ const EventEmitter = require("events");
 
 const { Logger } = require('./Logger.js');
 const MIDIPlayer = require("./Player");
+const { Database, User } = require('./Database');
+
+const player = new MIDIPlayer(MPP.chat);
+
 class Command {
     constructor (id, acc, usage, desc, cb, minArgs, hidden) {
         this.id = id;
@@ -37,6 +41,50 @@ class CommandHandler {
     }
 }
 
+class Buttons {
+    constructor() {
+        this.player = player;
+    }
+
+    add(buttonName, pos, type, cb) {
+        if (type == "fileInput") {
+            var html = `
+            <div id="${buttonName}-file-input2" style="position:absolute; left: ${pos.x}px; top: ${pos.y}px" class="ugly-button translate">
+                <label> ${buttonName}
+                    <input id="${buttonName}-file-input" style="display: none;" type="file"></input>
+                </label>
+            </div>
+            <pre id="${buttonName}-file-contents"></pre>
+            `;
+            console.log(html);
+            $("#bottom .relative").append(html);
+            
+            document.getElementById(`${buttonName}-file-input`).onchange = () => {
+                if (window.FileReader) {
+                    var reader = new FileReader();
+                    var f = document.getElementById(`${buttonName}-file-input`).files[0];
+                    reader.onload = function(e) {
+                        var data = '';
+                        var bytes = new Uint8Array(e.target.result);
+                        for (var i = 0; i < bytes.length; i++) {
+                            data += String.fromCharCode(bytes[i]);
+                        }
+                        // load(data, f.name);
+                        player.playMIDIFromData(data, document.getElementById(`${buttonName}-file-input`).files[0].name);
+                    };
+                    reader.readAsArrayBuffer(f);
+                }
+                console.log(document.getElementById(`${buttonName}-file-input`).files[0])
+            }
+        } else {
+        $("#bottom .relative").append(`<div id="${buttonName}-btn" style="position:absolute; left: ${pos.x}px; top: ${pos.y}px" class="ugly-button translate"><label> ${buttonName} </label></div>`);
+            document.getElementById(`${buttonName}-btn`).onclick = () => {
+                cb();
+            }
+        }
+    }
+}
+
 class Bot extends EventEmitter {
     client;
 
@@ -46,16 +94,23 @@ class Bot extends EventEmitter {
         this.bindEventListeners();
         this.logger = new Logger("Neptune");
         this.prefix = '~';
-        this.Player = new MIDIPlayer(MPP.chat);
         this.commandHandler = new CommandHandler();
+        this.buttons = new Buttons();
         this.bindDefaultCommands();
+        this.bindButtons();
     }
 
     bindEventListeners() {
-        this.client.on('a', msg => {
+        this.client.on('a', async msg => {
             msg.args = msg.a.split(' ');
             msg.cmd = msg.args[0].substring(this.prefix.length).trim();
             msg.argcat = msg.a.substring(msg.args[0].length).trim();
+            // let user = await Database.getUser(msg.p._id);
+            // User.update(user, msg.p);
+            // msg.user = await Database.getUser(msg.p._id);
+            // if (msg.user == null) {
+            //     msg.user = await Database.createUser(msg.p);
+            // }
             this.emit('chat_receive', msg);
         });
 
@@ -73,7 +128,7 @@ class Bot extends EventEmitter {
             this.logger.log("Received hi from server");
         });
 
-        this.on('chat_receive', msg => {
+        this.on('chat_receive', async msg => {
             if (!msg.a.startsWith(this.prefix)) return;
             for (let cmd of this.commandHandler.commands.values()) {
                 let usedCommand = false;
@@ -84,9 +139,15 @@ class Bot extends EventEmitter {
                 if (!usedCommand) continue;
                 if (msg.args.length - 1 < cmd.minArgs) continue;
                 try {
-                    let out = cmd.cb(msg);
+                    let out;
+                    if (cmd.cb.constructor.name == 'AsyncFunction') {
+                        out = await cmd.cb(msg);
+                    } else {
+                        out = cmd.cb(msg);
+                    }
+                    if (!out) return;
                     if (out == '') return;
-                    if (out) this.sendChat(out);
+                    this.sendChat(out);
                 } catch (err) {
                     if (err) {
                         console.error(err);
@@ -123,12 +184,28 @@ class Bot extends EventEmitter {
             return `Usage: ${cmd.usage.split('%P').join(this.prefix)} | ${cmd.desc}`;
         }, 0, false));
 
-        this.commandHandler.addCommand(new Command('play', ['play'], '%Pplay [song]', `Plays a MIDI file`, msg => {
-            this.Player.playMIDI(msg.argcat);
+        this.commandHandler.addCommand(new Command('play', ['play'], '%Pplay [song]', `Plays a MIDI file or listed MIDI`, msg => {
+            player.playMIDI(msg.argcat);
             // this.Player.octave = 0;
             // this.Player.echo = 0;
             // this.Player.echod = 0;
             // this.Player.transpose = 0;
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('list', ['list'], '%Plist [song]', `Lists MIDI files that are playable`, msg => {
+            player.listMIDIs();
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('stop', ['stop'], '%Pstop', `Stops the current MIDI file`, msg => {
+            player.stopMIDI();
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('pause', ['pause'], '%Ppause', `Pauses the current MIDI file`, msg => {
+            player.pauseMIDI();
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('resume', ['resume'], '%Presume', `Resumes the current MIDI file`, msg => {
+            player.resumeMIDI();
         }, 0, false));
 
         this.commandHandler.addCommand(new Command('ip', ['ip', 'getip'], '%Pip [user]', `Get someone's IP (totally not fake)`, msg => {
@@ -148,6 +225,82 @@ class Bot extends EventEmitter {
         this.commandHandler.addCommand(new Command('about', ['about'], '%Pabout', `About this bot`, msg => {
             return `This bot was made by ${pack.author}`;
         }, 0, false));
+
+        this.commandHandler.addCommand(new Command('kiss', ['kiss'], '%Pkiss', `Kiss people`, msg => {
+            if (!msg.args[1]) return 'Please mention someone to kiss.';
+            let person = this.getPart(msg.args[1]);
+            if (!person) return 'User not found.';
+            if (person && msg.args[1]) {
+                return msg.p.name + ' kisses ' + person.name + '.';
+            }
+        }, 0, false));
+        
+        this.commandHandler.addCommand(new Command('hug', ['hug'], '%Phug', `Hug people`, msg => {
+            if (!msg.args[1]) return 'Please mention someone to hug.';
+            let person = this.getPart(msg.args[1]);
+            if (!person) return 'User not found.';
+            if (person && msg.args[1]) {
+                return msg.p.name + ' hugs ' + person.name + '.';
+            }
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('slap', ['slap'], '%Pslap', `Slap people`, msg => {
+            if (!msg.args[1]) return 'Please mention someone to slap.';
+            let person = this.getPart(msg.args[1]);
+            if (!person) return 'User not found.';
+            if (person && msg.args[1]) {
+                return msg.p.name + ' slaps ' + person.name + '.';
+            }
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('fuck', ['fuck'], '%Pfuck', `Fuck people >;3`, msg => {
+            if (!msg.args[1]) return 'Please mention someone to fuck >;3';
+            let person = this.getPart(msg.args[1]);
+            if (!person) return 'User not found.';
+            if (person && msg.args[1]) {
+                var eSex = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
+                var sexLol = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
+                let sexLmao = eSex[Math.floor(Math.random() * eSex.length)];
+                var sex2Lmao = sexLol[Math.floor(Math.random() * sexLol.length)];
+                return msg.p.name + sex2Lmao + person.name + sexLmao;
+            }
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('id', ['id'], '%Pid', `Get someone's _id`, msg => {
+            if (!msg.args[1]) {
+                return msg.p.name + ", your _id is: " + msg.p._id;
+            }
+            let person = this.getPart(msg.args[1]);
+            if (!person) return 'User not found.';
+            if (person && msg.args[1]) {
+                return person.name + "'s _id is: " + person._id;
+            }
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('bonk', ['bonk'], '%Pbonk', `Bonk someone`, msg => {
+            if (!msg.args[1]) return 'Please mention someone to bonk.';
+            let person = this.getPart(msg.args[1]);
+            if (!person) return 'User not found.';
+            if (person && msg.args[1]) {
+                return msg.p.name + ' bonks ' + person.name + '.';
+            }
+        }, 0, false));
+
+        this.commandHandler.addCommand(new Command('userdatatest', ['userdatatest'], '%Puserdatatest', `User data testing`, async msg => {
+            if (!msg.args[1]) {
+                return msg.user.name;
+            } else {
+                let user = await Database.getUser(msg.args[1]);
+                return user.name;
+            }
+        }, 0, true));
+    }
+    
+    bindButtons() {
+        this.buttons.add("Play", { x: 780, y: 4 }, "fileInput");
+        this.buttons.add("Stop", { x: 780, y: 32 }, "script", () => {
+            player.stopMIDI();
+        });
     }
 
     sendChat(str) {

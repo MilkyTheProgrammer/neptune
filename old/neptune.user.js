@@ -1448,7 +1448,7 @@ client.on('a', msg => {
         if (bannedFuckers.includes(msg.p._id)) return;
         let input = msg.a.substring(6).trim();
         if (!input) return mppChatSend('Please ask me something.');
-      var randomNumber = Math.floor(Math.random()*responses.length);
+        var randomNumber = Math.floor(Math.random()*responses.length);
         var response = responses[randomNumber];
         mppChatSend(response);
         return;
