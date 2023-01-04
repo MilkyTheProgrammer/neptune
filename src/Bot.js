@@ -5,9 +5,7 @@ const MIDIPlayer = require("./Player");
 const { Database, User } = require('./Database');
 
 const player = new MIDIPlayer(MPP.chat);
-
 let randomErrors = require('./errorMessages.json');
-
 let pack = require('../package.json');
 
 function getRandomErrorMessage() {
@@ -15,8 +13,8 @@ function getRandomErrorMessage() {
 }
 
 class Buttons {
-    constructor() {
-        this.player = player;
+    constructor(pl) {
+        this.player = pl;
     }
 
     add(buttonName, pos, type, cb) {
@@ -60,6 +58,9 @@ class Buttons {
 
 class Bot extends EventEmitter {
     client;
+    commandHandler = require('./Commands.js').commandHandler;
+    logger = new Logger("Neptune");
+    player = player;
 
     constructor(cl) {
         super();
@@ -67,10 +68,10 @@ class Bot extends EventEmitter {
         this.client = cl;
         this.commandHandler = require('./Commands.js').commandHandler;
         this.bindEventListeners();
-
-        this.logger = new Logger("Neptune");
         this.prefix = '~';
-        this.buttons = new Buttons();
+        let savedPrefix =  Database.getPrefix();
+        savedPrefix == null || typeof savedPrefix == 'undefined' ? undefined : this.prefix = savedPrefix;
+        this.buttons = new Buttons(this.player);
         this.bindButtons();
     }
 

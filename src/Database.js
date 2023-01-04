@@ -61,6 +61,8 @@ class User {
     }
 }
 
+const PREFIX_VAR = `neptune_prefix`;
+
 class Database {
     static async getUser(id) {
         return await asyncBypass.getUser(id);
@@ -75,6 +77,14 @@ class Database {
     static async setUser(user) {
         console.log('asyncBypass; ', asyncBypass);
         return await asyncBypass.setUser(user);
+    }
+
+    static getPrefix() {
+        return localStorage.getItem(PREFIX_VAR);
+    }
+
+    static setPrefix(pr) {
+        return localStorage.setItem(PREFIX_VAR, pr);
     }
 }
 

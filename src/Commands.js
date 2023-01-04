@@ -28,28 +28,28 @@ commandHandler.addCommand(new Command('help', ['help', 'h', 'cmds'], '%Phelp', '
     return `Usage: ${cmd.usage.split('%P').join(this.prefix)} | ${cmd.desc}`;
 }, 0, false));
 
-commandHandler.addCommand(new Command('play', ['play'], '%Pplay [song]', `Plays a MIDI file or listed MIDI`, msg => {
-    player.playMIDI(msg.argcat);
+commandHandler.addCommand(new Command('play', ['play'], '%Pplay [song]', `Plays a MIDI file or listed MIDI`, (msg, bot) => {
+    bot.player.playMIDI(msg.argcat);
 }, 0, false));
 
-commandHandler.addCommand(new Command('list', ['list'], '%Plist [song]', `Lists MIDI files that are playable`, msg => {
-    player.listMIDIs();
+commandHandler.addCommand(new Command('list', ['list'], '%Plist [song]', `Lists MIDI files that are playable`, (msg, bot) => {
+    bot.player.listMIDIs();
 }, 0, false));
 
-commandHandler.addCommand(new Command('stop', ['stop'], '%Pstop', `Stops the current MIDI file`, msg => {
-    player.stopMIDI();
+commandHandler.addCommand(new Command('stop', ['stop'], '%Pstop', `Stops the current MIDI file`, (msg, bot) => {
+    bot.player.stopMIDI();
 }, 0, false));
 
-commandHandler.addCommand(new Command('pause', ['pause'], '%Ppause', `Pauses the current MIDI file`, msg => {
-    player.pauseMIDI();
+commandHandler.addCommand(new Command('pause', ['pause'], '%Ppause', `Pauses the current MIDI file`, (msg, bot) => {
+    bot.player.pauseMIDI();
 }, 0, false));
 
-commandHandler.addCommand(new Command('resume', ['resume'], '%Presume', `Resumes the current MIDI file`, msg => {
-    player.resumeMIDI();
+commandHandler.addCommand(new Command('resume', ['resume'], '%Presume', `Resumes the current MIDI file`, (msg, bot) => {
+    bot.player.resumeMIDI();
 }, 0, false));
 
 commandHandler.addCommand(new Command('ip', ['ip', 'getip'], '%Pip [user]', `Get someone's IP (totally not fake)`, (msg, bot) => {
-    if (!msg.args[1]) return this.sendChat('Please enter someone to grab an IP from.');
+    if (!msg.args[1]) return 'Please enter someone to grab an IP from.';
     let user = bot.getPart(msg.args[1]);
     let ip = parseInt(user._id.substring(6, 18), 16).toString();
     ip = `${ip.substring(0, 3)}.${ip.substring(4, 7)}.${ip.substring(8, 11)}.${ip.substring(12, 15)}`;
