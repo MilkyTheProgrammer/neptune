@@ -78,18 +78,7 @@ const jsonSongs = {
         songName: "Ouranos",
         url: "https://raw.githubusercontent.com/PhoenixTheCoder/NMPB/main/Deblacked/Ouranos%20-%20HDSQ%20%26%20The%20Romanticist%20%5Bv1.6.7%5D.mid"
     }
-};
-
-function sec2time(timeInSeconds) {
-    const pad = function(num, size) { return ('000' + num).slice(size * -1); },
-    time = parseFloat(timeInSeconds).toFixed(3),
-    hours = Math.floor(time / 60 / 60),
-    minutes = Math.floor(time / 60) % 60,
-    seconds = Math.floor(time - minutes * 60),
-    milliseconds = time.slice(-3);
-
-    return pad(minutes, 2) + ':' + pad(seconds, 2);
-};
+}
 
 function fromURL(url) {
     return new Promise((resolve, reject) => {
@@ -136,6 +125,7 @@ for (let oct = 0; oct < 7; oct++) {
         MIDI_KEY_NAMES.push(bare_notes[i] + oct);
     }
 }
+
 MIDI_KEY_NAMES.push("c7");
 
 let logarithmicVelocity = false;
@@ -156,7 +146,15 @@ const pitchBends = {
     13: 0,
     14: 0,
     15: 0,
-};
+}
+
+const formatTime = ms => {
+    let ss = ms / 1000;
+    let mm = ss / 60;
+    let hh = mm / 60;
+
+    return `${Math.floor(mm).toString().padStart(2, '0')}:${Math.floor(ss % 60).toString().padStart(2, '0')}`;
+}
 
 class Player {
     constructor(cl) {
@@ -173,6 +171,9 @@ class Player {
             let cmd = evt[0] >> 4;
             let note_number = evt[1];
             let vel = evt[2];
+
+            if (channel == 9) return;
+
             if (cmd == 8 || (cmd == 9 && vel == 0)) {
                 // if (vel < 54) return;
                 // NOTE_OFF
@@ -274,10 +275,10 @@ class Player {
                 this.player.play();
                 this.isPlaying = true;
         
-                songTime = sec2time(this.player.durationMS() * 1000);
+                songTime = formatTime(this.player.durationMS());
                 numTracks = this.player.tracks();
         
-                this.bot.sendChat(`Playing ${songFileName} | Time: [${songTime}] | Tracks: ${numTracks}.`);
+                this.bot.sendChat(`Playing ${songFileName} [${songTime}] | Tracks: ${numTracks}.`);
                 this.player.onEnd(() => {
                     this.isPlaying = false;
                 });
@@ -291,10 +292,10 @@ class Player {
                 this.player.play();
                 this.isPlaying = true;
         
-                songTime = sec2time(this.player.durationMS() * 1000);
+                songTime = formatTime(this.player.durationMS());
                 numTracks = this.player.tracks();
         
-                this.bot.sendChat(`Playing MIDI... Time: [${songTime}]. Tracks: ${numTracks}.`);
+                this.bot.sendChat(`Playing MIDI... [${songTime}] | Tracks: ${numTracks}.`);
                 this.player.onEnd(() => {
                     this.isPlaying = false;
                 });
@@ -314,13 +315,14 @@ class Player {
             this.player.play();
             this.isPlaying = true;
     
-            songTime = sec2time(this.player.durationMS() * 1000);
+            songTime = formatTime(this.player.durationMS());
             numTracks = this.player.tracks();
     
-            this.bot.sendChat(`Playing ${fileName} Time: [${songTime}]. Tracks: ${numTracks}.`);
+            this.bot.sendChat(`Playing ${fileName} [${songTime}] | Tracks: ${numTracks}.`);
 
             this.player.onEnd(() => {
                 this.isPlaying = false;
+                this.bot.sendChat(`Finished playing (End of file)`);
             });
         } catch(err) {
             this.bot.sendChat(err);

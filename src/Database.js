@@ -3,37 +3,6 @@ const idb = require('idb');
 const { Logger } = require('./Logger');
 const logger = new Logger('Database');
 
-const asyncBypass = {}
-
-idb.openDB('Neptune', 1, {
-    upgrade(db) {
-        let store = db.createObjectStore('users', {
-            autoIncrement: true
-        });
-
-        // index users by _id
-        store.createIndex('users', '_id', { unique: true });
-    },
-    blocked() {
-        logger.log('blocked');
-    },
-    blocking() {
-        logger.log('blocking');
-    },
-    terminated() {
-        logger.log('terminated');
-    }
-}).then(db => {
-    asyncBypass.getUser = async function(_id) {
-        let user = await db.get('users', _id);
-        return user;
-    }
-
-    asyncBypass.setUser = async function(user) {
-        return await db.put('users', user, user._id);
-    }
-});
-
 class User {
     constructor (p) {
         this._id = p._id;
@@ -64,8 +33,31 @@ class User {
 const PREFIX_VAR = `neptune_prefix`;
 
 class Database {
+    static async load() {
+        this.db = await idb.openDB('Neptune', 1, {
+            upgrade(db) {
+                let store = db.createObjectStore('users', {
+                    autoIncrement: true
+                });
+        
+                // index users by _id
+                store.createIndex('users', '_id', { unique: true });
+            },
+            blocked() {
+                logger.log('blocked');
+            },
+            blocking() {
+                logger.log('blocking');
+            },
+            terminated() {
+                logger.log('terminated');
+            }
+        })
+    }
+
     static async getUser(id) {
-        return await asyncBypass.getUser(id);
+        let user = await this.db.get('users', id);
+        return user;
     }
     
     static async createUser(p) {
@@ -75,8 +67,7 @@ class Database {
     }
     
     static async setUser(user) {
-        console.log('asyncBypass; ', asyncBypass);
-        return await asyncBypass.setUser(user);
+        return await this.db.put('users', user, user._id);
     }
 
     static getPrefix() {

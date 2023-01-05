@@ -64,6 +64,8 @@ class Bot extends EventEmitter {
 
     constructor(cl) {
         super();
+
+        Database.load();
         
         this.client = cl;
         this.commandHandler = require('./Commands.js').commandHandler;
@@ -82,12 +84,10 @@ class Bot extends EventEmitter {
             msg.argcat = msg.a.substring(msg.args[0].length).trim();
             msg.prefix = msg.args[0].substring(0, this.prefix.length);
 
-            // let user = await Database.getUser(msg.p._id);
-            // User.update(user, msg.p);
-            // msg.user = await Database.getUser(msg.p._id);
-            // if (msg.user == null) {
-            //     msg.user = await Database.createUser(msg.p);
-            // }
+            let user = await Database.getUser(msg.p._id);
+            if (!user) {
+                Database.createUser(msg.p);
+            }
             
             this.emit('chat_receive', msg);
         });
@@ -152,6 +152,7 @@ class Bot extends EventEmitter {
     }
 
     getPart(id) {
+        if (id.startsWith('@')) id = id.substring('@'.length);
         for (let p of Object.values(this.client.ppl)) {
             if (p._id.toLowerCase().includes(id.toLowerCase()) || p.name.toLowerCase().includes(id.toLowerCase())) return p;
         }
