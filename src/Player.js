@@ -2,8 +2,8 @@
 const JZZ = require("../lib/JZZ");
 require('../lib/JZZ.midi.SMF')(JZZ);
 
-var songTime = 0;
-var numTracks = 0;
+let songTime = 0;
+let numTracks = 0;
 
 const jsonSongs = {
     "bad apple": {
@@ -81,7 +81,7 @@ const jsonSongs = {
 };
 
 function sec2time(timeInSeconds) {
-    var pad = function(num, size) { return ('000' + num).slice(size * -1); },
+    const pad = function(num, size) { return ('000' + num).slice(size * -1); },
     time = parseFloat(timeInSeconds).toFixed(3),
     hours = Math.floor(time / 60 / 60),
     minutes = Math.floor(time / 60) % 60,
@@ -169,10 +169,10 @@ class Player {
         
         this.player;
         this.midiout = JZZ.Widget({ _receive: (evt) => {
-            var channel = evt[0] & 0xf;
-            var cmd = evt[0] >> 4;
-            var note_number = evt[1];
-            var vel = evt[2];
+            let channel = evt[0] & 0xf;
+            let cmd = evt[0] >> 4;
+            let note_number = evt[1];
+            let vel = evt[2];
             if (cmd == 8 || (cmd == 9 && vel == 0)) {
                 // if (vel < 54) return;
                 // NOTE_OFF
@@ -202,7 +202,7 @@ class Player {
                     }
                 }
             } else if (cmd == 14) {
-                var pitchMod = evt[1] + (evt[2] << 7) - 0x2000;
+                let pitchMod = evt[1] + (evt[2] << 7) - 0x2000;
                 pitchMod = Math.round(pitchMod / 1000);
                 pitchBends[channel] = pitchMod;
             }
@@ -262,8 +262,8 @@ class Player {
             if (!url.includes('https://')) {
                 const file = Object.keys(jsonSongs).filter(a => a.includes(url.toLowerCase()));
                 if (file === undefined) return this.bot.sendChat('Song not found.');
-                var input = /* "https://cors-anywhere3.herokuapp.com/"  + */ jsonSongs[file].url
-                var songFileName = jsonSongs[file].songName;
+                let input = /* "https://cors-anywhere3.herokuapp.com/"  + */ jsonSongs[file].url
+                let songFileName = jsonSongs[file].songName;
 
                 if (this.player) this.player.stop();
                 let data = await fromURL(input);
