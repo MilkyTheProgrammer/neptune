@@ -3,8 +3,6 @@ const EventEmitter = require("events");
 const { Logger } = require('./Logger.js');
 const MIDIPlayer = require("./Player");
 const { Database, User } = require('./Database');
-
-const player = new MIDIPlayer(MPP.chat);
 let randomErrors = require('./errorMessages.json');
 let pack = require('../package.json');
 
@@ -34,15 +32,17 @@ class Buttons {
                 if (window.FileReader) {
                     var reader = new FileReader();
                     var f = document.getElementById(`${buttonName}-file-input`).files[0];
-                    reader.onload = function(e) {
+
+                    reader.onload = (e) => {
                         var data = '';
                         var bytes = new Uint8Array(e.target.result);
                         for (var i = 0; i < bytes.length; i++) {
                             data += String.fromCharCode(bytes[i]);
                         }
                         // load(data, f.name);
-                        player.playMIDIFromData(data, document.getElementById(`${buttonName}-file-input`).files[0].name);
+                        this.player.playMIDIFromData(data, document.getElementById(`${buttonName}-file-input`).files[0].name);
                     };
+
                     reader.readAsArrayBuffer(f);
                 }
                 console.log(document.getElementById(`${buttonName}-file-input`).files[0])
@@ -60,7 +60,7 @@ class Bot extends EventEmitter {
     client;
     commandHandler = require('./Commands.js').commandHandler;
     logger = new Logger("Neptune");
-    player = player;
+    player = new MIDIPlayer(this);
 
     constructor(cl) {
         super();

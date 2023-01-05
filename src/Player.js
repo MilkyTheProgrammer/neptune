@@ -104,16 +104,14 @@ function fromURL(url) {
                   if (r instanceof ArrayBuffer) {
                     r = new Uint8Array(r);
                     for (i = 0; i < r.length; i++) data += String.fromCharCode(r[i]);
-                  }
-                  else { // for really antique browsers
+                  } else { // for really antique browsers
                     r = xhttp.responseText;
                     for (i = 0; i < r.length; i++) data += String.fromCharCode(r.charCodeAt(i) & 0xff);
-                  }
-                  resolve(data);
-                }
-                else {
-                  console.log('XMLHttpRequest error');
-                  reject(undefined);
+                    }
+                    resolve(data);
+                } else {
+                    console.log('XMLHttpRequest error');
+                    reject(undefined);
                 }
               }
             };
@@ -167,10 +165,10 @@ class Player {
         this.echo = 0;
         this.echod = 0;
         this.transpose = 0;
-        this.cl = cl;
+        this.bot = cl;
         
         this.player;
-        this.midiout = JZZ.Widget({ _receive: function(evt) {
+        this.midiout = JZZ.Widget({ _receive: (evt) => {
             var channel = evt[0] & 0xf;
             var cmd = evt[0] >> 4;
             var note_number = evt[1];
@@ -256,14 +254,14 @@ class Player {
     }
 
     listMIDIs() {
-        this.cl.send(`${Object.values(jsonSongs).map(a => a.songName).join(", ")}`);
+        this.bot.sendChat(`${Object.values(jsonSongs).map(a => a.songName).join(", ")}`);
     }
 
     async playMIDI(url) {
         try {
             if (!url.includes('https://')) {
                 const file = Object.keys(jsonSongs).filter(a => a.includes(url.toLowerCase()));
-                if (file === undefined) return this.cl.send('Song not found.');
+                if (file === undefined) return this.bot.sendChat('Song not found.');
                 var input = /* "https://cors-anywhere3.herokuapp.com/"  + */ jsonSongs[file].url
                 var songFileName = jsonSongs[file].songName;
 
@@ -279,7 +277,7 @@ class Player {
                 songTime = sec2time(this.player.durationMS() * 1000);
                 numTracks = this.player.tracks();
         
-                this.cl.send(`Playing ${songFileName} | Time: [${songTime}] | Tracks: ${numTracks}.`);
+                this.bot.sendChat(`Playing ${songFileName} | Time: [${songTime}] | Tracks: ${numTracks}.`);
                 this.player.onEnd(() => {
                     this.isPlaying = false;
                 });
@@ -296,13 +294,13 @@ class Player {
                 songTime = sec2time(this.player.durationMS() * 1000);
                 numTracks = this.player.tracks();
         
-                this.cl.send(`Playing MIDI... Time: [${songTime}]. Tracks: ${numTracks}.`);
+                this.bot.sendChat(`Playing MIDI... Time: [${songTime}]. Tracks: ${numTracks}.`);
                 this.player.onEnd(() => {
                     this.isPlaying = false;
                 });
             }
         } catch(err) {
-            this.cl.send(err);
+            this.bot.sendChat(err);
         }
     }
 
@@ -319,33 +317,33 @@ class Player {
             songTime = sec2time(this.player.durationMS() * 1000);
             numTracks = this.player.tracks();
     
-            this.cl.send(`Playing ${fileName} Time: [${songTime}]. Tracks: ${numTracks}.`);
+            this.bot.sendChat(`Playing ${fileName} Time: [${songTime}]. Tracks: ${numTracks}.`);
 
             this.player.onEnd(() => {
                 this.isPlaying = false;
             });
         } catch(err) {
-            this.cl.send(err);
+            this.bot.sendChat(err);
         }
     }
 
     stopMIDI() {
         if (this.isPlaying) {
             this.player.stop();
-            this.cl.send("Stopping music...");
+            this.bot.sendChat("Stopping music...");
             this.isPlaying = false;
         }
     }
 
     pauseMIDI() {
         this.player.pause();
-        this.cl.send("Pausing music...");
+        this.bot.sendChat("Pausing music...");
         this.isPlaying = false;
     }
 
     resumeMIDI() {
         this.player.resume();
-        this.cl.send("Resuming music...");
+        this.bot.sendChat("Resuming music...");
         this.isPlaying = true;
     }
 }

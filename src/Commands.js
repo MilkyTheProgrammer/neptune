@@ -87,18 +87,18 @@ commandHandler.addCommand(new Command('slap', ['slap'], '%Pslap', `Slap people`,
     }
 }, 0, false));
 
-commandHandler.addCommand(new Command('fuck', ['fuck'], '%Pfuck', `Fuck people >;3`, (msg, bot) => {
-    if (!msg.args[1]) return 'Please mention someone to fuck >;3';
-    let person = bot.getPart(msg.args[1]);
-    if (!person) return 'User not found.';
-    if (person && msg.args[1]) {
-        var eSex = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
-        var sexLol = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
-        let sexLmao = eSex[Math.floor(Math.random() * eSex.length)];
-        var sex2Lmao = sexLol[Math.floor(Math.random() * sexLol.length)];
-        return msg.p.name + sex2Lmao + person.name + sexLmao;
-    }
-}, 0, false));
+// commandHandler.addCommand(new Command('fuck', ['fuck'], '%Pfuck', `Fuck people >;3`, (msg, bot) => {
+//     if (!msg.args[1]) return 'Please mention someone to fuck >;3';
+//     let person = bot.getPart(msg.args[1]);
+//     if (!person) return 'User not found.';
+//     if (person && msg.args[1]) {
+//         var eSex = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
+//         var sexLol = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
+//         let sexLmao = eSex[Math.floor(Math.random() * eSex.length)];
+//         var sex2Lmao = sexLol[Math.floor(Math.random() * sexLol.length)];
+//         return msg.p.name + sex2Lmao + person.name + sexLmao;
+//     }
+// }, 0, false));
 
 commandHandler.addCommand(new Command('id', ['id'], '%Pid', `Get someone's _id`, (msg, bot) => {
     if (!msg.args[1]) {
