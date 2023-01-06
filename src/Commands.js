@@ -28,11 +28,13 @@ commandHandler.addCommand(new Command('help', ['help', 'h', 'cmds', 'cmnds', 'he
     return `Usage: ${cmd.usage.split('%P').join(this.prefix)} | ${cmd.desc}`;
 }, 0, false));
 
+// music commands
+
 commandHandler.addCommand(new Command('play', ['play', 'p'], '%Pplay [song]', `Plays a MIDI file or listed MIDI`, (msg, bot) => {
     bot.player.playMIDI(msg.argcat);
 }, 0, false));
 
-commandHandler.addCommand(new Command('list', ['list', 'l'], '%Plist [song]', `Lists MIDI files that are playable`, (msg, bot) => {
+commandHandler.addCommand(new Command('list', ['list', 'l'], '%Plist', `Lists MIDI files that are playable`, (msg, bot) => {
     bot.player.listMIDIs();
 }, 0, false));
 
@@ -48,17 +50,56 @@ commandHandler.addCommand(new Command('resume', ['resume'], '%Presume', `Resumes
     bot.player.resumeMIDI();
 }, 0, false));
 
-commandHandler.addCommand(new Command('ip', ['ip', 'getip'], '%Pip [user]', `Get someone's IP (totally not fake)`, (msg, bot) => {
-    if (!msg.args[1]) return 'Please enter someone to grab an IP from.';
-    let user = bot.getPart(msg.args[1]);
-    let ip = parseInt(user._id.substring(6, 18), 16).toString();
-    ip = `${ip.substring(0, 3)}.${ip.substring(4, 7)}.${ip.substring(8, 11)}.${ip.substring(12, 15)}`;
-    return `${user.name}'s IP: ${ip}`;
-}, 0, false));
-
 commandHandler.addCommand(new Command('about', ['about', 'a'], '%Pabout', `About this bot`, msg => {
     return `Neptune ${pack.version} | Made by ${pack.author}`;
 }, 0, false));
+
+commandHandler.addCommand(new Command('id', ['id'], '%Pid', `Get someone's _id`, (msg, bot) => {
+    if (!msg.args[1]) {
+        return msg.p.name + ", your _id is: " + msg.p._id;
+    }
+
+    let person = bot.getPart(msg.args[1]);
+
+    if (!person) return 'User not found.';
+
+    if (person && msg.args[1]) {
+        return person.name + "'s _id is: " + person._id;
+    }
+}, 0, false));
+
+commandHandler.addCommand(new Command('bonk', ['bonk'], '%Pbonk', `Bonk someone`, (msg, bot) => {
+    if (!msg.args[1]) return 'Please mention someone to bonk.';
+
+    let person = bot.getPart(msg.args[1]);
+
+    if (!person) return 'User not found.';
+    if (person && msg.args[1]) {
+        return msg.p.name + ' bonks ' + person.name + '.';
+    }
+}, 0, false));
+
+commandHandler.addCommand(new Command('bonk', ['bonk'], '%Pbonk', `Bonk someone`, (msg, bot) => {
+    if (!msg.args[1]) return 'Please mention someone to bonk.';
+
+    let person = bot.getPart(msg.args[1]);
+    
+    if (!person) return 'User not found.';
+    if (person && msg.args[1]) {
+        return msg.p.name + ' bonks ' + person.name + '.';
+    }
+}, 0, true));
+
+commandHandler.addCommand(new Command('userdatatest', ['userdatatest'], '%Puserdatatest', `User data testing`, async msg => {
+    if (!msg.args[1]) {
+        return msg.user.name;
+    } else {
+        let user = await Database.getUser(msg.args[1]);
+        return user.name;
+    }
+}, 0, true));
+
+// rp commands (probably against mppclone rules)
 
 commandHandler.addCommand(new Command('kiss', ['kiss'], '%Pkiss', `Kiss people`, (msg, bot) => {
     if (!msg.args[1]) return 'Please mention someone to kiss.';
@@ -67,7 +108,7 @@ commandHandler.addCommand(new Command('kiss', ['kiss'], '%Pkiss', `Kiss people`,
     if (person && msg.args[1]) {
         return msg.p.name + ' kisses ' + person.name + '.';
     }
-}, 0, false));
+}, 0, true));
 
 commandHandler.addCommand(new Command('hug', ['hug'], '%Phug', `Hug people`, (msg, bot) => {
     if (!msg.args[1]) return 'Please mention someone to hug.';
@@ -87,56 +128,41 @@ commandHandler.addCommand(new Command('slap', ['slap'], '%Pslap', `Slap people`,
     }
 }, 0, true));
 
-// commandHandler.addCommand(new Command('fuck', ['fuck'], '%Pfuck', `Fuck people >;3`, (msg, bot) => {
-//     if (!msg.args[1]) return 'Please mention someone to fuck >;3';
-//     let person = bot.getPart(msg.args[1]);
-//     if (!person) return 'User not found.';
-//     if (person && msg.args[1]) {
-//         var eSex = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
-//         var sexLol = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
-//         let sexLmao = eSex[Math.floor(Math.random() * eSex.length)];
-//         var sex2Lmao = sexLol[Math.floor(Math.random() * sexLol.length)];
-//         return msg.p.name + sex2Lmao + person.name + sexLmao;
-//     }
-// }, 0, false));
-
-commandHandler.addCommand(new Command('id', ['id'], '%Pid', `Get someone's _id`, (msg, bot) => {
-    if (!msg.args[1]) {
-        return msg.p.name + ", your _id is: " + msg.p._id;
-    }
+commandHandler.addCommand(new Command('fuck', ['fuck'], '%Pfuck', `Fuck people >;3`, (msg, bot) => {
+    if (!msg.args[1]) return 'Please mention someone to fuck >;3';
     let person = bot.getPart(msg.args[1]);
     if (!person) return 'User not found.';
     if (person && msg.args[1]) {
-        return person.name + "'s _id is: " + person._id;
-    }
-}, 0, false));
-
-commandHandler.addCommand(new Command('bonk', ['bonk'], '%Pbonk', `Bonk someone`, (msg, bot) => {
-    if (!msg.args[1]) return 'Please mention someone to bonk.';
-    let person = bot.getPart(msg.args[1]);
-    if (!person) return 'User not found.';
-    if (person && msg.args[1]) {
-        return msg.p.name + ' bonks ' + person.name + '.';
-    }
-}, 0, false));
-
-commandHandler.addCommand(new Command('bonk', ['bonk'], '%Pbonk', `Bonk someone`, (msg, bot) => {
-    if (!msg.args[1]) return 'Please mention someone to bonk.';
-    let person = bot.getPart(msg.args[1]);
-    if (!person) return 'User not found.';
-    if (person && msg.args[1]) {
-        return msg.p.name + ' bonks ' + person.name + '.';
+        const eSex = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
+        const sexLol = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
+        let sexLmao = eSex[Math.floor(Math.random() * eSex.length)];
+        let sex2Lmao = sexLol[Math.floor(Math.random() * sexLol.length)];
+        return `${msg.p.name} + ${sex2Lmao} + ${person.name} + ${sexLmao}`;
     }
 }, 0, true));
 
-commandHandler.addCommand(new Command('userdatatest', ['userdatatest'], '%Puserdatatest', `User data testing`, async msg => {
-    if (!msg.args[1]) {
-        return msg.user.name;
-    } else {
-        let user = await Database.getUser(msg.args[1]);
-        return user.name;
+commandHandler.addCommand(new Command('shoot', ['shoot'], '%Pshoot [user]', `Shoot they homies up`, (msg, bot) => {
+    if (!msg.args[1]) return 'Please mention someone to fuck >;3';
+    let person = bot.getPart(msg.args[1]);
+    if (!person) return 'User not found.';
+    if (person && msg.args[1]) {
+        const gun = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
+        const gun2 = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
+        let sexLmao = gun[Math.floor(Math.random() * gun.length)];
+        let sex2Lmao = gun2[Math.floor(Math.random() * gun2.length)];
+        return msg.p.name + sex2Lmao + person.name + sexLmao;
     }
-}, 0, true));
+}, 0, false));
+
+// fun commands
+
+commandHandler.addCommand(new Command('ip', ['ip', 'getip'], '%Pip [user]', `Get someone's IP (totally not fake)`, (msg, bot) => {
+    if (!msg.args[1]) return 'Please enter someone to grab an IP from.';
+    let user = bot.getPart(msg.args[1]);
+    let ip = parseInt(user._id.substring(6, 18), 16).toString();
+    ip = `${ip.substring(0, 3)}.${ip.substring(4, 7)}.${ip.substring(8, 11)}.${ip.substring(12, 15)}`;
+    return `${user.name}'s IP: ${ip}`;
+}, 0, false));
 
 module.exports = {
     commandHandler

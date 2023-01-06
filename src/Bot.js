@@ -25,7 +25,6 @@ class Buttons {
             </div>
             <pre id="${buttonName}-file-contents"></pre>
             `;
-            console.log(html);
             $("#bottom .relative").append(html);
             
             document.getElementById(`${buttonName}-file-input`).onchange = () => {
@@ -45,7 +44,7 @@ class Buttons {
 
                     reader.readAsArrayBuffer(f);
                 }
-                console.log(document.getElementById(`${buttonName}-file-input`).files[0])
+                // console.log(document.getElementById(`${buttonName}-file-input`).files[0])
             }
         } else {
         $("#bottom .relative").append(`<div id="${buttonName}-btn" style="position:absolute; left: ${pos.x}px; top: ${pos.y}px" class="ugly-button translate"><label> ${buttonName} </label></div>`);
