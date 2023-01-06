@@ -133,24 +133,45 @@ commandHandler.addCommand(new Command('fuck', ['fuck'], '%Pfuck', `Fuck people >
     let person = bot.getPart(msg.args[1]);
     if (!person) return 'User not found.';
     if (person && msg.args[1]) {
-        const eSex = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
-        const sexLol = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
+        const eSex = [
+            "They couldn't walk for a whole month...",
+            "Their legs went numb....",
+            "The neighbors could hear the loud moaning from 200 miles away...",
+            "They couldn't walk for a few weeks...",
+            "They wanted more...",
+            "They became addicted to it...",
+            `${msg.p.name} wanted to marry ${person.name}!`
+        ];
+
+        const sexLol = [
+            " fucked the living shit out of ",
+            " fucked ",
+            " fucked the heck out of ",
+            " fucked the cuteness out of ",
+            " fucked the horny feelings out of "
+        ];
+
         let sexLmao = eSex[Math.floor(Math.random() * eSex.length)];
         let sex2Lmao = sexLol[Math.floor(Math.random() * sexLol.length)];
-        return `${msg.p.name} + ${sex2Lmao} + ${person.name} + ${sexLmao}`;
+        return `${msg.p.name} ${sex2Lmao} ${person.name}. ${sexLmao}`;
     }
 }, 0, true));
 
-commandHandler.addCommand(new Command('shoot', ['shoot'], '%Pshoot [user]', `Shoot they homies up`, (msg, bot) => {
+commandHandler.addCommand(new Command('shoot', ['shoot', 'gun'], '%Pshoot [user]', `Shoot they homies up`, (msg, bot) => {
     if (!msg.args[1]) return 'Please mention someone to fuck >;3';
     let person = bot.getPart(msg.args[1]);
     if (!person) return 'User not found.';
     if (person && msg.args[1]) {
-        const gun = [" they couldn't walk for a whole month..", " their legs went numb....", " the neighbors could hear the loud moaning from 200 miles away...", " they couldn't walk for a few weeks...", " they wanted more..", " they became addicted to it...", " " + msg.p.name + " wanted to marry" + " " + person.name + "!"];
-        const gun2 = [" fucked the living shit out of ", " fucked ", " fucked the heck out of ", " fucked the cuteness out of ", " fucked the horny feelings out of "];
-        let sexLmao = gun[Math.floor(Math.random() * gun.length)];
-        let sex2Lmao = gun2[Math.floor(Math.random() * gun2.length)];
-        return msg.p.name + sex2Lmao + person.name + sexLmao;
+        let gun = [
+            `${person.name} falls to the floor and bleeds to death.`,
+            `Their blood splatters all over ${msg.p.name}'s face.`,
+            `The bullet pierces ${person.name}'s skull and their brains slide down the wall.`,
+            `${person.name}'s heart stops beating.`,
+            `The remains of Jedi Knight ${person.name} disappear into thin air.`
+        ];
+
+        let gunThing = gun[Math.floor(Math.random() * gun.length)];
+        return `${msg.p.name} shot ${person.name}. ${gunThing}`;
     }
 }, 0, false));
 
