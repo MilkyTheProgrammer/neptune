@@ -139,7 +139,7 @@ class Bot extends EventEmitter {
     bindButtons() {
         this.buttons.add("Play", { x: 780, y: 4 }, "fileInput");
         this.buttons.add("Stop", { x: 780, y: 32 }, "script", () => {
-            player.stopMIDI();
+            this.player.stopMIDI();
         });
     }
 
