@@ -13,7 +13,7 @@
 // @grant        GM_info
 // @grant        GM_getResourceText
 // @grant        GM_getResourceURL
-// @resource     MIDIPlayerJS https://raw.githubusercontent.com/grimmdude/MidiPlayerJS/master/browser/midiplayer.js
+// @resource     MIDIPlayerJS https://raw.githubusercontent.com/LapisHusky/midi-player-js-fixed/main/midiplayer.js
 // @run-at       document-end
 // ==/UserScript==
 
