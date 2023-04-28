@@ -43,6 +43,7 @@ var noteCounter = 0;
 var songFileName = "";
 
 setTimeout(() => {
+    MPP.noteQuota.points = Infinity;
     document.getElementById("noteCounter").textContent = 'Notes: ' + "0";
 }, 2000);
 
